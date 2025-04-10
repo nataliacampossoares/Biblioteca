@@ -5,7 +5,7 @@ export default function Welcome() {
         {/* Texto sobre o fundo */}
         <p className="text-white text-4xl p-4 z-10">BibliON</p>
         <img
-          src="/src/img/bookWelcome.jpg"
+          src="/src/img/testanto.png"
           className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-xs z-20"
         />
         <p>Bem-vindo(a) à Biblioteca Online!</p>
