@@ -5,8 +5,8 @@ import Login from "./pages/Login";
 function App() {
   return (
     <>    
-      <Welcome />
-      {/* <Login /> */}
+      {/*<Welcome />*/}
+       <Login /> 
       
     </>
   );
