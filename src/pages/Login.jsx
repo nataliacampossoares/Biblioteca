@@ -1,4 +1,4 @@
-import Logo from "../img/logo.png";
+import Logo from "../img/testando.png";
 
 export default function Login() {
   return (
