@@ -4,7 +4,7 @@ export default function Login() {
       <header className="w-full flex items-start bg-blue-800 relative p-6 h-100">
         <p className="text-white text-5xl font-bold ml-10 mt-5">BibliON</p>
         <img
-          src="/src/img/testanto.png"
+          src="/src/img/logo.png"
           alt="Logo"
           className="w-32 mt-2 ml-15 absolute"
         />
@@ -41,7 +41,10 @@ export default function Login() {
             </a>
           </div>
 
-          <button className="bg-blue-500" >oi</button>
+          <button className="bg-blue-950 text-black px-4 py-2 rounded hover:bg-blue-600">
+            oi
+          </button>
+
         </form>
       </div>
 
