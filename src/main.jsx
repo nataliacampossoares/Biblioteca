@@ -14,6 +14,8 @@ import Default from "./pages/Default.jsx";
 import Emprestimos from "./pages/Emprestimos.jsx";
 import Livros from "./pages/Livros.jsx";
 import Clientes from "./pages/Clientes.jsx";
+import CadastrarCliente from "./pages/CadastrarCliente.jsx";
+import Cliente from "./pages/Cliente.jsx";
 
 import App from "./App.jsx";
 
@@ -27,6 +29,8 @@ const rotas = createBrowserRouter(
       <Route path="emprestimos" element={<Emprestimos />} />
       <Route path="clientes" element={<Clientes />} />
       <Route path="livros" element={<Livros />} />
+      <Route path="cadastrarcliente" element={<CadastrarCliente />} />
+      <Route path="cliente" element={<Cliente />} />
       <Route path="app" element={<App />} />
     </>
   )
