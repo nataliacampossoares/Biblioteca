@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Menu } from "../components/Menu";
 import { BarraPesquisa } from "../components/BarraPesquisa";
 import { useNavigate } from "react-router-dom";
+import Logo from "../components/Logo";
 
 export default function Clientes() {
   const [filtro, setFiltro] = useState("");
@@ -10,11 +11,11 @@ export default function Clientes() {
   const navigate = useNavigate();
 
   const handleButtonClickCadastrar = () => {
-    navigate('/cadastrarcliente'); 
+    navigate("/cadastrarcliente");
   };
 
   const handleButtonClickCliente = () => {
-    navigate('/cliente'); 
+    navigate("/cliente");
   };
 
   const listaClientes = [
@@ -58,28 +59,35 @@ export default function Clientes() {
   return (
     <div className="flex h-screen overflow-hidden bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-screen">
       <Menu />
-
-      <div className="flex flex-col p-6 gap-5 h-screen w-2xl bg-white rounded-r-xl">
-        <BarraPesquisa onSearch={setFiltro} />
-        <div className="overflow-y-auto flex flex-col gap-5" onClick={handleButtonClickCliente}>
-          {clientesFiltrados.map((cliente, index) => (
-            <div
-              key={index}
-              className="bg-[#d9d9d9] rounded-2xl p-6 flex flex-col gap-2"
-            >
-              <p className="text-[#737373] font-bold text-xl">{cliente.nome}</p>
-              <p className="text-sm">{cliente.cargo}</p>
-              {cliente.curso && <p className="text-sm">{cliente.curso}</p>}
-            </div>
-          ))}
+      <div className="flex gap-52">
+        <div className="flex flex-col p-6 gap-5 h-screen w-2xl bg-white rounded-r-xl">
+          <BarraPesquisa onSearch={setFiltro} />
+          <div
+            className="overflow-y-auto flex flex-col gap-5"
+            onClick={handleButtonClickCliente}
+          >
+            {clientesFiltrados.map((cliente, index) => (
+              <div
+                key={index}
+                className="bg-[#d9d9d9] rounded-2xl p-6 flex flex-col gap-2"
+              >
+                <p className="text-[#737373] font-bold text-xl">
+                  {cliente.nome}
+                </p>
+                <p className="text-sm">{cliente.cargo}</p>
+                {cliente.curso && <p className="text-sm">{cliente.curso}</p>}
+              </div>
+            ))}
+          </div>
+          <button
+            onClick={handleButtonClickCadastrar}
+            style={{ backgroundColor: "#5271ff" }}
+            className="text-white px-4 py-2 rounded shadow-md bottom-6 self-start"
+          >
+            Cadastrar Cliente
+          </button>
         </div>
-        <button
-        onClick={handleButtonClickCadastrar}
-          style={{ backgroundColor: "#5271ff" }}
-          className="text-white px-4 py-2 rounded shadow-md bottom-6 self-start"
-        >
-          Cadastrar Cliente
-        </button>
+        <Logo />
       </div>
     </div>
   );
