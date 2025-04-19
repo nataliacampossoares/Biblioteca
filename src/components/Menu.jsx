@@ -18,7 +18,7 @@ export function Menu() {
   };
 
   return (
-    <aside className="flex flex-col gap-5 bg-[#849bff] min-w-72 h-screen">
+    <aside className="flex flex-col gap-5 bg-[#849bff] min-w-72 h-screen rounded-xl">
       <header
         className={`
             flex justify-center items-center gap-2

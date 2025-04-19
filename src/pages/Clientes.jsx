@@ -56,10 +56,10 @@ export default function Clientes() {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-screen">
       <Menu />
 
-      <div className="flex flex-col p-6 gap-5 h-screen w-2xl">
+      <div className="flex flex-col p-6 gap-5 h-screen w-2xl bg-white rounded-r-xl">
         <BarraPesquisa onSearch={setFiltro} />
         <div className="overflow-y-auto flex flex-col gap-5" onClick={handleButtonClickCliente}>
           {clientesFiltrados.map((cliente, index) => (
