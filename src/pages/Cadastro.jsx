@@ -1,89 +1,109 @@
-export default function Cadastro() {
-    return (
-      <div className="w-screen min-h-screen bg-blue-300 m-0 p-0 relative">
-        <header className="w-full flex items-start bg-blue-800 relative p-6 h-100">
-          <p className="text-white text-5xl font-bold ml-10 mt-5">BibliON</p>
-          <img
-            src="/src/img/logo.png"
-            alt="Logo"
-            className="w-32 mt-2 ml-15 absolute"
-          />
-        </header>
-  
-  
-        <div className="absolute top-1 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-md px-4">
-          <form className="bg-white p-8 rounded-2xl shadow-md w-full flex flex-col gap-4 ">
-            <h2 className="text-3xl text-center text-blue-700 mb-2">Cadastro</h2>
-  
-            <label className="flex flex-col text-gray-700 font-semibold">
-              Nome
-              <input
-                type="text"
-                className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
-                placeholder="Digite seu nome"
-              />
-            </label>
-  
-            <label className="flex flex-col text-gray-700 font-semibold">
-              E-mail
-              <input
-                type="email"
-                className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
-                placeholder="Digite seu e-mail"
-              />
-            </label>
-  
-            <label className="flex-1 flex flex-col bg-gray-300 text-gray-700 font-semibold">
-                Data de Nascimento
+export default function Login() {
+  return (
+    <div className="w-screen min-h-screen bg-bodyblue m-0 p-0 relative">
+      <header className="w-full flex items-start bg-headerblue relative p-6 h-130">
+        <p className="text-white text-5xl font-nunito ml-10 mt-5">BibliON</p>
+        <img
+          src="/src/img/logo.png"
+          alt="Logo"
+          className="w-32 mt-17 ml-[10px] absolute"
+        />
+      </header>
+ 
+      <div className="flex flex-col items-center justify-center">
+          <form className="bg-white p-6 rounded-lg shadow-md w-96 h-130 fixed mb-100 flex flex-col justify-between">
+            <h2 className="text-3xl font-quiestral text-center text-gray-500 mb-2">
+              Cadastro
+            </h2>
+
+            <div className="flex flex-col gap-2 text-sm">
+              <div>
+                <label className="block text-gray-700 mb-1" htmlFor="nome">
+                  Nome
+                </label>
                 <input
-                type="date"
-                className="border border-gray-300 bg-gray-300 rounded-md"
+                  type="text"
+                  id="nome"
+                  className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                  placeholder="Digite seu nome"
                 />
-            </label>
-  
-            <label className="flex-1 flex flex-col bg-gray-300 text-gray-700 font-semibold">
-                Telefone
+              </div>
+
+           
+              <div>
+                <label className="block text-gray-700 mb-1" htmlFor="email">
+                  Email
+                </label>
                 <input
-                type="tel"
-                className="border border-gray-300 bg-gray-300 rounded-md"
-                placeholder="(44) XXXX-XXXX "
+                  type="email"
+                  id="email"
+                  className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                  placeholder="Digite seu email"
                 />
-            </label>
-            
-  
-            <label className="flex flex-col text-gray-700 font-semibold">
-              Senha
-              <input
-                type="password"
-                className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
-                placeholder="Digite sua senha"
-              />
-            </label>
-  
-            <label className="flex flex-col text-gray-700 font-semibold">
-              Confirmar Senha
-              <input
-                type="password"
-                className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
-                placeholder="Confirme sua senha"
-              />
-            </label>
-  
-            <div className="flex flex-col items-center">
-              <p className="text-base text-center text-gray-600">
-                Não tem uma conta?{" "}
-              </p>
-              <a href="#" className="text-blue-700 font-bold hover:underline">
-                Cadastre-se
-              </a>
+              </div>
+
+              
+              <div className="flex gap-2">
+                <div className="w-1/2">
+                  <label className="block text-gray-700 mb-1" htmlFor="data">
+                    Nascimento
+                  </label>
+                  <input
+                    type="date"
+                    id="data"
+                    className="w-full p-2 border bg-gray-300 rounded focus:outline-none"
+                  />
+                </div>
+                <div className="w-1/2">
+                  <label className="block text-gray-700 mb-1" htmlFor="telefone">
+                    Telefone
+                  </label>
+                  <input
+                    type="tel"
+                    id="telefone"
+                    className="w-full p-2 border bg-gray-300 rounded focus:outline-none"
+                    placeholder="(00) 00000-0000"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-gray-700 mb-1" htmlFor="senha">
+                  Senha
+                </label>
+                <input
+                  type="password"
+                  id="senha"
+                  className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                  placeholder="Digite sua senha"
+                />
+              </div>
+
+          
+              <div>
+                <label className="block text-gray-700 mb-1" htmlFor="confirmarSenha">
+                  Confirmar Senha
+                </label>
+                <input
+                  type="password"
+                  id="confirmarSenha"
+                  className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                  placeholder="Confirme sua senha"
+                />
+              </div>
+
             </div>
-  
-            <button className="bg-[#023067] text-white px-4 py-2 rounded">
-              Enviar
+
+            <div className="flex justify-center mt-4">
+            <button
+              type="submit"
+              className="w-32 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition text-base font-bold"
+            >
+              Cadastrar
             </button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
-    );
-  }
-  
+    </div> 
+  );
+}
