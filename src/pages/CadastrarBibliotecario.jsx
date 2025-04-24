@@ -3,6 +3,7 @@ import Logo from '../components/Logo'
 export default function CadastrarBibliotecario() {
   return (
     <div className="w-screen min-h-screen bg-bodyblue m-0 p-0 relative">
+      
       <Logo/>
 
       <div className="flex flex-col items-center justify-center">

@@ -57,10 +57,10 @@ export default function Clientes() {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-screen">
+    <div className="flex h-screen overflow-hidden bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-screen gap-4">
       <Menu />
-      <div className="flex gap-52">
-        <div className="flex flex-col p-6 gap-5 h-screen w-2xl bg-white rounded-r-xl">
+      <div className="flex mr-40">
+        <div className="flex flex-col p-6 gap-5 h-screen w-7xl bg-white rounded-xl mr-24">
           <BarraPesquisa onSearch={setFiltro} />
           <div
             className="overflow-y-auto flex flex-col gap-5"

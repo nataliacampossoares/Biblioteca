@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Logo from "../components/Logo";
 import { Menu } from "../components/Menu";
+import { IconArrowAutofitDown, IconArrowDown, IconArrowDownBar, IconChevronDown } from "@tabler/icons-react";
 
 export default function CadastrarCliente() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function CadastrarCliente() {
 
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col">
-      <div className="flex flex-row h-full bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-full gap-80">
+      <div className="flex flex-row h-full bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-full gap-70">
         <Menu />
         <form className="bg-white p-8 rounded-2xl shadow-md w-[500px] h-auto flex flex-col gap-4 my-auto">
           <h2 className="text-3xl text-center text-blue-700 mb-2">
@@ -51,7 +52,11 @@ export default function CadastrarCliente() {
               onClick={toggleDropdown}
               className="border px-4 py-2 rounded bg-white shadow-sm"
             >
-             <p className=" text-gray-700 font-semibold">Curso ▼</p> 
+              <div className="flex">
+              <p className=" text-gray-700 font-semibold gap-2">Curso</p>
+              <IconChevronDown/> 
+              </div>
+             
             </button>
             {isOpen && (
               <div className="absolute mt-2 border rounded bg-white shadow-lg p-2 z-10">
