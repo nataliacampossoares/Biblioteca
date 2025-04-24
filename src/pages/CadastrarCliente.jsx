@@ -20,9 +20,9 @@ export default function CadastrarCliente() {
 
   return (
     <div className="h-screen w-screen overflow-hidden flex flex-col">
-      <div className="flex flex-row h-full bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-full">
+      <div className="flex flex-row h-full bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-full gap-80">
         <Menu />
-        <form className="bg-white p-8 rounded-2xl shadow-md w-full h-full max-w-sm flex flex-col gap-4 mt-20">
+        <form className="bg-white p-8 rounded-2xl shadow-md w-[500px] h-auto flex flex-col gap-4 my-auto">
           <h2 className="text-3xl text-center text-blue-700 mb-2">
             Cadastrar Cliente
           </h2>
