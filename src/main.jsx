@@ -9,7 +9,7 @@ import {
 import "./index.css";
 import Login from "./pages/Login.jsx";
 import Welcome from "./pages/Welcome.jsx";
-import Cadastro from "./pages/Cadastro.jsx";
+import CadastrarBibliotecario from "./pages/CadastrarBibliotecario.jsx";
 import Default from "./pages/Default.jsx";
 import Emprestimos from "./pages/Emprestimos.jsx";
 import Livros from "./pages/Livros.jsx";
@@ -24,7 +24,7 @@ const rotas = createBrowserRouter(
     <>
       <Route index path="/" element={<Welcome />} />
       <Route path="login" element={<Login />} />
-      <Route path="cadastro" element={<Cadastro />} />
+      <Route path="cadastrarbibliotecario" element={<CadastrarBibliotecario />} />
       <Route path="default" element={<Default />} />
       <Route path="emprestimos" element={<Emprestimos />} />
       <Route path="clientes" element={<Clientes />} />

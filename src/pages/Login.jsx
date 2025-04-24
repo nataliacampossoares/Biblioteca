@@ -1,4 +1,4 @@
-export default function Login() {
+export default function LoginBibliotecário() {
   return (
     <div className="w-screen min-h-screen bg-bodyblue m-0 p-0 relative">
       <header className="w-full flex items-start bg-headerblue relative p-6 h-130">
@@ -44,7 +44,7 @@ export default function Login() {
 
           <div className="flex flex-col items-center mt-5">
             <p className="text-base text-gray-600">Não tem uma conta?</p>
-            <a href="/cadastro" className="text-blue-600 text-base font-bold focus:no-underline active:no-underline">
+            <a href="/CadastrarBibliotecario" className="text-blue-600 text-base font-bold focus:no-underline active:no-underline">
               Cadastre-se
             </a>
 
