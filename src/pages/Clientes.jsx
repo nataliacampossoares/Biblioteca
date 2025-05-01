@@ -57,37 +57,34 @@ export default function Clientes() {
   );
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)] w-screen gap-4">
+    <div className="flex h-screen w-screen bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)]">
       <Menu />
-      <div className="flex mr-40">
-        <div className="flex flex-col p-6 gap-5 h-screen w-7xl bg-white rounded-xl mr-24">
-          <BarraPesquisa onSearch={setFiltro} />
-          <div
-            className="overflow-y-auto flex flex-col gap-5"
-            onClick={handleButtonClickCliente}
-          >
-            {clientesFiltrados.map((cliente, index) => (
-              <div
-                key={index}
-                className="bg-[#d9d9d9] rounded-2xl p-6 flex flex-col gap-2"
-              >
-                <p className="text-[#737373] font-bold text-xl">
-                  {cliente.nome}
-                </p>
-                <p className="text-sm">{cliente.cargo}</p>
-                {cliente.curso && <p className="text-sm">{cliente.curso}</p>}
-              </div>
-            ))}
-          </div>
-          <button
-            onClick={handleButtonClickCadastrar}
-            style={{ backgroundColor: "#5271ff" }}
-            className="text-white px-4 py-2 rounded shadow-md bottom-6 self-start"
-          >
-            Cadastrar Cliente
-          </button>
+      <div className="flex flex-col justify-between bg-white rounded-r-xl mt-6 mb-6 mr-24 p-6 w-full max-h-[calc(100vh-3rem)] overflow-hidden">
+        <BarraPesquisa onSearch={setFiltro} />
+        <div
+          className="overflow-y-auto flex flex-col gap-5 pr-2 mt-4"
+          onClick={handleButtonClickCliente}
+        >
+          {clientesFiltrados.map((cliente, index) => (
+            <div
+              key={index}
+              className="bg-[#d9d9d9] rounded-2xl p-6 flex flex-col gap-2"
+            >
+              <p className="text-[#737373] font-bold text-xl">{cliente.nome}</p>
+              <p className="text-sm text-black">{cliente.cargo}</p>
+              {cliente.curso && (
+                <p className="text-sm text-black">{cliente.curso}</p>
+              )}
+            </div>
+          ))}
         </div>
-        <Logo />
+        <button
+          onClick={handleButtonClickCadastrar}
+          style={{ backgroundColor: "#5271ff" }}
+          className="text-white px-4 py-2 rounded shadow-md mt-6 w-fit mx-auto"
+        >
+          Cadastrar Cliente
+        </button>
       </div>
     </div>
   );

@@ -13,37 +13,37 @@ export function Menu() {
 
     return final;
   };
-  
-
 
   return (
-    <aside className="flex flex-col gap-5 bg-[#849bff] min-w-72 h-screen rounded-xl">
-      <header className="flex justify-center items-center gap-2 text-zinc-50 px-1 py-5 h-16 text-2xl font-black">
-        <div className="flex flex-col gap-3 pt-52 items-center">
+    <div className="ml-50">
+      <aside className=" mt-6 flex flex-col items-center justify-center bg-[#849bff] min-w-72 h-auto rounded-xl py-8">
+        <header className="flex flex-col items-center gap-3">
           <img
             className="rounded-full size-32"
             src="/src/img/bibliotecario.jpeg"
             alt="Foto do Bibliotecário"
           />
-          <span className="font-bold">natinha123</span>
-          <span>Bibliotecário</span>
-        </div>
-      </header>
+          <span className="font-bold text-white">natinha123</span>
+          <span className="text-white">Bibliotecário</span>
+        </header>
 
-      <nav className="flex flex-col justify-start items-start pt-56 w-full">
-        <NavLink
-          to="/clientes"
-          className={(props) => getEstilo(props) + " border-t border-white/30"}
-        >
-          Clientes
-        </NavLink>
-        <NavLink to="/livros" className={getEstilo}>
-          Livros
-        </NavLink>
-        <NavLink to="/emprestimos" className={getEstilo}>
-          Empréstimos
-        </NavLink>
-      </nav>
-    </aside>
+        <nav className="flex flex-col gap-2 w-full mt-10">
+          <NavLink
+            to="/clientes"
+            className={(props) =>
+              getEstilo(props) + " border-t border-white/30"
+            }
+          >
+            Clientes
+          </NavLink>
+          <NavLink to="/livros" className={getEstilo}>
+            Livros
+          </NavLink>
+          <NavLink to="/emprestimos" className={getEstilo}>
+            Empréstimos
+          </NavLink>
+        </nav>
+      </aside>
+    </div>
   );
 }
