@@ -1,21 +1,39 @@
-import Logo from '../components/Logo'
+import { useState } from 'react';
+import Logo from '../components/Logo';
+import Usuario from '../img/usuario.png'
 
 export default function CadastrarBibliotecario() {
+  const [imagemPreview, setImagemPreview] = useState(null);
+
+  const handleImagemChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);z\a
+      setImagemPreview(imageUrl);
+    }
+  };
+
   return (
     <div className="w-screen min-h-screen bg-bodyblue m-0 p-0 relative">
-      
-      <Logo/>
+      <header className="w-full flex flex-col items-center bg-headerblue relative p-6 h-130">
+        <Logo />
+        <h2 className="text-white text-2xl mt-4">Cadastro</h2>
+      </header>
 
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center ml-120">
         <form className="fixed mb-100 bg-white p-6 rounded-lg shadow-md w-[800px] flex flex-row gap-6 justify-between items-start">
           <div className="flex flex-col items-center">
             <label htmlFor="imagem" className="cursor-pointer">
               <div className="w-40 h-40 bg-gray-300 rounded-full overflow-hidden flex items-center justify-center">
-                <img
-                  src=""
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                {imagemPreview ? (
+                  <img
+                    src={Usuario}
+                    alt="Prévia"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-gray-500">+</span>
+                )}
               </div>
               <p className="mt-2 text-center text-sm text-gray-600">
                 Adicionar imagem
@@ -26,6 +44,7 @@ export default function CadastrarBibliotecario() {
               id="imagem"
               accept="image/*"
               className="hidden"
+              onChange={handleImagemChange}
             />
           </div>
 

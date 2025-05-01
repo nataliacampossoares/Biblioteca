@@ -1,7 +1,7 @@
 export default function Logo(){
     return(
       <div className="w-full flex items-start relative p-6 h-130">
-        <p className="text-white text-4xl font-nunito ml-10 mt-5">BibliON</p>
+        <p className="text-white text-5xl font-nunito ml-10 mt-5">BibliON</p>
         <img
           src="/src/img/logo.png"
           alt="Logo"
