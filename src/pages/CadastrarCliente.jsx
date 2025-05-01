@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Logo from "../components/Logo";
 import { Menu } from "../components/Menu";
-import { IconArrowAutofitDown, IconArrowDown, IconChevronRight, IconChevronDown } from "@tabler/icons-react";
+import { IconChevronRight, IconChevronDown } from "@tabler/icons-react";
 
 export default function CadastrarCliente() {
   const [isOpen, setIsOpen] = useState(false);
