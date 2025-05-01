@@ -54,7 +54,7 @@ export default function CadastrarCliente() {
             >
               <div className="flex">
               <p className=" text-gray-700 font-semibold gap-2">Curso</p>
-              <IconChevronDown/> 
+              <IconChevronDown  className="text-gray-700 ml-2"/> 
               </div>
              
             </button>
@@ -63,7 +63,7 @@ export default function CadastrarCliente() {
                 {cursos.map((curso) => (
                   <label
                     key={curso}
-                    className="flex items-center space-x-2 py-1"
+                    className="flex items-center space-x-2 py-1 text-black"
                   >
                     <input
                       type="radio"
