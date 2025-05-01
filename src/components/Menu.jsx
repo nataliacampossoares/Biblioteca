@@ -2,16 +2,18 @@ import { NavLink } from "react-router-dom";
 
 export function Menu() {
   const getEstilo = (props) => {
-    const estilo = `
-      flex items-center gap-4 px-3 py-3 w-full h-24 text-xl
-    text-white border-b border-white/30
-    transition-all duration-300
-    hover:bg-zinc-900`;
-    let ativo = "border-r-4 border-solid border-slate-800 ";
-
-    let final = props.isActive ? estilo + ativo : estilo;
-
-    return final;
+    const base = `
+      flex items-center justify-center gap-4 px-3 py-3 w-full h-24 text-md font-bold
+      text-white border-b border-white/30
+      transition-all duration-300
+      hover:bg-zinc-900
+    `;
+  
+    const ativo = `
+      bg-zinc-900 
+    `;
+  
+    return props.isActive ? base + ativo : base;
   };
 
   return (
@@ -24,7 +26,7 @@ export function Menu() {
             alt="Foto do Bibliotecário"
           />
           <span className="font-bold text-white">natinha123</span>
-          <span className="text-white">Bibliotecário</span>
+          <span className="text-white text-lg font-bold">Bibliotecário</span>
         </header>
 
         <nav className="flex flex-col gap-2 w-full mt-10">

@@ -14,7 +14,7 @@ export default function Cliente() {
   }
 
   function handleButtonClickEdicao() {
-    alert("Editar usuário");
+    navigate("/cadastrarcliente");
   }
 
   return (
@@ -27,7 +27,7 @@ export default function Cliente() {
             <p className="text-[#555555]">Aluno</p>
           </div>
           <div className="flex flex-col justify-center items-center flex-wrap gap-1">
-            <p className="text-[#737373] font-extrabold text-4xl">
+            <p className="text-[#737373] font-extrabold text-3xl">
               Natália Campos Soares
             </p>
             <div className="flex flex-col justify-center items-center">
