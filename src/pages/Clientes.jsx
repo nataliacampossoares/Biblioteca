@@ -3,8 +3,6 @@ import { useState } from "react";
 import { Menu } from "../components/Menu";
 import { BarraPesquisa } from "../components/BarraPesquisa";
 import { useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
-
 export default function Clientes() {
   const [filtro, setFiltro] = useState("");
 

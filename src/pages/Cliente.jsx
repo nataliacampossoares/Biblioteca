@@ -1,7 +1,22 @@
 import { IconPencil, IconSchool, IconTrash } from "@tabler/icons-react";
 import { Menu } from "../components/Menu";
+import { useNavigate } from "react-router-dom";
 
 export default function Cliente() {
+  const navigate = useNavigate();
+
+  const handleButtonClickHistorico = () => {
+    navigate("/historico");
+  };
+
+  function handleButtonClickLixo() {
+    alert("Desativar usuário");
+  }
+
+  function handleButtonClickEdicao() {
+    alert("Editar usuário");
+  }
+
   return (
     <div className="flex h-screen w-screen bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)]">
       <Menu />
@@ -34,13 +49,24 @@ export default function Cliente() {
             </div>
           </div>
           <div className="h-full w-full flex items-end justify-end">
-            <button style={{ backgroundColor: "#d9d9d9" }}><IconPencil className="text-[#555555]"/></button>
-            <button style={{ backgroundColor: "#d9d9d9" }}><IconTrash className="text-[#555555]"/></button>
+            <button
+              style={{ backgroundColor: "#d9d9d9" }}
+              onClick={handleButtonClickEdicao}
+            >
+              <IconPencil className="text-[#555555]" />
+            </button>
+            <button
+              style={{ backgroundColor: "#d9d9d9" }}
+              onClick={handleButtonClickLixo}
+            >
+              <IconTrash className="text-[#555555]" />
+            </button>
           </div>
         </div>
         <button
           style={{ backgroundColor: "#5271ff" }}
           className="text-white px-4 py-2 rounded shadow-md mt-6 w-fit mx-auto"
+          onClick={handleButtonClickHistorico}
         >
           Histórico
         </button>
