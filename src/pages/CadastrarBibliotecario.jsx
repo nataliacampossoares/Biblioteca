@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Logo from '../components/Logo';
-import Usuario from '../img/usuario.png'
+import Usuario from '../img/usuario.png'; // Certifique-se de que a imagem está em src/img
 
 export default function CadastrarBibliotecario() {
   const [imagemPreview, setImagemPreview] = useState(null);
@@ -8,7 +8,7 @@ export default function CadastrarBibliotecario() {
   const handleImagemChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);z\a
+      const imageUrl = URL.createObjectURL(file);
       setImagemPreview(imageUrl);
     }
   };
@@ -25,15 +25,11 @@ export default function CadastrarBibliotecario() {
           <div className="flex flex-col items-center">
             <label htmlFor="imagem" className="cursor-pointer">
               <div className="w-40 h-40 bg-gray-300 rounded-full overflow-hidden flex items-center justify-center">
-                {imagemPreview ? (
-                  <img
-                    src={Usuario}
-                    alt="Prévia"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <span className="text-gray-500">+</span>
-                )}
+                <img
+                  src={imagemPreview || Usuario}
+                  alt="Imagem do usuário"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <p className="mt-2 text-center text-sm text-gray-600">
                 Adicionar imagem
