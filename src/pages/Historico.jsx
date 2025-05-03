@@ -18,15 +18,19 @@ export default function Historico() {
           <div className="flex flex-col gap-6 w-full max-w-md">
             <HistoricoCard
               titulo="As Meninas"
-              dataEmprestimo="28/03/2025 15:54"
+              dataEmprestimo="28/03/2025"
+              horaEmprestimo="08:35"
               dataDevolucao="-"
+              horaDevolucao=""
               situacao="10 dias de atraso"
               multa="R$10,00 - pendente"
             />
             <HistoricoCard
               titulo="A volta ao Mundo em 80 dias"
-              dataEmprestimo="05/02/2025 08:35"
-              dataDevolucao="13/02/2025 10:43"
+              dataEmprestimo="05/02/2025"
+              horaEmprestimo="08:35"
+              dataDevolucao="13/02/2025"
+              horaDevolucao="10:43"
               situacao="Devolução sem atraso"
               multa="R$0,00"
             />

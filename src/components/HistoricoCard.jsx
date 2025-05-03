@@ -1,4 +1,4 @@
-export function HistoricoCard({ titulo, dataEmprestimo, dataDevolucao, situacao, multa }) {
+export function HistoricoCard({ titulo, dataEmprestimo, dataDevolucao, situacao, multa, horaDevolucao, horaEmprestimo }) {
     return (
       <div className="bg-white rounded-xl p-6 w-full shadow-md">
         <div className="grid grid-cols-2 gap-4">
@@ -9,6 +9,7 @@ export function HistoricoCard({ titulo, dataEmprestimo, dataDevolucao, situacao,
           <div className="flex flex-col">
             <p className="font-bold text-[#323131]">Data Empréstimo</p>
             <p className="text-[#323131]">{dataEmprestimo}</p>
+            <p className="text-[#323131]">{horaEmprestimo}</p>
           </div>
         </div>
   
@@ -16,6 +17,8 @@ export function HistoricoCard({ titulo, dataEmprestimo, dataDevolucao, situacao,
           <div className="flex flex-col">
             <p className="font-bold text-[#323131]">Data Devolução</p>
             <p className="text-[#323131]">{dataDevolucao}</p>
+            <p className="text-[#323131]">{horaDevolucao}</p>
+
           </div>
           <div className="flex flex-col">
             <p className="font-bold text-[#323131]">Situação</p>
