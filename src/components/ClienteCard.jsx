@@ -48,7 +48,7 @@ export default function CardCliente({
             }`}
           >
             {situacao}
-          </p>{" "}
+          </p>
         </div>
       </div>
       <div className="h-full w-full flex items-end justify-end">
