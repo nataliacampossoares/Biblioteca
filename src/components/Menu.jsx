@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-export function Menu() {
+export default function Menu() {
   const getEstilo = (props) => {
     const base = `
       flex items-center justify-center gap-4 px-3 py-3 w-full h-24 text-md font-bold
@@ -38,7 +38,7 @@ export function Menu() {
           >
             Clientes
           </NavLink>
-          <NavLink to="/livros" className={getEstilo}>
+          <NavLink to="/livrosbibliotecario" className={getEstilo}>
             Livros
           </NavLink>
           <NavLink to="/emprestimos" className={getEstilo}>

@@ -1,5 +1,7 @@
+import Layout from "../components/Layout";
+
 export default function Emprestimos(){
     return(
-       <p>emprestimos ha</p> 
+       <Layout></Layout>
     )
 }

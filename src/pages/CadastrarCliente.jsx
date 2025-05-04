@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Logo from "../components/Logo";
-import { Menu } from "../components/Menu";
+import  Menu  from "../components/Menu";
 import { IconChevronRight, IconChevronDown } from "@tabler/icons-react";
+import Layout from "../components/Layout";
 
 export default function CadastrarCliente() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,9 +21,8 @@ export default function CadastrarCliente() {
   };
 
   return (
-      <div className="flex h-screen w-screen bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)]">
-        <Menu />
-        <form className="flex flex-col justify-between bg-white rounded-r-xl mt-6 mb-6 mr-24 p-6 w-full max-h-[calc(100vh-3rem)] ">
+    <Layout>
+        <form className="flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-full gap-3">
           <h2 className="text-3xl text-center text-blue-700 mb-2">
             Cadastrar Cliente
           </h2>
@@ -98,6 +98,6 @@ export default function CadastrarCliente() {
             Cadastrar
           </button>
         </form>
-      </div>
+    </Layout>
   );
 }

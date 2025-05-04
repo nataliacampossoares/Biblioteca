@@ -1,8 +1,9 @@
 //import { Pencil } from "@tabler/icons-react";
 import { useState } from "react";
-import { Menu } from "../components/Menu";
+import Menu from "../components/Menu";
 import { BarraPesquisa } from "../components/BarraPesquisa";
 import { useNavigate } from "react-router-dom";
+import Layout from "../components/Layout";
 export default function Clientes() {
   const [filtro, setFiltro] = useState("");
 
@@ -55,12 +56,13 @@ export default function Clientes() {
   );
 
   return (
-    <div className="flex h-screen w-screen bg-[linear-gradient(to_bottom,_#485977_70%,_#5271ff_30%)]">
-      <Menu />
-      <div className="flex flex-col justify-between bg-white rounded-r-xl mt-6 mb-6 mr-24 p-6 w-full max-h-[calc(100vh-3rem)] overflow-hidden">
-        <BarraPesquisa onSearch={setFiltro} />
+    <Layout>
+      <div className="flex flex-col h-screen w-full overflow-hidden">
+        <div className="shrink-0">
+          <BarraPesquisa />
+        </div>
         <div
-          className="overflow-y-auto flex flex-col gap-5 pr-2 mt-4"
+          className="flex-1 overflow-y-auto px-4 mt-4 flex flex-col gap-2"
           onClick={handleButtonClickCliente}
         >
           {clientesFiltrados.map((cliente, index) => (
@@ -76,14 +78,16 @@ export default function Clientes() {
             </div>
           ))}
         </div>
-        <button
-          onClick={handleButtonClickCadastrar}
-          style={{ backgroundColor: "#5271ff" }}
-          className="text-white px-4 py-2 rounded shadow-md mt-6 w-fit mx-auto"
-        >
-          Cadastrar Cliente
-        </button>
+        <div className="shrink-0 p-4 flex justify-center">
+          <button
+            onClick={handleButtonClickCadastrar}
+            style={{ backgroundColor: "#5271ff" }}
+            className="text-white px-4 py-2 rounded shadow-md w-fit"
+          >
+            Cadastrar Cliente
+          </button>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
