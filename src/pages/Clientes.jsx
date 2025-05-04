@@ -4,6 +4,7 @@ import Menu from "../components/Menu";
 import { BarraPesquisa } from "../components/BarraPesquisa";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
+import Botao from "../components/Botao";
 export default function Clientes() {
   const [filtro, setFiltro] = useState("");
 
@@ -79,13 +80,9 @@ export default function Clientes() {
           ))}
         </div>
         <div className="shrink-0 p-4 flex justify-center">
-          <button
-            onClick={handleButtonClickCadastrar}
-            style={{ backgroundColor: "#5271ff" }}
-            className="text-white px-4 py-2 rounded shadow-md w-fit"
-          >
+          <Botao onClick={handleButtonClickCadastrar}>
             Cadastrar Cliente
-          </button>
+          </Botao>
         </div>
       </div>
     </Layout>

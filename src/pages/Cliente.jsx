@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import CardCliente from "../components/ClienteCard";
 import  Menu  from "../components/Menu";
 import Layout from "../components/Layout";
+import Botao from "../components/Botao";
 
 export default function Cliente() {
   const navigate = useNavigate();
@@ -35,13 +36,9 @@ export default function Cliente() {
       />
     ))}
 
-    <button
-      style={{ backgroundColor: "#5271ff" }}
-      className="text-white px-4 py-2 rounded shadow-md mt-6 w-fit mx-auto"
-      onClick={handleButtonClickHistorico}
-    >
+    <Botao onClick={handleButtonClickHistorico}>
       Histórico
-    </button>
+    </Botao>
   </Layout>
   );
 }

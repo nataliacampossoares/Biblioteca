@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Logo from '../components/Logo';
 import Usuario from '../img/usuario.png'; 
+import Botao from '../components/Botao';
 
 export default function CadastrarBibliotecario() {
   const [imagemPreview, setImagemPreview] = useState(null);
@@ -133,12 +134,9 @@ export default function CadastrarBibliotecario() {
             </div>
 
             <div className="flex justify-center mt-4">
-              <button
-                type="submit"
-                className="w-32 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition text-base font-bold"
-              >
+              <Botao>
                 Cadastrar
-              </button>
+              </Botao>
             </div>
           </div>
         </form>

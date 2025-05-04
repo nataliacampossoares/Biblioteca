@@ -1,8 +1,7 @@
 import { useState } from "react";
-import Logo from "../components/Logo";
-import Menu from "../components/Menu";
 import { IconChevronRight, IconChevronDown } from "@tabler/icons-react";
 import Layout from "../components/Layout";
+import Botao from "../components/Botao";
 
 export default function CadastrarCliente() {
   const [isOpen, setIsOpen] = useState(false);
@@ -109,12 +108,9 @@ export default function CadastrarCliente() {
           </div>
         </div>
 
-        <button
-          style={{ backgroundColor: "#5271ff" }}
-          className="text-white px-4 py-2 rounded shadow-md mt-6 w-fit mx-auto"
-        >
+        <Botao>
           Cadastrar
-        </button>
+        </Botao>
       </form>
     </Layout>
   );
