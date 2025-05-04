@@ -25,6 +25,7 @@ export default function LivrosBibliotecario() {
       autor: 'Colleen Hoover',
       categoria: 'Ficção',
       subcategoria: 'Romance',
+      capa: 'https://m.media-amazon.com/images/I/91bYsX41DVL.jpg'
     },
     {
       titulo: 'Steve Jobs',
