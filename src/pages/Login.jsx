@@ -11,7 +11,7 @@ export default function LoginBibliotecário() {
       </header>
 
       <div className="flex flex-col items-center justify-center">
-        <form className="bg-white p-8 rounded-lg shadow-md w-96 h-120 fixed mb-100 flex flex-col justify-between">
+        <form className="bg-white p-8 rounded-lg shadow-md w-96 h-120 fixed mb-80 flex flex-col justify-between">
           <h2 className="text-4xl font-quiestral text-center text-gray-500 mb-2 m-4">
             Login
           </h2>

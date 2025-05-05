@@ -3,6 +3,7 @@ import Logo from '../components/Logo';
 import Usuario from '../img/usuario.png'; 
 import Botao from '../components/Botao';
 
+
 export default function CadastrarBibliotecario() {
   const [imagemPreview, setImagemPreview] = useState(null);
 
@@ -22,7 +23,7 @@ export default function CadastrarBibliotecario() {
       </header>
 
       <div className="flex flex-col items-center justify-center">
-        <form className="fixed mb-100 bg-white p-6 rounded-lg shadow-md w-[600px] flex flex-row gap-6 justify-between items-start">
+        <form className="fixed mb-80 bg-white p-6 rounded-lg shadow-md w-[600px] flex flex-row gap-6 justify-between items-start">
           <div className="flex flex-col items-center">
             <label htmlFor="imagem" className="cursor-pointer">
               <div className="w-45 h-45 rounded-full overflow-hidden flex items-center justify-center">

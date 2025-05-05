@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import  Menu  from '../components/Menu';
+import Layout from '../components/Layout';
+import { BarraPesquisa } from '../components/BarraPesquisa';
 
 export default function LivrosBibliotecario() {
   const [categoria, setCategoria] = useState('');
@@ -18,22 +19,42 @@ export default function LivrosBibliotecario() {
       autor: 'Ali Hazelwood',
       categoria: 'Ficção',
       subcategoria: 'Romance',
-      capa: 'https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg'
+      capa: 'https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg',
+      avaliacao: 5
     },
     {
       titulo: 'É Assim Que Acaba',
       autor: 'Colleen Hoover',
       categoria: 'Ficção',
       subcategoria: 'Romance',
-      capa: 'https://m.media-amazon.com/images/I/91bYsX41DVL.jpg'
+      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
+      avaliacao: 4
+    },
+    {
+      titulo: 'Como eu era antes de você',
+      autor: 'Jojo Moyes',
+      categoria: 'Não Ficção',
+      subcategoria: 'Biografia',
+      capa: 'https://m.media-amazon.com/images/I/81-P6oEm8cL._AC_UF1000,1000_QL80_.jpg',
+      avaliacao: 5
+    },
+    {
+      titulo: 'O Hobbit',
+      autor: 'J.R.R. Tolkien',
+      categoria: 'Ficção',
+      subcategoria: 'Fantasia',
+      capa: 'https://m.media-amazon.com/images/I/91b0C2YNSrL.jpg',
+      avaliacao: 5
     },
     {
       titulo: 'Steve Jobs',
       autor: 'Walter Isaacson',
       categoria: 'Não Ficção',
       subcategoria: 'Biografia',
-      capa: 'https://m.media-amazon.com/images/I/71xBLRBYOiL.jpg'
-    }
+      capa: 'https://m.media-amazon.com/images/I/71xBLRBYOiL.jpg',
+      avaliacao: 4
+    },
+   
   ];
 
   const livrosFiltrados = livros.filter(livro =>
@@ -42,40 +63,25 @@ export default function LivrosBibliotecario() {
     (subcategoria === '' || livro.subcategoria === subcategoria)
   );
 
+  const renderEstrelas = (avaliacao) => {
+    return '⭐'.repeat(avaliacao) + '☆'.repeat(5 - avaliacao);
+  };
+
   return (
-    <div className="flex bg-[#f8f9fa] min-h-screen">
-      <div className="fixed top-0 left-0 w-64 h-full bg-white shadow z-10">
-       
-      </div>
-      <div className="ml-64 flex-1 p-8">
-        <div className="bg-white rounded-full shadow-md flex items-center px-4 py-2 mb-6 max-w-xl mx-auto">
-          <input
-            type="text"
-            placeholder="Buscar"
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            className="flex-1 bg-transparent outline-none placeholder-gray-400 text-gray-700"
-          />
-          <svg
-            className="w-5 h-5 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
-          </svg>
-        </div>
+    <Layout>
+      <div className="flex-1 p-8">
+        {/* Caso sua BarraPesquisa não aceite props, remova filtro/setFiltro */}
+        <BarraPesquisa filtro={busca} setFiltro={setBusca} />
 
         <div className="flex gap-4 mb-4 text-sm text-gray-500">
-          <span className='mt-6 italic' >Seção</span>
+          <span className='mt-6 italic'>Seção</span>
           <select
             value={categoria}
             onChange={(e) => {
               setCategoria(e.target.value);
               setSubcategoria('');
             }}
-            className="bg-[#f1f1f1] rounded-2xl italic m-2 text-gray-700"
+            className="bg-[#f1f1f1] rounded-2xl p-2 italic m-2 text-gray-700"
           >
             <option value="">Categoria</option>
             {categorias.map((cat) => (
@@ -87,7 +93,7 @@ export default function LivrosBibliotecario() {
             value={subcategoria}
             onChange={(e) => setSubcategoria(e.target.value)}
             disabled={!categoria}
-            className="bg-[#f1f1f1] rounded-2xl italic m-2 text-gray-700"
+            className="bg-[#f1f1f1] rounded-2xl p-2 italic m-2 text-gray-700"
           >
             <option value="">Subcategoria</option>
             {categoria &&
@@ -99,29 +105,30 @@ export default function LivrosBibliotecario() {
 
         <hr className="mb-6 border-gray-300 max-w-5xl mx-auto" />
 
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 max-w-7xl mx-auto">
           {livrosFiltrados.map((livro, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-4 text-center">
+            <div
+              key={index}
+              className="bg-white rounded-xl shadow-md p-3 text-center hover:shadow-lg transition w-full"
+            >
               <img
                 src={livro.capa}
                 alt={livro.titulo}
-                className="w-full h-64 object-cover rounded"
+                className="w-full h-36 object-cover rounded-md"
               />
-              <p className="text-base font-semibold mt-3">{livro.titulo}</p>
-              <p className="text-sm text-gray-500">{livro.autor}</p>
-              <p className="text-sm text-gray-400">{livro.categoria} - {livro.subcategoria}</p>
+              <p className="text-sm font-semibold mt-2">{livro.titulo}</p>
+              <p className="text-xs text-gray-500">{livro.autor}</p>
+              <p className="text-xs text-gray-400 mb-1">
+                {livro.categoria} - {livro.subcategoria}
+              </p>
+              <p className="text-yellow-500 text-xs">{renderEstrelas(livro.avaliacao)}</p>
             </div>
           ))}
         </div>
 
-        {/* Botão cadastrar */}
-        <div className="flex justify-center mt-10">
-          <button className="bg-blue-500 hover:bg-blue-600 text-white px-10 py-3 rounded-full font-semibold shadow">
-            Cadastrar
-          </button>
-        </div>
+
+      
       </div>
-    </div>
+    </Layout>
   );
 }
