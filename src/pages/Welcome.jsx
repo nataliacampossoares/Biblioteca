@@ -4,10 +4,13 @@ export default function Welcome() {
 
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+  const handleButtonClickBibliotecario = () => {
     navigate('/Login'); 
   };
 
+  const handleButtonClickCliente = () => {
+    navigate('/PaginaClientes'); 
+  };
 
   return (
     <div className="bg-[url('/src/img/fundoWelcome.jpg')] bg-cover bg-center h-screen w-screen flex items-center justify-center">
@@ -25,11 +28,11 @@ export default function Welcome() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 w-full justify-center mt-8">
-          <button className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2  hover:bg-gray-200">
+          <button onclick={handleButtonClickCliente} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2  hover:bg-gray-200">
             <img src="/src/img/student.png" className="h-36 w-32" />
             Sou Professor/Aluno
           </button>
-          <button onClick={handleButtonClick} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2 hover:bg-gray-200 hover:border-[#737373]">
+          <button onClick={handleButtonClickBibliotecario} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2 hover:bg-gray-200 hover:border-[#737373]">
             <img src="/src/img/books.png" className="h-44 w-36" alt="" />
             Sou Bibliotecário
           </button>
