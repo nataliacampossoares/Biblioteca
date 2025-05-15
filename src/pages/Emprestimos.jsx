@@ -8,7 +8,7 @@ export default function Emprestimos() {
         <div className="flex w-full justify-center">
           <h2 className="font-bold text-[#485977] text-2xl">Empréstimo</h2>
         </div>
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5 ml-70">
           <label className="flex flex-col text-gray-700 font-semibold">
             ISBN
             <input

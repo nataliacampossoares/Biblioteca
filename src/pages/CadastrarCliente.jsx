@@ -20,7 +20,7 @@ export default function CadastrarCliente() {
   };
 
   return (
-    <Layout className="overflow-y-auto overflow-x-hidden">
+    <Layout className="loverflow-y-auto overflow-x-hidden">
       <h2 className="text-3xl text-center text-[#485977] mt-5 font-bold">
         Cadastro Cliente
       </h2>

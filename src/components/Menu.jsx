@@ -18,7 +18,7 @@ export default function Menu() {
 
   return (
     <div className="ml-50">
-      <aside className=" mt-6 flex flex-col items-center justify-center bg-[#849bff] min-w-72 h-146 fixed rounded-xl py-8">
+      <aside className=" mt-6 flex flex-col items-center justify-center bg-[#849bff] min-w-72 h-174 fixed rounded-xl py-8">
         <header className="flex flex-col items-center gap-3">
           <img
             className="rounded-full size-32"

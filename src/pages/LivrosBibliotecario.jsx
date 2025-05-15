@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import { BarraPesquisa } from '../components/BarraPesquisa';
-import Botao from '../components/Button'
+import Botao from '../components/Botao'
 
 export default function LivrosBibliotecario() {
   const [categoria, setCategoria] = useState('');
@@ -55,7 +55,14 @@ export default function LivrosBibliotecario() {
       capa: 'https://m.media-amazon.com/images/I/71xBLRBYOiL.jpg',
       avaliacao: 4
     },
-   
+    {
+      titulo: 'A Breve História do Tempo',
+      autor: 'Stephen Hawking',
+      categoria: 'Não Ficção',
+      subcategoria: 'História',
+      capa: 'https://m.media-amazon.com/images/I/81c3vF5PG2L.jpg',
+      avaliacao: 4
+    }
   ];
 
   const livrosFiltrados = livros.filter(livro =>
@@ -106,28 +113,28 @@ export default function LivrosBibliotecario() {
 
         <hr className="mb-6 border-gray-300 max-w-5xl mx-auto" />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {livrosFiltrados.map((livro, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl shadow-md p-3 text-center hover:shadow-lg transition w-full"
+              className="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-lg transition"
             >
               <img
                 src={livro.capa}
                 alt={livro.titulo}
-                className="w-full h-36 object-cover rounded-md"
+                className="w-full h-48 object-cover rounded"
               />
-              <p className="text-sm font-semibold mt-2">{livro.titulo}</p>
-              <p className="text-xs text-gray-500">{livro.autor}</p>
-              <p className="text-xs text-gray-400 mb-1">
+              <p className="text-base font-semibold mt-3">{livro.titulo}</p>
+              <p className="text-sm text-gray-500">{livro.autor}</p>
+              <p className="text-sm text-gray-400">
                 {livro.categoria} - {livro.subcategoria}
               </p>
-              <p className="text-yellow-500 text-xs">{renderEstrelas(livro.avaliacao)}</p>
+              <p className="text-yellow-500 mt-1 text-sm">{renderEstrelas(livro.avaliacao)}</p>
             </div>
           ))}
         </div>
 
-      
+        
       </div>
     </Layout>
   );

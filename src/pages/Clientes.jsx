@@ -5,6 +5,7 @@ import { BarraPesquisa } from "../components/BarraPesquisa";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Botao from "../components/Botao";
+import Logo from "../components/Logo"
 export default function Clientes() {
   const [filtro, setFiltro] = useState("");
 
@@ -63,7 +64,7 @@ export default function Clientes() {
           <BarraPesquisa />
         </div>
         <div
-          className="flex-1 overflow-y-auto px-4 mt-4 flex flex-col gap-2"
+          className="flex-1 overflow-y-auto px-4 mt-4 ml-55 flex flex-col gap-2"
           onClick={handleButtonClickCliente}
         >
           {clientesFiltrados.map((cliente, index) => (
@@ -79,7 +80,7 @@ export default function Clientes() {
             </div>
           ))}
         </div>
-        <div className="shrink-0 p-4 flex justify-center">
+        <div className="shrink-0 p-4 ml-60 flex justify-center">
           <Botao onClick={handleButtonClickCadastrar}>
             Cadastrar Cliente
           </Botao>
