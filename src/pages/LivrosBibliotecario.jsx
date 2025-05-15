@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import { BarraPesquisa } from '../components/BarraPesquisa';
+import Botao from '../components/Button'
 
 export default function LivrosBibliotecario() {
   const [categoria, setCategoria] = useState('');
@@ -125,7 +126,6 @@ export default function LivrosBibliotecario() {
             </div>
           ))}
         </div>
-
 
       
       </div>
