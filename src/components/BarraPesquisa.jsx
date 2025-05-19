@@ -3,7 +3,7 @@ import { IconSearch } from "@tabler/icons-react";
 export function BarraPesquisa({ className = "" }) {
 
   return (
-    <div className="relative w-full ml-60">
+    <div className="relative">
       <IconSearch className="absolute left-3 top-1/2 mt-2.5 transform -translate-y-1/2 text-gray-400" size={20} />
       <input
         type="text"
