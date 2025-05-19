@@ -19,6 +19,7 @@ import Cliente from "./pages/Cliente.jsx";
 import Historico from "./pages/Historico.jsx";
 import LivrosBibliotecario from "./pages/LivrosBibliotecario.jsx";
 import PaginaClientes from "./pages/PaginaClientes.jsx";
+import CadastrarLivro from "./pages/CadastrarLivro.jsx";
 
 import App from "./App.jsx";
 
@@ -38,6 +39,7 @@ const rotas = createBrowserRouter(
       <Route path="historico" element={<Historico />} />
       <Route path="paginaClientes" element={<PaginaClientes />} />
       <Route path="app" element={<App />} />
+      <Route path="cadastrarLivro" element={<CadastrarLivro/>} />
     </>
   )
 );
