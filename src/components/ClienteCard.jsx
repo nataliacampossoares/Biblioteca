@@ -1,5 +1,7 @@
 import { IconPencil, IconSchool, IconTrash } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import Botao from "./Botao";
+
 
 export default function CardCliente({
   nome,
@@ -8,7 +10,7 @@ export default function CardCliente({
   emprestimos,
   situacao,
   cargo,
-}) {
+}){
   const navigate = useNavigate();
 
   const handleButtonClickEdicao = () => {
@@ -18,6 +20,11 @@ export default function CardCliente({
   const handleButtonClickLixo = () => {
     alert("Desativar usuário");
   };
+
+    const handleButtonClickHistorico = () => {
+      navigate("/historico");
+    };
+  
 
   return (
     <div className="bg-[#d9d9d9] flex flex-col items-center p-5 w-fit h-full rounded-xl gap-6">
@@ -65,6 +72,7 @@ export default function CardCliente({
           <IconTrash className="text-[#555555]" />
         </button>
       </div>
+      <Botao onClick={handleButtonClickHistorico}>Histórico</Botao>
     </div>
   );
 }

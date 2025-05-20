@@ -3,12 +3,12 @@ import Layout from "../components/Layout";
 
 export default function Emprestimos() {
   return (
-    <Layout>
-      <div className="bg-[#efefef] flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-full gap-3 rounded-xl">
+    <Layout className="flex justify-center">
+      <div className="bg-[#efefef] flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-fit gap-3 rounded-xl">
         <div className="flex w-full justify-center">
           <h2 className="font-bold text-[#485977] text-2xl">Empréstimo</h2>
         </div>
-        <form className="flex flex-col gap-5 ml-70">
+        <form className="flex flex-col gap-5 pr-10 pl-10">
           <label className="flex flex-col text-gray-700 font-semibold">
             ISBN
             <input
