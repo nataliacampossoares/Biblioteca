@@ -12,7 +12,7 @@ export default function LivrosBibliotecario() {
   const navigate = useNavigate();
 
   const handleCadastrarLivro = () => {
-    navigate("/cadastrarlivro"); 
+    navigate("/cadastrarlivro");
   };
 
   const categorias = ['Ficção', 'Não Ficção'];
@@ -21,106 +21,20 @@ export default function LivrosBibliotecario() {
     'Não Ficção': ['Biografia', 'História']
   };
 
-  const livros = [
-    {
-      titulo: 'A Hipótese do Amor',
-      autor: 'Ali Hazelwood',
-      categoria: 'Ficção',
-      subcategoria: 'Romance',
-      capa: 'https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg',
-      avaliacao: 5
-    },
-    {
-      titulo: 'É Assim Que Acaba',
-      autor: 'Colleen Hoover',
-      categoria: 'Ficção',
-      subcategoria: 'Romance',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 4
-    },
-    {
-      titulo: 'Como eu era antes de você',
-      autor: 'Jojo Moyes',
-      categoria: 'Não Ficção',
-      subcategoria: 'Biografia',
-      capa: 'https://m.media-amazon.com/images/I/81-P6oEm8cL._AC_UF1000,1000_QL80_.jpg',
-      avaliacao: 5
-    },
-    {
-      titulo: 'Mais um Livro',
-      autor: 'Autor Qualquer',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg',
-      avaliacao: 3
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    {
-      titulo: 'Outro Livro Qualquer',
-      autor: 'Outro Autor',
-      categoria: 'Ficção',
-      subcategoria: 'Fantasia',
-      capa: 'https://m.media-amazon.com/images/I/91r5G8RxqfL.jpg',
-      avaliacao: 2
-    },
-    
-   
-  ];
+  const livroBase = {
+    titulo: 'Livro de Teste',
+    autor: 'Autor Genérico',
+    categoria: 'Ficção',
+    subcategoria: 'Romance',
+    capa: 'https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg',
+    avaliacao: 4
+  };
+
+
+  const livros = Array.from({ length: 12 }, (_, i) => ({
+    ...livroBase,
+    titulo: `Livro ${i + 1}`
+  }));
 
   const livrosFiltrados = livros.filter(livro =>
     livro.titulo.toLowerCase().includes(busca.toLowerCase()) &&
@@ -134,44 +48,42 @@ export default function LivrosBibliotecario() {
 
   return (
     <Layout>
-      <div className="flex flex-col h-screen w-full overflow-hidden">
+      <div className="flex flex-col h-full w-full">
         <div className="shrink-0">
           <BarraPesquisa filtro={busca} setFiltro={setBusca} />
-        </div>
-
-        <div className="flex gap-4 text-sm text-gray-500 mt-2 ml-60">
-          <span className="mt-6 italic">Seção</span>
-          <select
-            value={categoria}
-            onChange={(e) => {
-              setCategoria(e.target.value);
-              setSubcategoria('');
-            }}
-            className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
-          >
-            <option value="">Categoria</option>
-            {categorias.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
-
-          <select
-            value={subcategoria}
-            onChange={(e) => setSubcategoria(e.target.value)}
-            disabled={!categoria}
-            className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
-          >
-            <option value="">Subcategoria</option>
-            {categoria &&
-              subcategorias[categoria].map((sub) => (
-                <option key={sub} value={sub}>{sub}</option>
+          <div className="flex gap-4 text-sm text-gray-500 mt-2">
+            <span className="mt-6 italic">Seção</span>
+            <select
+              value={categoria}
+              onChange={(e) => {
+                setCategoria(e.target.value);
+                setSubcategoria('');
+              }}
+              className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
+            >
+              <option value="">Categoria</option>
+              {categorias.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
               ))}
-          </select>
+            </select>
+
+            <select
+              value={subcategoria}
+              onChange={(e) => setSubcategoria(e.target.value)}
+              disabled={!categoria}
+              className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
+            >
+              <option value="">Subcategoria</option>
+              {categoria &&
+                subcategorias[categoria].map((sub) => (
+                  <option key={sub} value={sub}>{sub}</option>
+                ))}
+            </select>
+          </div>
         </div>
 
-      
-        <div className="flex-1 overflow-y-auto px-4 mt-4 ml-60 pr-4">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-[10px]">
+        <div className="flex-1 overflow-y-auto px-4 mt-4  pr-4">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
             {livrosFiltrados.map((livro, index) => (
               <div
                 key={index}
@@ -193,8 +105,8 @@ export default function LivrosBibliotecario() {
           </div>
         </div>
 
-
-        <div className="shrink-0 p-4 ml-60 flex justify-center">
+   
+        <div className="shrink-0 p-4 flex justify-center bg-white shadow-inner">
           <Botao onClick={handleCadastrarLivro}>Cadastrar novo Livro</Botao>
         </div>
       </div>
