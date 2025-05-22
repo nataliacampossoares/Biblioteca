@@ -120,7 +120,7 @@ export default function CadastrarLivro() {
         </form>
       </div>
           <div className="col-span-2 flex justify-center mt-2">
-            <Botao className="py-1 px-4 text-sm">Cadastrar novo Livro</Botao>
+            <Botao className="py-1 px-4 text-sm">Cadastrar</Botao>
           </div>
     </Layout>
   );

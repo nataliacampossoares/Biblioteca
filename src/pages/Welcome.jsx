@@ -9,7 +9,7 @@ export default function Welcome() {
   };
 
   const handleButtonClickCliente = () => {
-    navigate('/PaginaClientes'); 
+    navigate('/paginaclientes'); 
   };
 
   return (
