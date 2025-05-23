@@ -33,7 +33,7 @@ const rotas = createBrowserRouter(
       <Route path="default" element={<Default />} />
       <Route path="emprestimos" element={<Emprestimos />} />
       <Route path="clientes" element={<Clientes />} />
-      <Route path="livros" element={<Livros />} />
+      <Route path="livros/:id" element={<Livros />} />
       <Route path="cadastrarcliente" element={<CadastrarCliente />} />
       <Route path="cliente" element={<Cliente />} />
       <Route path="historico" element={<Historico />} />

@@ -22,18 +22,18 @@ export default function LivrosBibliotecario() {
   };
 
   const livroBase = {
-    titulo: 'Livro de Teste',
-    autor: 'Autor Genérico',
+    titulo: 'A Hipótese do Amor',
+    autor: 'Ali Hazelwood',
     categoria: 'Ficção',
     subcategoria: 'Romance',
     capa: 'https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg',
-    avaliacao: 4
+    avaliacao: 4,
   };
-
 
   const livros = Array.from({ length: 12 }, (_, i) => ({
     ...livroBase,
-    titulo: `Livro ${i + 1}`
+    titulo: `Livro ${i + 1}`,
+    id: i
   }));
 
   const livrosFiltrados = livros.filter(livro =>
@@ -49,6 +49,7 @@ export default function LivrosBibliotecario() {
   return (
     <Layout>
       <div className="flex flex-col h-full w-full">
+        {/* Filtros e pesquisa */}
         <div className="shrink-0">
           <BarraPesquisa filtro={busca} setFiltro={setBusca} />
           <div className="flex gap-4 text-sm text-gray-500 mt-2">
@@ -82,12 +83,14 @@ export default function LivrosBibliotecario() {
           </div>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-4 mt-4  pr-4">
+        {/* Grade de livros */}
+        <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
             {livrosFiltrados.map((livro, index) => (
               <div
                 key={index}
-                className="bg-white text-center w-[110px] rounded-lg p-2 shadow-md"
+                onClick={() => navigate(`/livros/${livro.id}`)}
+                className="cursor-pointer bg-white text-center w-[110px] rounded-lg p-2 shadow-md hover:shadow-lg transition"
               >
                 <img
                   src={livro.capa}
@@ -105,7 +108,7 @@ export default function LivrosBibliotecario() {
           </div>
         </div>
 
-   
+        {/* Rodapé com botão */}
         <div className="shrink-0 p-4 flex justify-center bg-white shadow-inner">
           <Botao onClick={handleCadastrarLivro}>Cadastrar novo Livro</Botao>
         </div>
