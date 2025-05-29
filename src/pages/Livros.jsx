@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import Layout from '../components/Layout'; // <-- importa o Layout
+import Layout from '../components/Layout'; 
 
 export default function LivrosDetalhes() {
   const navigate = useNavigate();
@@ -8,11 +8,12 @@ export default function LivrosDetalhes() {
   const livro = {
     titulo: 'A Hipótese do Amor',
     autor: 'Ali Hazelwood',
-    categoria: 'Ficção',
-    subcategoria: 'Romance',
-    descricao: 'Uma comédia romântica sobre uma cientista cética e um professor mal-humorado que fingem um relacionamento.',
+    avaliacao: 4,
+    editora: 'Arqueiro',
+    edição: '2° edição',
+    descricao: `Olive, uma doutoranda cética em relação ao amor, inventa um namoro falso para ajudar a amiga a ficar com o garoto de quem gosta. Em um momento de impulso, ela beija o primeiro homem que vê — o temido professor Adam Carlsen. Para sua surpresa, ele topa manter a farsa. Mas, à medida que o "experimento" avança, o que era apenas uma hipótese sobre o amor começa a se tornar real.'
+`,
     capa: 'https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg',
-    avaliacao: 4
   };
 
   const renderEstrelas = (avaliacao) =>
@@ -22,8 +23,7 @@ export default function LivrosDetalhes() {
     <Layout>
       <div className="h-full w-full flex items-center justify-center bg-gray-50 px-4 py-10">
         <div className="max-w-4xl w-full bg-white rounded-3xl shadow-xl p-8 flex flex-col md:flex-row gap-8">
-          
-          {/* Imagem do livro */}
+       
           <div className="flex justify-center md:w-1/2">
             <img
               src={livro.capa}
@@ -32,21 +32,39 @@ export default function LivrosDetalhes() {
             />
           </div>
 
-          {/* Detalhes do livro */}
           <div className="md:w-1/2 flex flex-col justify-center">
-            <h1 className="text-2xl font-bold mb-2">{livro.titulo}</h1>
-            <p className="text-md text-gray-600 mb-1">Autor: <span className="text-gray-800">{livro.autor}</span></p>
-            <p className="text-md text-gray-600 mb-1">Categoria: <span className="text-gray-800">{livro.categoria}</span></p>
-            <p className="text-md text-gray-600 mb-1">Subcategoria: <span className="text-gray-800">{livro.subcategoria}</span></p>
-            <p className="text-md text-gray-600 mb-3">Avaliação: <span className="text-yellow-500">{renderEstrelas(livro.avaliacao)}</span></p>
-            <p className="text-sm text-gray-700 italic">{livro.descricao}</p>
+            <h1 className="text-2xl font-bold mb-4">{livro.titulo}</h1>
 
-            <button
-              onClick={() => navigate('/livros')}
-              className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-full w-fit hover:bg-blue-700 transition"
-            >
-              Voltar
-            </button>
+            <div className="flex justify-between mb-4">
+              <div className="flex flex-col">
+                <p className="text-sm text-gray-600 mb-1">
+                  Autor(es): <span className="text-gray-800">{livro.autor}</span>
+                </p>
+                <p className="text-sm text-gray-600">
+                  Avaliação: <span className="text-yellow-500">{renderEstrelas(livro.avaliacao)}</span>
+                </p>
+              </div>
+
+              <div className="flex flex-col items-end">
+                <p className="text-xs mr-5 text-gray-600 mb-1">
+                  Editora: <span className="text-gray-800">{livro.editora}</span>
+                </p>
+                <p className="text-xs mr-5 text-gray-600">
+                  Edição: <span className="text-gray-800">{livro.edição}</span>
+                </p>
+              </div>
+            </div>
+
+
+            <div className="mt-2">
+              <p className="text-md text-gray-600 font-semibold mb-1">Sinopse</p>
+              <p className="text-sm text-gray-700 italic leading-relaxed">
+                {livro.descricao}
+              </p>
+            </div>
+
+
+          <div>Quantidade Disponível: </div>
           </div>
         </div>
       </div>

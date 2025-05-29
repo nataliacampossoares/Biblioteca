@@ -41,6 +41,9 @@ export default function Menu() {
         <NavLink to="/emprestimos" className={getEstilo}>
           Empréstimos
         </NavLink>
+        <NavLink to="/devolucaolivro" className={getEstilo}>
+          Devolução
+        </NavLink>
       </nav>
     </aside>
   );
