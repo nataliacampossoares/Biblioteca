@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Welcome() {
-
+  const [autores, setAutores] = useState([]);
   const navigate = useNavigate();
 
   const handleButtonClickBibliotecario = () => {
@@ -11,6 +12,18 @@ export default function Welcome() {
   const handleButtonClickCliente = () => {
     navigate('/paginaclientes'); 
   };
+
+  async function carregarAutores() {
+    const response = await fetch("http://localhost:3000/listarAutores")
+    const data = await response.json();
+    console.log(data);
+    setAutores(data.autores);
+  }
+
+  useEffect(() => {
+    
+    carregarAutores()
+  }, [])
 
   return (
     <div className="bg-[url('/src/img/fundoWelcome.jpg')] bg-cover bg-center h-screen w-screen flex items-center justify-center">
@@ -36,6 +49,7 @@ export default function Welcome() {
             <img src="/src/img/books.png" className="h-44 w-36" alt="" />
             Sou Bibliotecário
           </button>
+          {autores.map((autorObj, indice) => (<div key={indice}> {autorObj.nome_autor} </div>))}
         </div>
       </div>
     </div>
