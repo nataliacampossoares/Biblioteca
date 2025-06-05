@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Welcome() {
-
+  const [autores, setAutores] = useState([]);
   const navigate = useNavigate();
 
   const handleButtonClickBibliotecario = () => {
@@ -11,6 +12,24 @@ export default function Welcome() {
   const handleButtonClickCliente = () => {
     navigate('/paginaclientes'); 
   };
+
+  async function carregarAutores() {
+    const response = await fetch("http://localhost:3000/listarAutores")
+    const data = await response.json();
+    console.log(data);
+    setAutores(data);
+  }
+
+  function displayAutores(){
+    if(!autores){
+      return;
+    }
+    return (autores.map((autorObj, indice) => (<div key={indice}> {autorObj.nome_autor} </div>)));
+  }
+
+  useEffect(() => {    
+    carregarAutores()
+  }, [])
 
   return (
     <div className="bg-[url('/src/img/fundoWelcome.jpg')] bg-cover bg-center h-screen w-screen flex items-center justify-center">
@@ -28,14 +47,17 @@ export default function Welcome() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 w-full justify-center mt-8">
-          <button onclick={handleButtonClickCliente} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2  hover:bg-gray-200">
+          <button onClick={handleButtonClickCliente} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2  hover:bg-gray-200">
             <img src="/src/img/student.png" className="h-36 w-32" />
             Sou Professor/Aluno
           </button>
           <button onClick={handleButtonClickBibliotecario} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2 hover:bg-gray-200 hover:border-[#737373]">
             <img src="/src/img/books.png" className="h-44 w-36" alt="" />
             Sou Bibliotecário
-          </button>
+          </button>          
+          {
+            displayAutores()
+          }
         </div>
       </div>
     </div>
