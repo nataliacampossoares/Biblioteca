@@ -21,7 +21,7 @@ export default function LivrosDetalhes() {
 
   return (
     <Layout>
-      <div className="h-full w-full flex items-center justify-center bg-gray-50 px-4 py-10">
+      <div className="h-full w-full flex items-center justify-center px-4 py-10">
         <div className="max-w-4xl w-full bg-white rounded-3xl shadow-xl p-8 flex flex-col md:flex-row gap-8">
        
           <div className="flex justify-center md:w-1/2">
