@@ -17,11 +17,17 @@ export default function Welcome() {
     const response = await fetch("http://localhost:3000/listarAutores")
     const data = await response.json();
     console.log(data);
-    setAutores(data.autores);
+    setAutores(data);
   }
 
-  useEffect(() => {
-    
+  function displayAutores(){
+    if(!autores){
+      return;
+    }
+    return (autores.map((autorObj, indice) => (<div key={indice}> {autorObj.nome_autor} </div>)));
+  }
+
+  useEffect(() => {    
     carregarAutores()
   }, [])
 
@@ -41,15 +47,17 @@ export default function Welcome() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-6 w-full justify-center mt-8">
-          <button onclick={handleButtonClickCliente} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2  hover:bg-gray-200">
+          <button onClick={handleButtonClickCliente} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2  hover:bg-gray-200">
             <img src="/src/img/student.png" className="h-36 w-32" />
             Sou Professor/Aluno
           </button>
           <button onClick={handleButtonClickBibliotecario} className="bg-white flex items-center justify-center gap-x-0.5 text-[#737373] font-semibold rounded-2xl w-full md:w-1/2 hover:bg-gray-200 hover:border-[#737373]">
             <img src="/src/img/books.png" className="h-44 w-36" alt="" />
             Sou Bibliotecário
-          </button>
-          {autores.map((autorObj, indice) => (<div key={indice}> {autorObj.nome_autor} </div>))}
+          </button>          
+          {
+            displayAutores()
+          }
         </div>
       </div>
     </div>
