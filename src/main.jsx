@@ -20,7 +20,8 @@ import Historico from "./pages/Historico.jsx";
 import LivrosBibliotecario from "./pages/LivrosBibliotecario.jsx";
 import PaginaClientes from "./pages/PaginaClientes.jsx";
 import CadastrarLivro from "./pages/CadastrarLivro.jsx";
-import DevolucaoLivro from "./pages/DevolucaoLivro.jsx"
+import DevolucaoLivro from "./pages/DevolucaoLivro.jsx";
+import LivrossemMenu from "./pages/LivrossemMenu.jsx";
 
 import App from "./App.jsx";
 
@@ -35,10 +36,11 @@ const rotas = createBrowserRouter(
       <Route path="emprestimos" element={<Emprestimos />} />
       <Route path="clientes" element={<Clientes />} />
       <Route path="livros/:id" element={<Livros />} />
+      <Route path="livross/:id" element={<LivrossemMenu />} />
       <Route path="cadastrarcliente" element={<CadastrarCliente />} />
       <Route path="cliente" element={<Cliente />} />
       <Route path="historico" element={<Historico />} />
-      <Route path="paginaClientes" element={<PaginaClientes />} />
+      <Route path="paginaclientes" element={<PaginaClientes />} />
       <Route path="app" element={<App />} />
       <Route path="cadastrarLivro" element={<CadastrarLivro/>} />
       <Route path="devolucaolivro" element={<DevolucaoLivro/>} />

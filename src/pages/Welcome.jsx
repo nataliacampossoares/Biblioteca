@@ -10,7 +10,7 @@ export default function Welcome() {
   };
 
   const handleButtonClickCliente = () => {
-    navigate('/paginaclientes'); 
+    navigate('/PaginaClientes'); 
   };
 
   async function carregarAutores() {

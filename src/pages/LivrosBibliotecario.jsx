@@ -49,7 +49,6 @@ export default function LivrosBibliotecario() {
   return (
     <Layout>
       <div className="flex flex-col h-full w-full">
-        {/* Filtros e pesquisa */}
         <div className="shrink-0">
           <BarraPesquisa filtro={busca} setFiltro={setBusca} />
           <div className="flex gap-4 text-sm text-gray-500 mt-2">
@@ -108,7 +107,7 @@ export default function LivrosBibliotecario() {
           </div>
         </div>
 
-        {/* Rodapé com botão */}
+
         <div className="shrink-0 p-4 flex justify-center bg-white shadow-inner">
           <Botao onClick={handleCadastrarLivro}>Cadastrar novo Livro</Botao>
         </div>
