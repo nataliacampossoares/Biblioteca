@@ -2,16 +2,59 @@ import { useState } from 'react';
 import Logo from '../components/Logo';
 import Usuario from '../img/usuario.png'; 
 import Botao from '../components/Botao';
-
+import { criarBibliotecario } from '../services/bibliotecario';
 
 export default function CadastrarBibliotecario() {
   const [imagemPreview, setImagemPreview] = useState(null);
+  const [nome, setNome] = useState('');
+  const [registro, setRegistro] = useState('');
+  const [email, setEmail] = useState('');
+  const [dataNascimento, setDataNascimento] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmarSenha, setConfirmarSenha] = useState('');
+  const [mensagem, setMensagem] = useState('');
 
   const handleImagemChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImagemPreview(imageUrl);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (senha !== confirmarSenha) {
+      setMensagem("As senhas não conferem.");
+      return;
+    }
+
+    try {
+      const dados = {
+        nomeBibliotecario: nome,
+        registro,
+        email,
+        dataNascimento,
+        telefone,
+        senha,
+      };
+
+      const resposta = await criarBibliotecario(dados);
+      setMensagem(resposta.message || "Cadastrado com sucesso!");
+
+      
+      setNome('');
+      setRegistro('');
+      setEmail('');
+      setDataNascimento('');
+      setTelefone('');
+      setSenha('');
+      setConfirmarSenha('');
+      setImagemPreview(null);
+    } catch (error) {
+      setMensagem("Erro ao cadastrar.");
     }
   };
 
@@ -23,7 +66,10 @@ export default function CadastrarBibliotecario() {
       </header>
 
       <div className="flex flex-col items-center justify-center">
-        <form className="fixed mb-80 bg-white p-6 rounded-lg shadow-md w-[600px] flex flex-row gap-6 justify-between items-start">
+        <form 
+          className="fixed mb-80 bg-white p-6 rounded-lg shadow-md w-[600px] flex flex-row gap-6 justify-between items-start"
+          onSubmit={handleSubmit}
+        >
           <div className="flex flex-col items-center">
             <label htmlFor="imagem" className="cursor-pointer">
               <div className="w-45 h-45 rounded-full overflow-hidden flex items-center justify-center">
@@ -56,6 +102,9 @@ export default function CadastrarBibliotecario() {
                 id="nome"
                 className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite o nome completo"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                required
               />
             </div>
 
@@ -68,6 +117,9 @@ export default function CadastrarBibliotecario() {
                 id="registro"
                 className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Número de registro"
+                value={registro}
+                onChange={(e) => setRegistro(e.target.value)}
+                required
               />
             </div>
 
@@ -80,6 +132,9 @@ export default function CadastrarBibliotecario() {
                 id="email"
                 className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite o email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -92,6 +147,9 @@ export default function CadastrarBibliotecario() {
                   type="date"
                   id="data"
                   className="w-full p-2 border bg-gray-300 rounded focus:outline-none"
+                  value={dataNascimento}
+                  onChange={(e) => setDataNascimento(e.target.value)}
+                  required
                 />
               </div>
               <div className="w-1/2">
@@ -103,6 +161,9 @@ export default function CadastrarBibliotecario() {
                   id="telefone"
                   className="w-full p-2 border bg-gray-300 rounded focus:outline-none"
                   placeholder="(00) 00000-0000"
+                  value={telefone}
+                  onChange={(e) => setTelefone(e.target.value)}
+                  required
                 />
               </div>
             </div>
@@ -116,6 +177,9 @@ export default function CadastrarBibliotecario() {
                 id="senha"
                 className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite a senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                required
               />
             </div>
 
@@ -131,14 +195,20 @@ export default function CadastrarBibliotecario() {
                 id="confirmarSenha"
                 className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Confirme a senha"
+                value={confirmarSenha}
+                onChange={(e) => setConfirmarSenha(e.target.value)}
+                required
               />
             </div>
 
             <div className="flex justify-center mt-4">
-              <Botao>
+              <Botao type="submit">
                 Cadastrar
               </Botao>
             </div>
+            {mensagem && (
+              <p className="text-center mt-2 text-sm text-red-600">{mensagem}</p>
+            )}
           </div>
         </form>
       </div>
