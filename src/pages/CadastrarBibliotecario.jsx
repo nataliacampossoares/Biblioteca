@@ -2,8 +2,10 @@ import { useState } from 'react';
 import Logo from '../components/Logo';
 import Usuario from '../img/usuario.png'; 
 import Botao from '../components/Botao';
+import { useNavigate } from 'react-router-dom'; 
 
 export default function CadastrarBibliotecario() {
+  const navigate = useNavigate();
   const [imagemPreview, setImagemPreview] = useState(null);
   const [nome, setNome] = useState('');
   const [registro, setRegistro] = useState('');
@@ -51,6 +53,14 @@ export default function CadastrarBibliotecario() {
       });
   
       if (!resposta.ok) {
+        throw new Error("Erro ao cadastrar.");
+      }
+
+      if (resposta.ok) {
+        setMensagem("Cadastrado com sucesso!");
+        
+        navigate('/login');  
+      } else {
         throw new Error("Erro ao cadastrar.");
       }
   
