@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Logo from '../components/Logo';
 import Usuario from '../img/usuario.png'; 
 import Botao from '../components/Botao';
-import { criarBibliotecario } from '../services/bibliotecario';
 
 export default function CadastrarBibliotecario() {
   const [imagemPreview, setImagemPreview] = useState(null);
