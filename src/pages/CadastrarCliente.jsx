@@ -71,6 +71,7 @@ export default function CadastrarCliente() {
       setNome("");
       setEmail("");
       setTelefone("");
+      setRa("");
       setDataNascimento("");
       setCargo("");
       setSelectedCourse(null);
@@ -79,9 +80,6 @@ export default function CadastrarCliente() {
       alert("Erro ao cadastrar locatário");
     }
   };
-
-
-  console.log("Curso selecionado:", selectedCourse);  // <-- aqui
 
   return (
     <Layout className="loverflow-y-auto overflow-x-hidden">
@@ -139,17 +137,13 @@ export default function CadastrarCliente() {
           <NovoCurso
             onNovoCurso={(nome) => {
               const cursoTemporario = { id: -1, nome_curso: nome };
-            
-              // Adiciona no array de cursos
+      
               setCursos((prev) => [...prev, cursoTemporario]);
             
-              // Marca como curso selecionado
               setSelectedCourse(cursoTemporario);
             
-              // Fecha o dropdown, se estiver aberto
               setIsOpen(false);
             
-              // Seta como novo curso (caso precise no backend)
               setNovoCurso(cursoTemporario);
             }}
           />
@@ -284,7 +278,7 @@ function NovoCurso({ onNovoCurso }) {
             />
           </label>
           <button
-            type="button"  // aqui: button para evitar refresh
+            type="button"  
             onClick={handleCadastro}
             className="bg-red-500 text-white rounded px-3 py-1 text-sm hover:bg-red-600"
           >

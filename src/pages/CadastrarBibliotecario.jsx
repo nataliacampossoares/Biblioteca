@@ -24,38 +24,51 @@ export default function CadastrarBibliotecario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (senha !== confirmarSenha) {
-      setMensagem("As senhas não conferem.");
+      setMensagem("As senhas não são iguais.");
       return;
     }
-
+  
     try {
-      const dados = {
-        nomeBibliotecario: nome,
-        registro,
-        email,
-        dataNascimento,
-        telefone,
-        senha,
-      };
-
-      const resposta = await criarBibliotecario(dados);
-      setMensagem(resposta.message || "Cadastrado com sucesso!");
-
-      
+      const formData = new FormData();
+      formData.append("nome", nome);
+      formData.append("email", email);
+      formData.append("telefone", telefone);
+      formData.append("data_de_nascimento", dataNascimento);
+      formData.append("senha", senha);
+      formData.append("registro", registro);
+      formData.append("tipo", "bibliotecario");
+  
+      const fileInput = document.getElementById("imagem");
+      if (fileInput && fileInput.files[0]) {
+        formData.append("imagem", fileInput.files[0]);
+      }
+  
+      const resposta = await fetch("http://localhost:3000/cadastrarLocatario", {
+        method: "POST",
+        body: formData,
+      });
+  
+      if (!resposta.ok) {
+        throw new Error("Erro ao cadastrar.");
+      }
+  
+      setMensagem("Cadastrado com sucesso!");
+  
       setNome('');
-      setRegistro('');
       setEmail('');
       setDataNascimento('');
       setTelefone('');
       setSenha('');
       setConfirmarSenha('');
       setImagemPreview(null);
+      
     } catch (error) {
+      console.error(error);
       setMensagem("Erro ao cadastrar.");
-    }
-  };
+  }
+}
 
   return (
     <div className="w-screen min-h-screen bg-bodyblue m-0 p-0 relative">
@@ -103,21 +116,6 @@ export default function CadastrarBibliotecario() {
                 placeholder="Digite o nome completo"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 mb-1" htmlFor="registro">
-                Registro Profissional
-              </label>
-              <input
-                type="text"
-                id="registro"
-                className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
-                placeholder="Número de registro"
-                value={registro}
-                onChange={(e) => setRegistro(e.target.value)}
                 required
               />
             </div>
