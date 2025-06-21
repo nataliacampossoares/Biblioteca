@@ -25,6 +25,10 @@ export default function LoginBibliotecário() {
         return;
       }
 
+      const usuario = await resposta.json();
+
+      localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+
       navigate("/default");
     } catch (error) {
       console.error("Erro ao tentar login:", error);
@@ -101,7 +105,9 @@ export default function LoginBibliotecário() {
             </button>
 
             {mensagem && (
-              <p className="text-red-600 mt-2 text-sm text-center">{mensagem}</p>
+              <p className="text-red-600 mt-2 text-sm text-center">
+                {mensagem}
+              </p>
             )}
           </div>
         </form>
