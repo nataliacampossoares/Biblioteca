@@ -13,24 +13,6 @@ export default function Welcome() {
     navigate('/PaginaClientes'); 
   };
 
-  async function carregarAutores() {
-    const response = await fetch("http://localhost:3000/listarAutores")
-    const data = await response.json();
-    console.log(data);
-    setAutores(data);
-  }
-
-  function displayAutores(){
-    if(!autores){
-      return;
-    }
-    return (autores.map((autorObj, indice) => (<div key={indice}> {autorObj.nome_autor} </div>)));
-  }
-
-  useEffect(() => {    
-    carregarAutores()
-  }, [])
-
   return (
     <div className="bg-[url('/src/img/fundoWelcome.jpg')] bg-cover bg-center h-screen w-screen flex items-center justify-center">
       <div className="p-10 flex flex-col items-center gap-8 w-[90%] max-w-3xl">
@@ -55,9 +37,6 @@ export default function Welcome() {
             <img src="/src/img/books.png" className="h-44 w-36" alt="" />
             Sou Bibliotecário
           </button>          
-          {
-            displayAutores()
-          }
         </div>
       </div>
     </div>

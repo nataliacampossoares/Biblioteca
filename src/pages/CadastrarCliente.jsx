@@ -7,13 +7,14 @@ export default function CadastrarCliente() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [cursos, setCursos] = useState([]);
+  const [novoCurso, setNovoCurso] = useState(null);
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [cargo, setCargo] = useState("");
-  const [ra, setRa] = useState("");  
+  const [ra, setRa] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/listarCursos")
@@ -40,16 +41,18 @@ export default function CadastrarCliente() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const dadosCliente = {
       nome: nome,
       email: email,
       telefone: telefone,
-      id_curso: selectedCourse?.id || null,
+      id_curso: novoCurso ? null : selectedCourse?.id,
       data_de_nascimento: dataNascimento,
       tipo: cargo,
-      ra: ra
+      ra: ra,
+      novo_curso: novoCurso ? novoCurso.nome_curso : null,
     };
+    console.log("Dados que serão enviados:", dadosCliente);
 
     try {
       const response = await fetch("http://localhost:3000/cadastrarLocatario", {
@@ -63,13 +66,13 @@ export default function CadastrarCliente() {
       }
 
       alert("Cadastro realizado com sucesso!");
-      
+
       setNome("");
       setEmail("");
       setTelefone("");
       setDataNascimento("");
       setCargo("");
-      setSelectedCourse("");
+      setSelectedCourse(null);
     } catch (error) {
       console.error(error);
       alert("Erro ao cadastrar locatário");
@@ -119,7 +122,8 @@ export default function CadastrarCliente() {
               className="border px-4 py-2 rounded bg-white shadow-sm flex items-center"
             >
               <p className="text-gray-700 font-semibold">
-                {"Curso: " + (selectedCourse?.nome_curso || "Selecione um curso")}
+                {"Curso: " +
+                  (selectedCourse?.nome_curso || "Selecione um curso")}
               </p>
               {isOpen ? (
                 <IconChevronDown className="text-gray-700 ml-2" />
@@ -128,7 +132,15 @@ export default function CadastrarCliente() {
               )}
             </button>
           </div>
-          <NovoCurso />
+          <NovoCurso
+            onNovoCurso={(nome) => {
+              // Crie um objeto curso temporário, por exemplo com id negativo para diferenciar
+              const cursoTemporario = { id: -1, nome_curso: nome };
+              setSelectedCourse(cursoTemporario);
+              setNovoCurso(cursoTemporario);
+              setCursos((prev) => [...prev, cursoTemporario]);
+            }}
+          />
 
           {isOpen && (
             <div className="absolute z-10 mt-1 w-full bg-white rounded shadow-lg max-h-48 overflow-auto">
@@ -145,7 +157,7 @@ export default function CadastrarCliente() {
                     type="radio"
                     name="curso"
                     value={curso.nome_curso}
-                    checked={selectedCourse === curso.nome_curso}
+                    checked={selectedCourse?.id === curso.id}
                     onChange={() => handleRadioChange(curso)}
                     className="cursor-pointer"
                   />
@@ -221,7 +233,7 @@ export default function CadastrarCliente() {
   );
 }
 
-function NovoCurso() {
+function NovoCurso({ onNovoCurso }) {
   const [mostrarCadastro, setMostrarCadastro] = useState(false);
   const [nomeCurso, setNomeCurso] = useState("");
 
@@ -230,8 +242,9 @@ function NovoCurso() {
   };
 
   const handleCadastro = (e) => {
-    e.preventDefault();
-    console.log("Curso cadastrado:", nomeCurso);
+    e.preventDefault(); // evita o refresh
+    if (!nomeCurso.trim()) return;
+    onNovoCurso(nomeCurso.trim());
     setNomeCurso("");
     setMostrarCadastro(false);
   };
@@ -247,28 +260,30 @@ function NovoCurso() {
       </button>
 
       {mostrarCadastro && (
-        <div className="mt-2 p-3 border rounded bg-gray-100 shadow">
-          <form onSubmit={handleCadastro} className="flex flex-col gap-2">
-            <label className="text-gray-700 font-semibold text-sm">
-              Nome do novo curso
-              <input
-                type="text"
-                value={nomeCurso}
-                onChange={(e) => setNomeCurso(e.target.value)}
-                className="mt-1 p-2 border rounded w-full"
-                placeholder="Digite o nome do curso"
-                required
-              />
-            </label>
-            <button
-              type="submit"
-              className="bg-red-500 text-white rounded px-3 py-1 text-sm hover:bg-red-600"
-            >
-              Salvar
-            </button>
-          </form>
-        </div>
+        <form
+          onSubmit={handleCadastro}
+          className="mt-2 p-3 border rounded bg-gray-100 shadow flex flex-col gap-2"
+        >
+          <label className="text-gray-700 font-semibold text-sm">
+            Nome do novo curso
+            <input
+              type="text"
+              value={nomeCurso}
+              onChange={(e) => setNomeCurso(e.target.value)}
+              className="mt-1 p-2 border rounded w-full"
+              placeholder="Digite o nome do curso"
+              required
+            />
+          </label>
+          <button
+            type="submit"  // <== aqui, muda para submit
+            className="bg-red-500 text-white rounded px-3 py-1 text-sm hover:bg-red-600"
+          >
+            Salvar
+          </button>
+        </form>
       )}
     </div>
   );
 }
+
