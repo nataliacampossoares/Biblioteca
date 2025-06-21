@@ -5,12 +5,16 @@ import Botao from "./Botao";
 
 export default function CardCliente({
   nome,
-  ra,
   curso,
-  emprestimos,
-  situacao,
   cargo,
-}){
+})
+// nome,
+//   ra,
+//   curso,
+//   emprestimos,
+//   situacao,
+//   cargo,
+{
   const navigate = useNavigate();
 
   const handleButtonClickEdicao = () => {
@@ -27,7 +31,7 @@ export default function CardCliente({
   
 
   return (
-    <div className="bg-[#d9d9d9] flex flex-col items-center p-5 w-fit h-full rounded-xl gap-6">
+    <div className="bg-[#d9d9d9] flex flex-col items-center p-5 w-[500px] h-[550px]  rounded-xl gap-6">
       <div className="flex flex-col items-center justify-center">
         <IconSchool className="text-[#a6a6a6] h-8 w-8" />
         <p className="text-[#555555]">{cargo}</p>
@@ -35,7 +39,7 @@ export default function CardCliente({
       <div className="flex flex-col justify-center items-center flex-wrap gap-1">
         <p className="text-[#737373] font-extrabold text-3xl">{nome}</p>
         <div className="flex flex-col justify-center items-center">
-          <p className="text-[#555555]">RA: {ra}</p>
+          {/* <p className="text-[#555555]">RA: {ra}</p> */}
           <p className="text-[#555555]">Curso: {curso}</p>
         </div>
       </div>
@@ -47,7 +51,7 @@ export default function CardCliente({
           <p className="text-[#5d5959] font-bold text-lg">Empréstimos</p>
           <p className="text-[#5d5959] font-bold text-lg">Situação</p>
         </div>
-        <div className="flex w-full justify-around bg-white rounded-xl h-fit p-2">
+        {/* <div className="flex w-full justify-around bg-white rounded-xl h-fit p-2">
           <p className="text-[#5d5959] font-bold">{emprestimos}</p>
           <p
             className={`font-bold ${
@@ -56,7 +60,7 @@ export default function CardCliente({
           >
             {situacao}
           </p>
-        </div>
+        </div> */}
       </div>
       <div className="h-full w-full flex items-end justify-end">
         <button
