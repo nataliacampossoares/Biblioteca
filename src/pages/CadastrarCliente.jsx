@@ -35,6 +35,7 @@ export default function CadastrarCliente() {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleRadioChange = (curso) => {
+    
     setSelectedCourse(curso);
     setIsOpen(false);
   };
@@ -78,6 +79,9 @@ export default function CadastrarCliente() {
       alert("Erro ao cadastrar locatário");
     }
   };
+
+
+  console.log("Curso selecionado:", selectedCourse);  // <-- aqui
 
   return (
     <Layout className="loverflow-y-auto overflow-x-hidden">
@@ -134,11 +138,19 @@ export default function CadastrarCliente() {
           </div>
           <NovoCurso
             onNovoCurso={(nome) => {
-              // Crie um objeto curso temporário, por exemplo com id negativo para diferenciar
               const cursoTemporario = { id: -1, nome_curso: nome };
-              setSelectedCourse(cursoTemporario);
-              setNovoCurso(cursoTemporario);
+            
+              // Adiciona no array de cursos
               setCursos((prev) => [...prev, cursoTemporario]);
+            
+              // Marca como curso selecionado
+              setSelectedCourse(cursoTemporario);
+            
+              // Fecha o dropdown, se estiver aberto
+              setIsOpen(false);
+            
+              // Seta como novo curso (caso precise no backend)
+              setNovoCurso(cursoTemporario);
             }}
           />
 
@@ -241,8 +253,7 @@ function NovoCurso({ onNovoCurso }) {
     setMostrarCadastro(!mostrarCadastro);
   };
 
-  const handleCadastro = (e) => {
-    e.preventDefault(); // evita o refresh
+  const handleCadastro = () => {
     if (!nomeCurso.trim()) return;
     onNovoCurso(nomeCurso.trim());
     setNomeCurso("");
@@ -260,10 +271,7 @@ function NovoCurso({ onNovoCurso }) {
       </button>
 
       {mostrarCadastro && (
-        <form
-          onSubmit={handleCadastro}
-          className="mt-2 p-3 border rounded bg-gray-100 shadow flex flex-col gap-2"
-        >
+        <div className="mt-2 p-3 border rounded bg-gray-100 shadow flex flex-col gap-2">
           <label className="text-gray-700 font-semibold text-sm">
             Nome do novo curso
             <input
@@ -276,14 +284,16 @@ function NovoCurso({ onNovoCurso }) {
             />
           </label>
           <button
-            type="submit"  // <== aqui, muda para submit
+            type="button"  // aqui: button para evitar refresh
+            onClick={handleCadastro}
             className="bg-red-500 text-white rounded px-3 py-1 text-sm hover:bg-red-600"
           >
             Salvar
           </button>
-        </form>
+        </div>
       )}
     </div>
   );
 }
+
 
