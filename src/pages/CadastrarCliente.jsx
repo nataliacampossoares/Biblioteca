@@ -8,6 +8,13 @@ export default function CadastrarCliente() {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [cursos, setCursos] = useState([]);
 
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [cargo, setCargo] = useState("");
+  const [ra, setRa] = useState("");  
+
   useEffect(() => {
     fetch("http://localhost:3000/listarCursos")
       .then((response) => {
@@ -31,17 +38,61 @@ export default function CadastrarCliente() {
     setIsOpen(false);
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    const dadosCliente = {
+      nome: nome,
+      email: email,
+      telefone: telefone,
+      id_curso: selectedCourse?.id || null,
+      data_de_nascimento: dataNascimento,
+      tipo: cargo,
+      ra: ra
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/cadastrarLocatario", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dadosCliente),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao cadastrar locatário");
+      }
+
+      alert("Cadastro realizado com sucesso!");
+      
+      setNome("");
+      setEmail("");
+      setTelefone("");
+      setDataNascimento("");
+      setCargo("");
+      setSelectedCourse("");
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao cadastrar locatário");
+    }
+  };
+
   return (
     <Layout className="loverflow-y-auto overflow-x-hidden">
       <h2 className="text-3xl text-center text-[#485977] mt-5 font-bold">
         Cadastro Cliente
       </h2>
 
-      <form className="flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-full gap-3 rounded-xl bg-[#efefef]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-full gap-3 rounded-xl bg-[#efefef]"
+      >
         <label className="flex flex-col text-gray-700 font-semibold">
           Nome
           <input
+            name="nome"
             type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
             placeholder="Digite o nome completo"
           />
@@ -50,7 +101,10 @@ export default function CadastrarCliente() {
         <label className="flex flex-col text-gray-700 font-semibold">
           Registro Acadêmico
           <input
-            type="password"
+            name="ra"
+            value={ra}
+            type="text"
+            onChange={(e) => setRa(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
             placeholder="Digite o RA"
           />
@@ -59,12 +113,13 @@ export default function CadastrarCliente() {
         <div className="flex flex-row gap-2">
           <div className="flex items-center gap-2 relative">
             <button
+              name="curso"
               type="button"
               onClick={toggleDropdown}
               className="border px-4 py-2 rounded bg-white shadow-sm flex items-center"
             >
               <p className="text-gray-700 font-semibold">
-                {"Curso: " + selectedCourse || "Selecione um curso"}
+                {"Curso: " + (selectedCourse?.nome_curso || "Selecione um curso")}
               </p>
               {isOpen ? (
                 <IconChevronDown className="text-gray-700 ml-2" />
@@ -76,7 +131,7 @@ export default function CadastrarCliente() {
           <NovoCurso />
 
           {isOpen && (
-            <div className="aabsolute z-10 mt-1 w-full bg-white rounded shadow-lg max-h-48 overflow-auto">
+            <div className="absolute z-10 mt-1 w-full bg-white rounded shadow-lg max-h-48 overflow-auto">
               {cursos.length === 0 && (
                 <p className="p-2 text-gray-500">Nenhum curso cadastrado</p>
               )}
@@ -91,7 +146,7 @@ export default function CadastrarCliente() {
                     name="curso"
                     value={curso.nome_curso}
                     checked={selectedCourse === curso.nome_curso}
-                    onChange={() => handleRadioChange(curso.nome_curso)}
+                    onChange={() => handleRadioChange(curso)}
                     className="cursor-pointer"
                   />
                   <span className="text-black">{curso.nome_curso}</span>
@@ -105,6 +160,9 @@ export default function CadastrarCliente() {
           E-mail
           <input
             type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
             placeholder="Digite o e-mail"
           />
@@ -114,23 +172,50 @@ export default function CadastrarCliente() {
           Telefone
           <input
             type="tel"
+            name="telefone"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
             placeholder="Digite o telefone"
           />
         </label>
 
+        <label className="flex flex-col text-gray-700 font-semibold">
+          Data de nascimento
+          <input
+            name="dataNascimento"
+            type="text"
+            value={dataNascimento}
+            onChange={(e) => setDataNascimento(e.target.value)}
+            className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
+            placeholder="Digite a data de nascimento"
+          />
+        </label>
+
         <div className="flex gap-10">
           <div className="flex gap-2">
-            <input type="radio" name="cargo" />
+            <input
+              type="radio"
+              name="cargo"
+              value="professor"
+              checked={cargo === "professor"}
+              onChange={(e) => setCargo(e.target.value)}
+            />
             <p className="text-gray-700 font-semibold">Professor</p>
           </div>
           <div className="flex gap-2">
-            <input type="radio" name="cargo" />
+            <input
+              type="radio"
+              name="cargo"
+              value="aluno"
+              checked={cargo === "aluno"}
+              onChange={(e) => setCargo(e.target.value)}
+            />
             <p className="text-gray-700 font-semibold">Aluno</p>
           </div>
         </div>
 
-        <Botao>Cadastrar</Botao>
+        <Botao type="submit">Cadastrar</Botao>
       </form>
     </Layout>
   );
