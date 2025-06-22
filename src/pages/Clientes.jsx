@@ -46,7 +46,6 @@ export default function Clientes() {
 
       alert("Usuário desativado com sucesso!");
 
-      // Recarregar lista
       buscarLocatarios();
     } catch (error) {
       console.error("Erro ao desativar usuário:", error);

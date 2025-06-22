@@ -2,20 +2,13 @@ import { IconPencil, IconSchool, IconTrash } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import Botao from "./Botao";
 
-
-export default function CardCliente({
-  id,
-  nome,
-  curso,
-  cargo,
-})
-// nome,
-//   ra,
-//   curso,
-//   emprestimos,
-//   situacao,
-//   cargo,
-{
+export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
+  // nome,
+  //   ra,
+  //   curso,
+  //   emprestimos,
+  //   situacao,
+  //   cargo,
   const navigate = useNavigate();
 
   const handleButtonClickEdicao = () => {
@@ -24,14 +17,26 @@ export default function CardCliente({
 
   const handleButtonClickLixo = async () => {
     if (window.confirm("Deseja realmente desativar esse usuário?")) {
-      onDesativar(id);
+      try {
+        const resposta = await fetch(
+          `http://localhost:3000/desativarLocatario/${id}`
+        );
+        if (!resposta.ok) throw new Error("Erro ao desativar usuário");
+
+        alert("Usuário desativado com sucesso!");
+
+        // Redireciona de volta para Clientes
+        navigate("/clientes");
+      } catch (error) {
+        console.error("Erro ao desativar usuário:", error);
+        alert("Erro ao desativar usuário");
+      }
     }
   };
 
-    const handleButtonClickHistorico = () => {
-      navigate("/historico");
-    };
-  
+  const handleButtonClickHistorico = () => {
+    navigate("/historico");
+  };
 
   return (
     <div className="bg-[#d9d9d9] flex flex-col items-center p-5 w-[500px] h-[550px]  rounded-xl gap-6">
