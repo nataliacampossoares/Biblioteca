@@ -4,6 +4,7 @@ import Botao from "./Botao";
 
 
 export default function CardCliente({
+  id,
   nome,
   curso,
   cargo,
@@ -21,8 +22,10 @@ export default function CardCliente({
     navigate("/cadastrarcliente");
   };
 
-  const handleButtonClickLixo = () => {
-    alert("Desativar usuário");
+  const handleButtonClickLixo = async () => {
+    if (window.confirm("Deseja realmente desativar esse usuário?")) {
+      onDesativar(id);
+    }
   };
 
     const handleButtonClickHistorico = () => {
@@ -39,7 +42,6 @@ export default function CardCliente({
       <div className="flex flex-col justify-center items-center flex-wrap gap-1">
         <p className="text-[#737373] font-extrabold text-3xl">{nome}</p>
         <div className="flex flex-col justify-center items-center">
-          {/* <p className="text-[#555555]">RA: {ra}</p> */}
           <p className="text-[#555555]">Curso: {curso}</p>
         </div>
       </div>

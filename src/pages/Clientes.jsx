@@ -20,23 +20,38 @@ export default function Clientes() {
     navigate("/cliente");
   };
 
-  useEffect(() => {
-    async function buscarLocatarios() {
-      try {
-        const resposta = await fetch("http://localhost:3000/listarLocatarios");
-        if (!resposta.ok) {
-          throw new Error("Erro ao buscar locatários");
-        }
-        const data = await resposta.json();
-        console.log("Dados recebidos:", data);
-        setLocatarios(data);
-      } catch (error) {
-        console.error("Erro ao buscar locatários:", error);
+  async function buscarLocatarios() {
+    try {
+      const resposta = await fetch("http://localhost:3000/listarLocatarios");
+      if (!resposta.ok) {
+        const textoErro = await resposta.text();
+        console.error("Resposta não OK:", textoErro);
+        throw new Error("Erro ao buscar locatários");
       }
+      const data = await resposta.json();
+      console.log("Dados recebidos:", data);
+      setLocatarios(data);
+    } catch (error) {
+      console.error("Erro ao buscar locatários:", error);
     }
-
+  }
+  useEffect(() => {
     buscarLocatarios();
   }, []);
+
+  async function handleDesativarUsuario(id) {
+    try {
+      const resposta = await fetch(`http://localhost:3000/desativarLocatario/${id}`);
+      if (!resposta.ok) throw new Error("Erro ao desativar usuário");
+
+      alert("Usuário desativado com sucesso!");
+
+      // Recarregar lista
+      buscarLocatarios();
+    } catch (error) {
+      console.error("Erro ao desativar usuário:", error);
+    }
+  }
 
   const clientesFiltrados = locatarios.filter((cliente) =>
     cliente.nome.toLowerCase().includes(filtro.toLowerCase())
@@ -48,9 +63,7 @@ export default function Clientes() {
         <div className="shrink-0">
           <BarraPesquisa filtro={filtro} setFiltro={setFiltro} />
         </div>
-        <div
-          className="flex-1 overflow-y-auto px-4 mt-4 flex flex-col gap-2"
-        >
+        <div className="flex-1 overflow-y-auto px-4 mt-4 flex flex-col gap-2">
           {clientesFiltrados.map((cliente, index) => (
             <div
               key={index}

@@ -40,6 +40,8 @@ export default function Cliente() {
           nome={cliente.nome}
           curso={cliente.curso}
           cargo={cliente.cargo}
+          id={cliente.id}
+          onDesativar={handleDesativarUsuario}
         />
       </div>
     </Layout>
