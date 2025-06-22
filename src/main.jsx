@@ -45,6 +45,7 @@ const rotas = createBrowserRouter(
       <Route path="cadastrarLivro" element={<CadastrarLivro/>} />
       <Route path="devolucaolivro" element={<DevolucaoLivro/>} />
       <Route path="/cliente/:id" element={<Cliente />} />
+      <Route path="/editarcliente/:id" element={<CadastrarCliente/>} />
     </>
   )
 );

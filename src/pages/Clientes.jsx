@@ -16,10 +16,6 @@ export default function Clientes() {
     navigate("/cadastrarcliente");
   };
 
-  const handleButtonClickCliente = () => {
-    navigate("/cliente");
-  };
-
   async function buscarLocatarios() {
     try {
       const resposta = await fetch("http://localhost:3000/listarLocatarios");
@@ -38,19 +34,6 @@ export default function Clientes() {
   useEffect(() => {
     buscarLocatarios();
   }, []);
-
-  async function handleDesativarUsuario(id) {
-    try {
-      const resposta = await fetch(`http://localhost:3000/desativarLocatario/${id}`);
-      if (!resposta.ok) throw new Error("Erro ao desativar usuário");
-
-      alert("Usuário desativado com sucesso!");
-
-      buscarLocatarios();
-    } catch (error) {
-      console.error("Erro ao desativar usuário:", error);
-    }
-  }
 
   const clientesFiltrados = locatarios.filter((cliente) =>
     cliente.nome.toLowerCase().includes(filtro.toLowerCase())

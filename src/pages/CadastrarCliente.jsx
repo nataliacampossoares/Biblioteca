@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { IconChevronRight, IconChevronDown } from "@tabler/icons-react";
 import Layout from "../components/Layout";
 import Botao from "../components/Botao";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function CadastrarCliente() {
+  const { id } = useParams();  
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
   const [cursos, setCursos] = useState([]);
@@ -32,12 +35,44 @@ export default function CadastrarCliente() {
       });
   }, []);
 
+  useEffect(() => {
+    if (id && cursos.length > 0) {
+      async function buscarLocatario() {
+        try {
+          const resp = await fetch(`http://localhost:3000/locatario/${id}`);
+          if (!resp.ok) throw new Error("Erro ao buscar locatário");
+          const data = await resp.json();
+          console.log("Dados recebidos do backend:", data);
+
+          setNome(data.nome || "");
+          setEmail(data.email || "");
+          setTelefone(data.telefone || "");
+          setDataNascimento(data.data_de_nascimento || "");
+          setCargo(data.cargo?.toLowerCase() || ""); 
+          setRa(data.ra || "");
+          setNovoCurso(null); 
+          if (data.id_curso) {
+            const cursoEncontrado = cursos.find((c) => c.id === data.id_curso);
+            setSelectedCourse(cursoEncontrado || null);
+          } else {
+            setSelectedCourse(null);
+          }
+        } catch (err) {
+          console.error("Erro ao buscar locatário:", err);
+        }
+      }
+      buscarLocatario();
+    }
+  }, [id, cursos]);
+
+
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleRadioChange = (curso) => {
     
     setSelectedCourse(curso);
     setIsOpen(false);
+    setNovoCurso(null);
   };
 
   const handleSubmit = async (event) => {
@@ -55,36 +90,63 @@ export default function CadastrarCliente() {
     };
     console.log("Dados que serão enviados:", dadosCliente);
 
+
+
     try {
-      const response = await fetch("http://localhost:3000/cadastrarLocatario", {
-        method: "POST",
+      let url = "http://localhost:3000/cadastrarLocatario";
+      let method = "POST";
+
+      if (id) {
+        url = `http://localhost:3000/atualizarLocatario/${id}`;
+        method = "PUT";
+      }
+
+      const response = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dadosCliente),
       });
 
-      if (!response.ok) {
-        throw new Error("Erro ao cadastrar locatário");
-      }
+      if (!response.ok) throw new Error("Erro ao salvar locatário");
 
-      alert("Cadastro realizado com sucesso!");
-
-      setNome("");
-      setEmail("");
-      setTelefone("");
-      setRa("");
-      setDataNascimento("");
-      setCargo("");
-      setSelectedCourse(null);
+      alert(id ? "Locatário atualizado com sucesso!" : "Cadastro realizado com sucesso!");
+      navigate("/clientes");
     } catch (error) {
       console.error(error);
-      alert("Erro ao cadastrar locatário");
+      alert("Erro ao salvar locatário");
     }
   };
+
+  //   try {
+  //     const response = await fetch("http://localhost:3000/cadastrarLocatario", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(dadosCliente),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Erro ao cadastrar locatário");
+  //     }
+
+  //     alert("Cadastro realizado com sucesso!");
+
+  //     setNome("");
+  //     setEmail("");
+  //     setTelefone("");
+  //     setRa("");
+  //     setDataNascimento("");
+  //     setCargo("");
+  //     setSelectedCourse(null);
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert("Erro ao cadastrar locatário");
+  //   }
+  // };
 
   return (
     <Layout className="loverflow-y-auto overflow-x-hidden">
       <h2 className="text-3xl text-center text-[#485977] mt-5 font-bold">
-        Cadastro Cliente
+          {id ? "Editar Cliente" : "Cadastro Cliente"}
       </h2>
 
       <form

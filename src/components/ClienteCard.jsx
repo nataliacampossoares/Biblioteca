@@ -11,8 +11,8 @@ export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
   //   cargo,
   const navigate = useNavigate();
 
-  const handleButtonClickEdicao = () => {
-    navigate("/cadastrarcliente");
+  const handleEditar = (id) => {
+    navigate(`/editarcliente/${id}`);
   };
 
   const handleButtonClickLixo = async () => {
@@ -25,7 +25,6 @@ export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
 
         alert("Usuário desativado com sucesso!");
 
-        // Redireciona de volta para Clientes
         navigate("/clientes");
       } catch (error) {
         console.error("Erro ao desativar usuário:", error);
@@ -72,7 +71,7 @@ export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
       <div className="h-full w-full flex items-end justify-end">
         <button
           style={{ backgroundColor: "#d9d9d9" }}
-          onClick={handleButtonClickEdicao}
+          onClick={() => handleEditar(id)}
         >
           <IconPencil className="text-[#555555]" />
         </button>
