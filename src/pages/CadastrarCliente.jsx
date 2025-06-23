@@ -43,7 +43,8 @@ export default function CadastrarCliente() {
           if (!resp.ok) throw new Error("Erro ao buscar locatário");
           const data = await resp.json();
           console.log("Dados recebidos do backend:", data);
-
+          console.log("RA")
+          console.log(data.nome)
           setNome(data.nome || "");
           setEmail(data.email || "");
           setTelefone(data.telefone || "");
