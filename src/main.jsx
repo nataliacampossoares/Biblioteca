@@ -12,7 +12,7 @@ import Welcome from "./pages/Welcome.jsx";
 import CadastrarBibliotecario from "./pages/CadastrarBibliotecario.jsx";
 import Default from "./pages/Default.jsx";
 import Emprestimos from "./pages/Emprestimos.jsx";
-import Livros from "./pages/Livros.jsx";
+import Livro from "./pages/Livro.jsx";
 import Clientes from "./pages/Clientes.jsx";
 import CadastrarCliente from "./pages/CadastrarCliente.jsx";
 import Cliente from "./pages/Cliente.jsx";
@@ -35,7 +35,7 @@ const rotas = createBrowserRouter(
       <Route path="default" element={<Default />} />
       <Route path="emprestimos" element={<Emprestimos />} />
       <Route path="clientes" element={<Clientes />} />
-      <Route path="livros/:id" element={<Livros />} />
+      <Route path="livro/:id" element={<Livro />} />
       <Route path="livross/:id" element={<LivrossemMenu />} />
       <Route path="cadastrarcliente" element={<CadastrarCliente />} />
       <Route path="cliente" element={<Cliente />} />
@@ -46,6 +46,7 @@ const rotas = createBrowserRouter(
       <Route path="devolucaolivro" element={<DevolucaoLivro/>} />
       <Route path="/cliente/:id" element={<Cliente />} />
       <Route path="/editarcliente/:id" element={<CadastrarCliente/>} />
+      {/* <Route path="/livros/:id" element={<Livro} */}
     </>
   )
 );

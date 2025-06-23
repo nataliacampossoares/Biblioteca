@@ -57,16 +57,6 @@ export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
           <p className="text-[#5d5959] font-bold text-lg">Empréstimos</p>
           <p className="text-[#5d5959] font-bold text-lg">Situação</p>
         </div>
-        {/* <div className="flex w-full justify-around bg-white rounded-xl h-fit p-2">
-          <p className="text-[#5d5959] font-bold">{emprestimos}</p>
-          <p
-            className={`font-bold ${
-              situacao === "Atrasado" ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {situacao}
-          </p>
-        </div> */}
       </div>
       <div className="h-full w-full flex items-end justify-end">
         <button

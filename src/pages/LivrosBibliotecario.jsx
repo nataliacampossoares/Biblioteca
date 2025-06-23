@@ -55,10 +55,6 @@ export default function LivrosBibliotecario() {
       });
   }, []);
 
-  useEffect(() => {
-    console.log("Agora o estado livros tem:", livros);
-  }, [livros]);
-
   const cadastrarNovaCategoria = async () => {
     if (!nomeNovaCategoria.trim()) return;
 
@@ -91,6 +87,10 @@ export default function LivrosBibliotecario() {
     Ficção: ["Romance", "Fantasia"],
     "Não Ficção": ["Biografia", "História"],
   };
+
+  {
+    livros.map((livro) => console.log(livro));
+  }
 
   return (
     <Layout>
@@ -154,62 +154,36 @@ export default function LivrosBibliotecario() {
                 </option>
               ))}
           </select>
-        </div>
-      </div>
-
-      <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
-          {/* {livros.map((livro, index) => (
-            <div
-              key={livro.id || index}
-              onClick={() => navigate(`/livros/${livro.id}`)}
-              className="cursor-pointer bg-white text-center w-[110px] rounded-lg p-2 shadow-md hover:shadow-lg transition"
-            >
-              <img
-                src={
-                  livro.caminho_imagem ||
-                  "https://placehold.co/110x144?text=Sem+imagem"
-                }
-                alt={livro.titulo}
-                className="w-full h-36 object-cover rounded"
-              />
-              <p className="text-xs font-semibold mt-1 truncate">
-                {livro.titulo}
-              </p>
-              <p className="text-[10px] text-gray-500 truncate">
-                {livro.autor}
-              </p>
-              <p className="text-[10px] text-gray-400 truncate">
-                {livro.categoria} - {livro.subcategoria}
-              </p>
+          <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
+              {livros.map((livro) => (
+                <div
+                  key={livro.id}
+                  onClick={() => navigate(`/livro/${livro.id}`)}
+                  className="cursor-pointer bg-white text-center w-[110px] rounded-lg p-2 shadow-md hover:shadow-lg transition
+             flex flex-col items-start justify-start"
+                >
+                  <img
+                    src={
+                      livro.caminho_imagens
+                        ? `http://localhost:3000${livro.caminho_imagens}`
+                        : "/src/img/bibliotecario.jpeg"
+                    }
+                    alt={livro.titulo}
+                    className="w-full h-36 object-cover rounded"
+                  />
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="text-xs font-semibold mt-1 truncate text-black">
+                      {livro.titulo}
+                    </p>
+                    <p className="text-xs mt-1 truncate text-black">
+                      {livro.nome_autor}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))} */}
-
-{livros.map((livro) => (
-  <div
-    key={livro.id}
-    className="cursor-pointer bg-white text-center w-[110px] rounded-lg p-2 shadow-md hover:shadow-lg transition"
-  >
-    <img
-      src={
-        livro.caminho_imagens
-          ? `http://localhost:3000${livro.caminho_imagens}`
-          : "/src/img/bibliotecario.jpeg"
-      }
-      alt={livro.titulo}
-      className="w-full h-36 object-cover rounded"
-    />
-    <p className="text-xs font-semibold mt-1 truncate text-black">
-      {livro.titulo}
-    </p>
-    <p className="text-[10px] text-gray-500 truncate">
-      Edição: {livro.edicao}
-    </p>
-    <p className="text-[10px] text-gray-400 truncate">
-      Disponível: {livro.qtd_disponivel}
-    </p>
-  </div>
-))}
+          </div>
         </div>
       </div>
 
