@@ -111,7 +111,7 @@ export default function Livro() {
                 {livro.nome_categoria}
               </p>
             </div>
-            <div className="h-full w-full flex items-end justify-end">
+            <div className="h-full w-full flex items-end justify-end gap-2">
               <button
                 style={{ backgroundColor: "#d9d9d9" }}
                 // onClick={() => handleEditar(id)}

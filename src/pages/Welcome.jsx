@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Welcome() {
-  const [autores, setAutores] = useState([]);
   const navigate = useNavigate();
 
   const handleButtonClickBibliotecario = () => {
