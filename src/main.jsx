@@ -21,7 +21,7 @@ import LivrosBibliotecario from "./pages/LivrosBibliotecario.jsx";
 import PaginaClientes from "./pages/PaginaClientes.jsx";
 import CadastrarLivro from "./pages/CadastrarLivro.jsx";
 import DevolucaoLivro from "./pages/DevolucaoLivro.jsx";
-import LivrossemMenu from "./pages/LivrossemMenu.jsx";
+import LivrossemMenu from "./pages/LivroCliente.jsx";
 
 import App from "./App.jsx";
 
@@ -36,7 +36,7 @@ const rotas = createBrowserRouter(
       <Route path="emprestimos" element={<Emprestimos />} />
       <Route path="clientes" element={<Clientes />} />
       <Route path="livro/:id" element={<Livro />} />
-      <Route path="livross/:id" element={<LivrossemMenu />} />
+      <Route path="livroCliente/:id" element={<LivrossemMenu />} />
       <Route path="cadastrarcliente" element={<CadastrarCliente />} />
       <Route path="cliente" element={<Cliente />} />
       <Route path="historico" element={<Historico />} />
