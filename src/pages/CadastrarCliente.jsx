@@ -5,7 +5,7 @@ import Botao from "../components/Botao";
 import { useParams, useNavigate } from "react-router-dom";
 
 export default function CadastrarCliente() {
-  const { id } = useParams();  
+  const { id } = useParams();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState("");
@@ -43,15 +43,15 @@ export default function CadastrarCliente() {
           if (!resp.ok) throw new Error("Erro ao buscar locatário");
           const data = await resp.json();
           console.log("Dados recebidos do backend:", data);
-          console.log("RA")
-          console.log(data.nome)
+          console.log("RA");
+          console.log(data.nome);
           setNome(data.nome || "");
           setEmail(data.email || "");
           setTelefone(data.telefone || "");
           setDataNascimento(data.data_de_nascimento || "");
-          setCargo(data.cargo?.toLowerCase() || ""); 
+          setCargo(data.cargo?.toLowerCase() || "");
           setRa(data.ra || "");
-          setNovoCurso(null); 
+          setNovoCurso(null);
           if (data.id_curso) {
             const cursoEncontrado = cursos.find((c) => c.id === data.id_curso);
             setSelectedCourse(cursoEncontrado || null);
@@ -66,11 +66,9 @@ export default function CadastrarCliente() {
     }
   }, [id, cursos]);
 
-
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const handleRadioChange = (curso) => {
-    
     setSelectedCourse(curso);
     setIsOpen(false);
     setNovoCurso(null);
@@ -91,8 +89,6 @@ export default function CadastrarCliente() {
     };
     console.log("Dados que serão enviados:", dadosCliente);
 
-
-
     try {
       let url = "http://localhost:3000/cadastrarLocatario";
       let method = "POST";
@@ -110,7 +106,11 @@ export default function CadastrarCliente() {
 
       if (!response.ok) throw new Error("Erro ao salvar locatário");
 
-      alert(id ? "Locatário atualizado com sucesso!" : "Cadastro realizado com sucesso!");
+      alert(
+        id
+          ? "Locatário atualizado com sucesso!"
+          : "Cadastro realizado com sucesso!"
+      );
       navigate("/clientes");
     } catch (error) {
       console.error(error);
@@ -147,7 +147,7 @@ export default function CadastrarCliente() {
   return (
     <Layout className="loverflow-y-auto overflow-x-hidden">
       <h2 className="text-3xl text-center text-[#485977] mt-5 font-bold">
-          {id ? "Editar Cliente" : "Cadastro Cliente"}
+        {id ? "Editar Cliente" : "Cadastro Cliente"}
       </h2>
 
       <form
@@ -200,17 +200,13 @@ export default function CadastrarCliente() {
           <NovoCurso
             onNovoCurso={(nome) => {
               const cursoTemporario = { id: -1, nome_curso: nome };
-      
-              setCursos((prev) => [...prev, cursoTemporario]);
-            
-              setSelectedCourse(cursoTemporario);
-            
+
+              setSelectedCourse(cursoTemporario); 
+              setNovoCurso(cursoTemporario); 
               setIsOpen(false);
-            
-              setNovoCurso(cursoTemporario);
             }}
           />
-
+  
           {isOpen && (
             <div className="absolute z-10 mt-1 w-full bg-white rounded shadow-lg max-h-48 overflow-auto">
               {cursos.length === 0 && (
@@ -341,7 +337,7 @@ function NovoCurso({ onNovoCurso }) {
             />
           </label>
           <button
-            type="button"  
+            type="button"
             onClick={handleCadastro}
             className="bg-red-500 text-white rounded px-3 py-1 text-sm hover:bg-red-600"
           >
@@ -352,5 +348,3 @@ function NovoCurso({ onNovoCurso }) {
     </div>
   );
 }
-
-
