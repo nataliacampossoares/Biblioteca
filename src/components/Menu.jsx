@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 
 export default function Menu() {
-
   const usuario = JSON.parse(localStorage.getItem("usuarioLogado"));
 
   const getEstilo = (props) => {
@@ -22,21 +21,23 @@ export default function Menu() {
       <header className="flex flex-col items-center gap-3">
         <img
           className="rounded-full size-32"
-          src={ usuario?.imagem
-            ? `http://localhost:3000/imagensBibliotecario/${usuario.imagem}`
-            : "/src/img/bibliotecario.jpeg"}
+          src={
+            usuario?.imagem
+              ? `http://localhost:3000/imagensBibliotecario/${usuario.imagem}`
+              : "/src/img/bibliotecario.jpeg"
+          }
           alt="Foto do Bibliotecário"
         />
-        <span className="font-bold text-white">{usuario?.nome || "Sem nome"}</span>
+        <span className="font-bold text-white">
+          {usuario?.nome || "Sem nome"}
+        </span>
         <span className="text-white text-lg font-bold">Bibliotecário</span>
       </header>
 
       <nav className="flex flex-col gap-2 w-full mt-10">
         <NavLink
           to="/clientes"
-          className={(props) =>
-            getEstilo(props) + " border-t border-white/30"
-          }
+          className={(props) => getEstilo(props) + " border-t border-white/30"}
         >
           Clientes
         </NavLink>

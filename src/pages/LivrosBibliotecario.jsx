@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import { BarraPesquisa } from "../components/BarraPesquisa";
 import Botao from "../components/Botao";
 import { useNavigate } from "react-router-dom";
+import { IconUserStar } from "@tabler/icons-react";
 
 export default function LivrosBibliotecario() {
   const [categoria, setCategoria] = useState("");
@@ -12,6 +13,7 @@ export default function LivrosBibliotecario() {
   const [mostrarCadastroCategoria, setMostrarCadastroCategoria] =
     useState(false);
   const [nomeNovaCategoria, setNomeNovaCategoria] = useState("");
+  const [livros, setLivros] = useState([]);
 
   const navigate = useNavigate();
 
@@ -34,6 +36,28 @@ export default function LivrosBibliotecario() {
         console.error("Erro ao carregar categorias:", error);
       });
   }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/listarLivros")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao buscar livros");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Livros carregados do backend:", data);
+        setLivros(data);
+        console.log("Estado livros será atualizado para:", data);
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar livros:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log("Agora o estado livros tem:", livros);
+  }, [livros]);
 
   const cadastrarNovaCategoria = async () => {
     if (!nomeNovaCategoria.trim()) return;
@@ -66,32 +90,6 @@ export default function LivrosBibliotecario() {
   const subcategorias = {
     Ficção: ["Romance", "Fantasia"],
     "Não Ficção": ["Biografia", "História"],
-  };
-
-  const livroBase = {
-    titulo: "A Hipótese do Amor",
-    autor: "Ali Hazelwood",
-    categoria: "Ficção",
-    subcategoria: "Romance",
-    capa: "https://m.media-amazon.com/images/I/81LTEfXYgcL._SL1500_.jpg",
-    avaliacao: 4,
-  };
-
-  const livros = Array.from({ length: 12 }, (_, i) => ({
-    ...livroBase,
-    titulo: `Livro ${i + 1}`,
-    id: i,
-  }));
-
-  const livrosFiltrados = livros.filter(
-    (livro) =>
-      livro.titulo.toLowerCase().includes(busca.toLowerCase()) &&
-      (categoria === "" || livro.categoria === categoria) &&
-      (subcategoria === "" || livro.subcategoria === subcategoria)
-  );
-
-  const renderEstrelas = (avaliacao) => {
-    return "⭐".repeat(avaliacao) + "☆".repeat(5 - avaliacao);
   };
 
   return (
@@ -149,26 +147,29 @@ export default function LivrosBibliotecario() {
             className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
           >
             <option value="">Subcategoria</option>
-            {/* {categoria &&
+            {categoria &&
               subcategorias[categoria].map((sub) => (
                 <option key={sub} value={sub}>
                   {sub}
                 </option>
-              ))} */}
+              ))}
           </select>
         </div>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
-          {livrosFiltrados.map((livro, index) => (
+          {/* {livros.map((livro, index) => (
             <div
-              key={index}
+              key={livro.id || index}
               onClick={() => navigate(`/livros/${livro.id}`)}
               className="cursor-pointer bg-white text-center w-[110px] rounded-lg p-2 shadow-md hover:shadow-lg transition"
             >
               <img
-                src={livro.capa}
+                src={
+                  livro.caminho_imagem ||
+                  "https://placehold.co/110x144?text=Sem+imagem"
+                }
                 alt={livro.titulo}
                 className="w-full h-36 object-cover rounded"
               />
@@ -181,11 +182,34 @@ export default function LivrosBibliotecario() {
               <p className="text-[10px] text-gray-400 truncate">
                 {livro.categoria} - {livro.subcategoria}
               </p>
-              <p className="text-yellow-500 text-xs">
-                {renderEstrelas(livro.avaliacao)}
-              </p>
             </div>
-          ))}
+          ))} */}
+
+{livros.map((livro) => (
+  <div
+    key={livro.id}
+    className="cursor-pointer bg-white text-center w-[110px] rounded-lg p-2 shadow-md hover:shadow-lg transition"
+  >
+    <img
+      src={
+        livro.caminho_imagens
+          ? `http://localhost:3000${livro.caminho_imagens}`
+          : "/src/img/bibliotecario.jpeg"
+      }
+      alt={livro.titulo}
+      className="w-full h-36 object-cover rounded"
+    />
+    <p className="text-xs font-semibold mt-1 truncate text-black">
+      {livro.titulo}
+    </p>
+    <p className="text-[10px] text-gray-500 truncate">
+      Edição: {livro.edicao}
+    </p>
+    <p className="text-[10px] text-gray-400 truncate">
+      Disponível: {livro.qtd_disponivel}
+    </p>
+  </div>
+))}
         </div>
       </div>
 
