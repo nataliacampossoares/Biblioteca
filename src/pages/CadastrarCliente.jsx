@@ -98,8 +98,8 @@ export default function CadastrarCliente() {
       let method = "POST";
 
       if (id) {
-        url = `http://localhost:3000/atualizarLocatario/${id}`;
-        method = "PUT";
+        url = `http://localhost:3000/alterarLocatario/${id}`;
+        method = "POST";
       }
 
       const response = await fetch(url, {
