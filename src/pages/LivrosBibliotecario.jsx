@@ -45,7 +45,7 @@ export default function LivrosBibliotecario() {
         }
         return response.json();
       })
-      .then((data) => {
+      .then((data  ) => {
         console.log("Livros carregados do backend:", data);
         setLivros(data);
         console.log("Estado livros será atualizado para:", data);

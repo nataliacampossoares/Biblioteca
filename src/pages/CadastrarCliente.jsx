@@ -117,33 +117,7 @@ export default function CadastrarCliente() {
       alert("Erro ao salvar locatário");
     }
   };
-
-  //   try {
-  //     const response = await fetch("http://localhost:3000/cadastrarLocatario", {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(dadosCliente),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Erro ao cadastrar locatário");
-  //     }
-
-  //     alert("Cadastro realizado com sucesso!");
-
-  //     setNome("");
-  //     setEmail("");
-  //     setTelefone("");
-  //     setRa("");
-  //     setDataNascimento("");
-  //     setCargo("");
-  //     setSelectedCourse(null);
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("Erro ao cadastrar locatário");
-  //   }
-  // };
-
+  
   return (
     <Layout className="loverflow-y-auto overflow-x-hidden">
       <h2 className="text-3xl text-center text-[#485977] mt-5 font-bold">
