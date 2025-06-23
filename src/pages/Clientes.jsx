@@ -20,8 +20,6 @@ export default function Clientes() {
     try {
       const resposta = await fetch("http://localhost:3000/listarLocatarios");
       if (!resposta.ok) {
-        const textoErro = await resposta.text();
-        console.error("Resposta não OK:", textoErro);
         throw new Error("Erro ao buscar locatários");
       }
       const data = await resposta.json();
