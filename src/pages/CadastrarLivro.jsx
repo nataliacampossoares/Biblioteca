@@ -7,30 +7,57 @@ export default function CadastrarLivro() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [autor, setAutor] = useState("");
+  // Dados do livro
   const [editora, setEditora] = useState("");
   const [edicao, setEdicao] = useState("");
   const [sinopse, setSinopse] = useState("");
   const [quantidade, setQuantidade] = useState("");
-  const [categoria, setCategoria] = useState("");
 
+  // Dados de seleção
+  const [autores, setAutores] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [subcategorias, setSubcategorias] = useState([]);
+
+  const [autorSelecionado, setAutorSelecionado] = useState("");
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState("");
+  const [subcategoriaSelecionada, setSubcategoriaSelecionada] = useState("");
+
+  // Carregar autores e categorias ao abrir a página
+  useEffect(() => {
+    fetch("http://localhost:3001/api/autor")
+      .then((resp) => resp.json())
+      .then(setAutores);
+
+    fetch("http://localhost:3001/api/categoria")
+      .then((resp) => resp.json())
+      .then(setCategorias);
+  }, []);
+
+  // Quando escolher uma categoria, carregar subcategorias
+  useEffect(() => {
+    if (categoriaSelecionada) {
+      fetch(`http://localhost:3001/api/subcategoria/${categoriaSelecionada}`)
+        .then((resp) => resp.json())
+        .then(setSubcategorias);
+    } else {
+      setSubcategorias([]);
+    }
+  }, [categoriaSelecionada]);
+
+  // Buscar dados do livro se for edição
   useEffect(() => {
     if (id) {
       async function buscarLivro() {
-        try {
-          const resp = await fetch(`http://localhost:3001/api/livros/${id}`);
-          if (!resp.ok) throw new Error("Erro ao buscar livro");
-          const data = await resp.json();
+        const resp = await fetch(`http://localhost:3001/api/livros/${id}`);
+        const data = await resp.json();
 
-          setAutor(data.autor || "");
-          setEditora(data.editora || "");
-          setEdicao(data.edicao || "");
-          setSinopse(data.sinopse || "");
-          setQuantidade(data.quantidade || "");
-          setCategoria(data.categoria || "");
-        } catch (err) {
-          console.error("Erro ao buscar livro:", err);
-        }
+        setAutorSelecionado(data.id_autor);
+        setCategoriaSelecionada(data.id_categoria);
+        setSubcategoriaSelecionada(data.id_subcategoria);
+        setEditora(data.editora);
+        setEdicao(data.edicao);
+        setSinopse(data.sinopse);
+        setQuantidade(data.quantidade);
       }
       buscarLivro();
     }
@@ -40,12 +67,13 @@ export default function CadastrarLivro() {
     e.preventDefault();
 
     const dadosLivro = {
-      autor,
+      id_autor: autorSelecionado,
+      id_categoria: categoriaSelecionada,
+      id_subcategoria: subcategoriaSelecionada,
       editora,
       edicao,
       sinopse,
       quantidade,
-      categoria,
     };
 
     try {
@@ -85,18 +113,25 @@ export default function CadastrarLivro() {
         onSubmit={handleSubmit}
         className="flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-full gap-3 rounded-xl bg-[#efefef]"
       >
+        {/* Seção Autor */}
         <label className="flex flex-col text-gray-700 font-semibold">
           Autor
-          <input
-            type="text"
-            value={autor}
-            onChange={(e) => setAutor(e.target.value)}
-            className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
-            placeholder="Digite o autor"
+          <select
+            value={autorSelecionado}
+            onChange={(e) => setAutorSelecionado(e.target.value)}
             required
-          />
+            className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
+          >
+            <option value="">Selecione o autor</option>
+            {autores.map((autor) => (
+              <option key={autor._id} value={autor._id}>
+                {autor.nome}
+              </option>
+            ))}
+          </select>
         </label>
 
+        {/* Editora */}
         <label className="flex flex-col text-gray-700 font-semibold">
           Editora
           <input
@@ -109,6 +144,7 @@ export default function CadastrarLivro() {
           />
         </label>
 
+        {/* Edição */}
         <label className="flex flex-col text-gray-700 font-semibold">
           Edição
           <input
@@ -121,6 +157,7 @@ export default function CadastrarLivro() {
           />
         </label>
 
+        {/* Sinopse */}
         <label className="flex flex-col text-gray-700 font-semibold">
           Sinopse
           <textarea
@@ -133,6 +170,7 @@ export default function CadastrarLivro() {
           />
         </label>
 
+        {/* Quantidade */}
         <label className="flex flex-col text-gray-700 font-semibold">
           Quantidade Disponível
           <input
@@ -145,16 +183,47 @@ export default function CadastrarLivro() {
           />
         </label>
 
+        {/* Categoria */}
         <label className="flex flex-col text-gray-700 font-semibold">
           Categoria
-          <input
-            type="text"
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
-            className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
-            placeholder="Digite a categoria"
+          <select
+            value={categoriaSelecionada}
+            onChange={(e) => setCategoriaSelecionada(e.target.value)}
             required
-          />
+            className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
+          >
+            <option value="">Selecione a categoria</option>
+            {categorias.map((cat) => (
+              <option key={cat._id} value={cat._id}>
+                {cat.nome}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        {/* Subcategoria */}
+        <label className="flex flex-col text-gray-700 font-semibold">
+          Subcategoria
+          <select
+            value={subcategoriaSelecionada}
+            onChange={(e) => setSubcategoriaSelecionada(e.target.value)}
+            required
+            disabled={!categoriaSelecionada}
+            className={`mt-1 p-4 border border-gray-300 rounded-md ${
+              !categoriaSelecionada ? "bg-gray-200 cursor-not-allowed" : "bg-gray-300"
+            }`}
+          >
+            <option value="">
+              {categoriaSelecionada
+                ? "Selecione a subcategoria"
+                : "Selecione uma categoria primeiro"}
+            </option>
+            {subcategorias.map((sub) => (
+              <option key={sub._id} value={sub._id}>
+                {sub.nome}
+              </option>
+            ))}
+          </select>
         </label>
 
         <Botao type="submit">{id ? "Atualizar" : "Cadastrar"}</Botao>
@@ -162,3 +231,4 @@ export default function CadastrarLivro() {
     </Layout>
   );
 }
+
