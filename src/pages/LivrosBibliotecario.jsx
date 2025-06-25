@@ -10,9 +10,7 @@ export default function LivrosBibliotecario() {
   const [subcategoria, setSubcategoria] = useState("");
   const [busca, setBusca] = useState("");
   const [categorias, setCategorias] = useState([]);
-  const [mostrarCadastroCategoria, setMostrarCadastroCategoria] =
-    useState(false);
-  const [nomeNovaCategoria, setNomeNovaCategoria] = useState("");
+  const [subcategorias, setSubcategorias] = useState([]);
   const [livros, setLivros] = useState([]);
 
   const navigate = useNavigate();
@@ -38,6 +36,28 @@ export default function LivrosBibliotecario() {
   }, []);
 
   useEffect(() => {
+    if (!categoria) {
+      setSubcategorias([]);
+      return;
+    }
+    console.log("Buscando subcategorias para categoria:", categoria);
+    fetch(`http://localhost:3000/listarSubcategorias/${categoria}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao buscar subcategorias");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Subcategorias recebidas:", data);
+        setSubcategorias(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar subcategorias:", error);
+      });
+  }, [categoria]);
+
+  useEffect(() => {
     fetch("http://localhost:3000/listarLivros")
       .then((response) => {
         if (!response.ok) {
@@ -45,52 +65,13 @@ export default function LivrosBibliotecario() {
         }
         return response.json();
       })
-      .then((data  ) => {
-        console.log("Livros carregados do backend:", data);
+      .then((data) => {
         setLivros(data);
-        console.log("Estado livros será atualizado para:", data);
       })
       .catch((error) => {
         console.error("Erro ao carregar livros:", error);
       });
   }, []);
-
-  const cadastrarNovaCategoria = async () => {
-    if (!nomeNovaCategoria.trim()) return;
-
-    try {
-      const response = await fetch("http://localhost:3000/cadastrarCategoria", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome_categoria: nomeNovaCategoria.trim() }),
-      });
-
-      if (!response.ok) throw new Error("Erro ao cadastrar categoria");
-
-      const idNovaCategoria = await response.json();
-
-      const novaCategoria = {
-        id: idNovaCategoria,
-        nome_categoria: nomeNovaCategoria.trim(),
-      };
-      setCategorias((prev) => [...prev, novaCategoria]);
-      setCategoria(novaCategoria.nome_categoria);
-      setNomeNovaCategoria("");
-      setMostrarCadastroCategoria(false);
-    } catch (error) {
-      console.error("Erro ao cadastrar categoria:", error);
-      alert("Erro ao cadastrar categoria");
-    }
-  };
-
-  const subcategorias = {
-    Ficção: ["Romance", "Fantasia"],
-    "Não Ficção": ["Biografia", "História"],
-  };
-
-  {
-    livros.map((livro) => console.log(livro));
-  }
 
   return (
     <Layout>
@@ -101,58 +82,35 @@ export default function LivrosBibliotecario() {
             <span className="mt-6 italic">Seção</span>
             <select
               value={categoria}
-              onChange={(e) => setCategoria(e.target.value)}
+              onChange={(e) => {
+                setCategoria(e.target.value);
+                console.log("Categoria selecionada:", e.target.value);
+              }}
               className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
             >
               <option value="">Categoria</option>
               {categorias.map((cat) => (
-                <option key={cat.id} value={cat.nome_categoria}>
+                <option key={cat.id_categoria} value={cat.id_categoria}>
                   {cat.nome_categoria}
                 </option>
               ))}
             </select>
-            <button
-              type="button"
-              onClick={() =>
-                setMostrarCadastroCategoria(!mostrarCadastroCategoria)
-              }
-              className="text-red-500 border border-red-500 bg-white px-2 py-1 rounded text-sm hover:bg-red-50 mt-4"
-            >
-              Cadastrar nova categoria
-            </button>
           </div>
-          {mostrarCadastroCategoria && (
-            <div className="mt-2 p-3 border rounded bg-gray-100 shadow flex flex-col gap-2 w-64">
-              <input
-                type="text"
-                placeholder="Digite o nome da categoria"
-                className="p-2 border rounded"
-                value={nomeNovaCategoria}
-                onChange={(e) => setNomeNovaCategoria(e.target.value)}
-              />
-              <button
-                type="button"
-                onClick={cadastrarNovaCategoria}
-                className="bg-red-500 text-white rounded px-3 py-1 text-sm hover:bg-red-600"
-              >
-                Salvar
-              </button>
-            </div>
-          )}
-
           <select
             value={subcategoria}
-            onChange={(e) => setSubcategoria(e.target.value)}
+            onChange={(e) => {
+              setSubcategoria(e.target.value);
+              console.log("Subcategoria selecionada:", e.target.value);
+            }}
             disabled={!categoria}
             className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
           >
             <option value="">Subcategoria</option>
-            {categoria &&
-              subcategorias[categoria].map((sub) => (
-                <option key={sub} value={sub}>
-                  {sub}
-                </option>
-              ))}
+            {subcategorias.map((sub) => (
+              <option key={sub.id} value={sub.id}>
+                {sub.nome_categoria}
+              </option>
+            ))}
           </select>
           <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
