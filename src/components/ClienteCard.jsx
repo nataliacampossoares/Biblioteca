@@ -2,13 +2,13 @@ import { IconPencil, IconSchool, IconTrash } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import Botao from "./Botao";
 
-export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
-  // nome,
-  //   ra,
-  //   curso,
-  //   emprestimos,
-  //   situacao,
-  //   cargo,
+export default function CardCliente({
+  id,
+  nome,
+  curso,
+  cargo,
+  livrosEmprestados = [],
+}) {
   const navigate = useNavigate();
 
   const handleEditar = (id) => {
@@ -33,6 +33,8 @@ export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
     }
   };
 
+  console.log(livrosEmprestados[0]);
+
   const handleButtonClickHistorico = () => {
     navigate("/historico");
   };
@@ -54,8 +56,31 @@ export default function CardCliente({ id, nome, curso, cargo, onDesativar }) {
           Detalhes do Cliente
         </p>
         <div className="flex justify-around align-center w-full">
-          <p className="text-[#5d5959] font-bold text-lg">Empréstimos</p>
+          <p className="text-[#5d5959] font-bold text-lg">Livro</p>
           <p className="text-[#5d5959] font-bold text-lg">Situação</p>
+        </div>
+        <div className="flex flex-col gap-2 w-full mt-2">
+          {livrosEmprestados.length > 0 ? (
+            livrosEmprestados.map((livro, index) => (
+              <div
+                key={index}
+                className="flex justify-between px-4 py-2 bg-white rounded-md shadow-sm"
+              >
+                <p className="text-[#555555] font-medium">{livro}</p>
+                <p
+                  className={`font-bold ${
+                    livro.situacao === "Atrasado"
+                      ? "text-red-600"
+                      : "text-green-600"
+                  }`}
+                >
+                  {livro.situacao}
+                </p>
+              </div>
+            ))
+          ) : (
+            <p className="text-[#a6a6a6]">Nenhum livro emprestado</p>
+          )}
         </div>
       </div>
       <div className="h-full w-full flex items-end justify-end">

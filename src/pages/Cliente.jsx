@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 export default function Cliente() {
   const { id } = useParams(); 
   const [cliente, setCliente] = useState(null);
+  const [livrosEmprestados, setLivrosEmprestados] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,8 +22,25 @@ export default function Cliente() {
         console.error("Erro ao buscar cliente:", err);
       }
     }
-
+    
     buscarCliente();
+  }, [id]);
+
+  useEffect(() => {
+    async function buscarEmprestimosAtuais() {
+      try {
+        const resposta = await fetch(`http://localhost:3000/emprestimosAtuais/${id}`);
+        if (!resposta.ok) throw new Error("Erro ao buscar empréstimos atuais");
+        const data = await resposta.json();
+        setLivrosEmprestados(data.map(item => item.titulo));
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    if (id) {
+      buscarEmprestimosAtuais();
+    }
   }, [id]);
 
   if (!cliente) {
@@ -32,6 +50,8 @@ export default function Cliente() {
   const handleButtonClickHistorico = () => {
     navigate("/historico");
   };
+  
+
 
   return (
     <Layout>
@@ -41,6 +61,7 @@ export default function Cliente() {
           curso={cliente.curso}
           cargo={cliente.cargo}
           id={cliente.id}
+          livrosEmprestados={livrosEmprestados}
         />
       </div>
     </Layout>
