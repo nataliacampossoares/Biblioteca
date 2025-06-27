@@ -40,7 +40,6 @@ export default function LivrosBibliotecario() {
       setSubcategorias([]);
       return;
     }
-    console.log("Buscando subcategorias para categoria:", categoria);
     fetch(`http://localhost:3000/listarSubcategorias/${categoria}`)
       .then((response) => {
         if (!response.ok) {
@@ -49,13 +48,27 @@ export default function LivrosBibliotecario() {
         return response.json();
       })
       .then((data) => {
-        console.log("Subcategorias recebidas:", data);
         setSubcategorias(data);
       })
       .catch((error) => {
         console.error("Erro ao carregar subcategorias:", error);
       });
   }, [categoria]);
+
+  const buscarLivrosPorCategoria = (nomeCategoria) => {
+    fetch(`http://localhost:3000/pesquisarPorCategoria/${nomeCategoria}`)
+      .then((response) => {
+        if (!response.ok)
+          throw new Error("Erro ao buscar livros por categoria");
+        return response.json();
+      })
+      .then((data) => {
+        setLivros(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao filtrar livros:", error);
+      });
+  };
 
   useEffect(() => {
     fetch("http://localhost:3000/listarLivros")
@@ -83,8 +96,22 @@ export default function LivrosBibliotecario() {
             <select
               value={categoria}
               onChange={(e) => {
-                setCategoria(e.target.value);
-                console.log("Categoria selecionada:", e.target.value);
+                const categoriaId = parseInt(e.target.value);
+                setCategoria(categoriaId);
+                setSubcategoria("");
+
+                const categoriaSelecionada = categorias.find(
+                  (cat) => cat.id_categoria === categoriaId
+                );
+
+                if (!categoriaId || !categoriaSelecionada) {
+                  fetch("http://localhost:3000/listarLivros")
+                    .then((res) => res.json())
+                    .then((data) => setLivros(data));
+                } else {
+                  const nomeCategoria = categoriaSelecionada.nome_categoria;
+                  buscarLivrosPorCategoria(nomeCategoria);
+                }
               }}
               className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
             >
