@@ -32,7 +32,7 @@ export default function Cliente() {
         const resposta = await fetch(`http://localhost:3000/emprestimosAtuais/${id}`);
         if (!resposta.ok) throw new Error("Erro ao buscar empréstimos atuais");
         const data = await resposta.json();
-        setLivrosEmprestados(data.map(item => item.titulo));
+        setLivrosEmprestados(data);
       } catch (err) {
         console.error(err);
       }

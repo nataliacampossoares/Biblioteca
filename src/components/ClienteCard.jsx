@@ -64,9 +64,9 @@ export default function CardCliente({
             livrosEmprestados.map((livro, index) => (
               <div
                 key={index}
-                className="flex justify-between px-4 py-2 bg-white rounded-md shadow-sm"
+                className="flex justify-around px-4 py-2 bg-white rounded-md shadow-sm"
               >
-                <p className="text-[#555555] font-medium">{livro}</p>
+                <p className="text-[#555555] font-medium">{livro.titulo}</p>
                 <p
                   className={`font-bold ${
                     livro.situacao === "Atrasado"

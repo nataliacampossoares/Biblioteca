@@ -110,6 +110,12 @@ export default function Livro() {
               <p className="text-sm text-gray-700 italic leading-relaxed">
                 {livro.nome_categoria}
               </p>
+              <p className="text-md text-gray-600 font-semibold mb-1">
+                ISBN
+              </p>
+              <p className="text-sm text-gray-700 italic leading-relaxed">
+                {livro.isbn}
+              </p>
             </div>
             <div className="h-full w-full flex items-end justify-end gap-2">
               <button
