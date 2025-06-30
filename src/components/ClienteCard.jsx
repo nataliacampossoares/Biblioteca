@@ -8,6 +8,7 @@ export default function CardCliente({
   curso,
   cargo,
   livrosEmprestados = [],
+  historicoEmprestimos = [],
 }) {
   const navigate = useNavigate();
 
@@ -33,10 +34,17 @@ export default function CardCliente({
     }
   };
 
-  console.log(livrosEmprestados[0]);
-
   const handleButtonClickHistorico = () => {
-    navigate("/historico");
+    localStorage.setItem(
+      "historicoEmprestimos",
+      JSON.stringify(historicoEmprestimos)
+    );
+    navigate("/historico", {
+      state: {
+        livros: historicoEmprestimos,
+        cliente: { nome },
+      },
+    });
   };
 
   return (

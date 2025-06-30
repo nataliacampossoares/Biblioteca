@@ -1,14 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import CardCliente from "../components/ClienteCard";
-import Menu from "../components/Menu";
 import Layout from "../components/Layout";
-import Botao from "../components/Botao";
 import { useEffect, useState } from "react";
 
 export default function Cliente() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [cliente, setCliente] = useState(null);
   const [livrosEmprestados, setLivrosEmprestados] = useState([]);
+  const [historicoEmprestimos, setHistoricoEmprestimos] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,14 +21,16 @@ export default function Cliente() {
         console.error("Erro ao buscar cliente:", err);
       }
     }
-    
+
     buscarCliente();
   }, [id]);
 
   useEffect(() => {
     async function buscarEmprestimosAtuais() {
       try {
-        const resposta = await fetch(`http://localhost:3000/emprestimosAtuais/${id}`);
+        const resposta = await fetch(
+          `http://localhost:3000/emprestimosAtuais/${id}`
+        );
         if (!resposta.ok) throw new Error("Erro ao buscar empréstimos atuais");
         const data = await resposta.json();
         setLivrosEmprestados(data);
@@ -43,25 +44,45 @@ export default function Cliente() {
     }
   }, [id]);
 
-  if (!cliente) {
-    return <Layout><p className="text-center mt-4">Carregando cliente...</p></Layout>;
-  }
+  useEffect(() => {
+    async function buscarEmprestimosPorUsuario() {
+      try {
+        const resposta = await fetch(
+          `http://localhost:3000/emprestimos/${id}`
+        );
+        if (!resposta.ok)
+          throw new Error("Erro ao buscar empréstimos por usuário");
+        const data = await resposta.json();
+        setHistoricoEmprestimos(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
-  const handleButtonClickHistorico = () => {
-    navigate("/historico");
-  };
-  
+    if (id) {
+      buscarEmprestimosPorUsuario();
+    }
+  }, [id]);
+
+  if (!cliente) {
+    return (
+      <Layout>
+        <p className="text-center mt-4">Carregando cliente...</p>
+      </Layout>
+    );
+  }
 
 
   return (
     <Layout>
-       <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <CardCliente
           nome={cliente.nome}
           curso={cliente.curso}
           cargo={cliente.cargo}
           id={cliente.id}
           livrosEmprestados={livrosEmprestados}
+          historicoEmprestimos={historicoEmprestimos}
         />
       </div>
     </Layout>
