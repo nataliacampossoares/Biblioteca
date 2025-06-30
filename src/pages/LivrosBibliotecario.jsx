@@ -172,9 +172,10 @@ export default function LivrosBibliotecario() {
         </div>
       </div>
 
-      <div className="shrink-0 p-4 flex justify-center bg-white shadow-inner">
+      <div className="shrink-0 p-4 flex justify-center">
         <Botao onClick={handleCadastrarLivro}>Cadastrar novo Livro</Botao>
       </div>
+
     </Layout>
   );
 }
