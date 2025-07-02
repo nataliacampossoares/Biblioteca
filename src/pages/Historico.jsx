@@ -42,6 +42,7 @@ export default function Historico() {
                   dataEmprestimo={livro.dataEmprestimo}
                   dataDevolucao={livro.dataDevolucao}
                   situacao={livro.situacao}
+                  dias={livro.diasAtraso}
                   multa={livro.multa}
                 />
               );
