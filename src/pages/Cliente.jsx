@@ -53,6 +53,7 @@ export default function Cliente() {
         if (!resposta.ok)
           throw new Error("Erro ao buscar empréstimos por usuário");
         const data = await resposta.json();
+        console.log("Dados do histórico AAAAAAAAAA:", data);
         setHistoricoEmprestimos(data);
       } catch (err) {
         console.error(err);

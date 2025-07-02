@@ -35,13 +35,14 @@ export default function CardCliente({
   };
 
   const handleButtonClickHistorico = () => {
+    console.log("aperta o botao", historicoEmprestimos)
     localStorage.setItem(
       "historicoEmprestimos",
       JSON.stringify(historicoEmprestimos)
     );
     navigate("/historico", {
       state: {
-        livros: historicoEmprestimos,
+        historicoEmprestimos: historicoEmprestimos,
         cliente: { nome },
       },
     });
