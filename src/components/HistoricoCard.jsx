@@ -3,6 +3,7 @@ export function HistoricoCard({
   dataEmprestimo,
   dataDevolucao,
   situacao,
+  multa
 }) {
   const formatarData = (isoString) => {
     if (!isoString) return "-";
@@ -54,11 +55,11 @@ export function HistoricoCard({
           <p className="font-bold text-[#323131]">Situação</p>
           <p className="text-[#323131]">{situacao}</p>
         </div>
+        <div className="flex flex-col">
+          <p className="font-bold text-[#323131]">Multa</p>
+          <p className="text-[#323131]">R${multa},00</p>
+        </div>
       </div>
-      {/* <div className="mt-4">
-              <p className="font-bold text-[#323131]">Multa</p>
-              <p className="text-[#323131]">{multa}</p>
-            </div> */}
     </div>
   );
 }
