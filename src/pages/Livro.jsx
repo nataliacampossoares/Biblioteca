@@ -108,11 +108,9 @@ export default function Livro() {
                 Categoria
               </p>
               <p className="text-sm text-gray-700 italic leading-relaxed">
-                {livro.nome_categoria}
+                {livro.categorias?.join(", ")}
               </p>
-              <p className="text-md text-gray-600 font-semibold mb-1">
-                ISBN
-              </p>
+              <p className="text-md text-gray-600 font-semibold mb-1">ISBN</p>
               <p className="text-sm text-gray-700 italic leading-relaxed">
                 {livro.isbn}
               </p>

@@ -6,6 +6,7 @@ import { BarraPesquisa } from "../components/BarraPesquisa";
 export default function LivrosBibliotecario() {
   const [categoria, setCategoria] = useState("");
   const [subcategoria, setSubcategoria] = useState("");
+  const [subcategorias, setSubcategorias] = useState([]);
   const [busca, setBusca] = useState("");
   const [livros, setLivros] = useState([]);
   const [categorias, setCategorias] = useState([]);
@@ -46,10 +47,55 @@ export default function LivrosBibliotecario() {
       });
   }, []);
 
-  const subcategorias = {
-    Ficção: ["Romance", "Fantasia"],
-    "Não Ficção": ["Biografia", "História"],
+  const buscarLivrosPorCategoria = (nomeCategoria) => {
+    fetch(`http://localhost:3000/pesquisarPorCategoria/${nomeCategoria}`)
+      .then((response) => {
+        if (!response.ok)
+          throw new Error("Erro ao buscar livros por categoria");
+        return response.json();
+      })
+      .then((data) => {
+        setLivros(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao filtrar livros:", error);
+      });
   };
+
+  const buscarLivrosPorSubcategoria = (subcategoriaId) => {
+    fetch(`http://localhost:3000/pesquisarPorSubcategoria/${subcategoriaId}`)
+      .then((response) => {
+        if (!response.ok)
+          throw new Error("Erro ao buscar livros por categoria");
+        return response.json();
+      })
+      .then((data) => {
+        setLivros(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao filtrar livros:", error);
+      });
+  };
+
+  useEffect(() => {
+    if (!categoria) {
+      setSubcategorias([]);
+      return;
+    }
+    fetch(`http://localhost:3000/listarSubcategorias/${categoria}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erro ao buscar subcategorias");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setSubcategorias(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao carregar subcategorias:", error);
+      });
+  }, [categoria]);
 
   return (
     <Layout>
@@ -61,14 +107,28 @@ export default function LivrosBibliotecario() {
             <select
               value={categoria}
               onChange={(e) => {
-                setCategoria(e.target.value);
+                const categoriaId = parseInt(e.target.value);
+                setCategoria(categoriaId);
                 setSubcategoria("");
+
+                const categoriaSelecionada = categorias.find(
+                  (cat) => cat.id_categoria === categoriaId
+                );
+
+                if (!categoriaId || !categoriaSelecionada) {
+                  fetch("http://localhost:3000/listarLivros")
+                    .then((res) => res.json())
+                    .then((data) => setLivros(data));
+                } else {
+                  const nomeCategoria = categoriaSelecionada.nome_categoria;
+                  buscarLivrosPorCategoria(nomeCategoria);
+                }
               }}
               className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
             >
               <option value="">Categoria</option>
               {categorias.map((cat) => (
-                <option key={cat.id} value={cat.nome_categoria}>
+                <option key={cat.id_categoria} value={cat.id_categoria}>
                   {cat.nome_categoria}
                 </option>
               ))}
@@ -76,17 +136,19 @@ export default function LivrosBibliotecario() {
 
             <select
               value={subcategoria}
-              onChange={(e) => setSubcategoria(e.target.value)}
+              onChange={(e) => {
+                setSubcategoria(e.target.value);
+                console.log("Subcategoria selecionada:", e.target.value);
+              }}
               disabled={!categoria}
               className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
             >
               <option value="">Subcategoria</option>
-              {categoria &&
-                subcategorias[categoria].map((sub) => (
-                  <option key={sub} value={sub}>
-                    {sub}
-                  </option>
-                ))}
+              {subcategorias.map((sub) => (
+                <option key={sub.id} value={sub.id}>
+                  {sub.nome_categoria}
+                </option>
+              ))}
             </select>
           </div>
         </div>

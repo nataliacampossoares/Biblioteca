@@ -23,6 +23,8 @@ export default function LivrosDetalhes() {
     buscarLivro();
   }, [id]);
 
+  console.log("Livro:", livro.categorias);
+
   return (
     <Layout>
       <div className="h-full w-full flex items-center justify-center px-4 py-10">
@@ -82,18 +84,14 @@ export default function LivrosDetalhes() {
             </div>
 
             <div className="mt-2">
-              <p className="text-md text-gray-600 font-semibold mb-1">
-                Categoria
-              </p>
+              <p>Categorias: </p>
               <p className="text-sm text-gray-700 italic leading-relaxed">
-                {livro.nome_categoria}
+                {livro.categorias?.join(", ")}
               </p>
-            </div>
-           
             </div>
           </div>
         </div>
-      
+      </div>
     </Layout>
   );
 }
