@@ -55,6 +55,23 @@ export default function LivrosBibliotecario() {
       });
   }, [categoria]);
 
+
+  const buscarLivrosPorSubcategoria = (subcategoriaId) => {
+    fetch(`http://localhost:3000/pesquisarPorSubcategoria/${subcategoriaId}`)
+      .then((response) => {
+        if (!response.ok)
+          throw new Error("Erro ao buscar livros por categoria");
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Livros filtrados por subcategoria:", data);
+        setLivros(data);
+      })
+      .catch((error) => {
+        console.error("Erro ao filtrar livros:", error);
+      });
+  };
+
   const buscarLivrosPorCategoria = (nomeCategoria) => {
     fetch(`http://localhost:3000/pesquisarPorCategoria/${nomeCategoria}`)
       .then((response) => {
@@ -126,18 +143,24 @@ export default function LivrosBibliotecario() {
           <select
             value={subcategoria}
             onChange={(e) => {
-              setSubcategoria(e.target.value);
-              console.log("Subcategoria selecionada:", e.target.value);
+              const subId = e.target.value;
+              setSubcategoria(subId);
+              if (subId) {
+                buscarLivrosPorSubcategoria(subId);
+              }
             }}
             disabled={!categoria}
             className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
           >
             <option value="">Subcategoria</option>
-            {subcategorias.map((sub) => (
-              <option key={sub.id} value={sub.id}>
-                {sub.nome_categoria}
-              </option>
-            ))}
+
+            {subcategorias.map((sub) => {
+              return (
+                <option key={sub.id_categoria} value={sub.id_categoria}>
+                  {sub.nome_categoria}
+                </option>
+              );
+            })}
           </select>
           <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
@@ -175,7 +198,6 @@ export default function LivrosBibliotecario() {
       <div className="shrink-0 p-4 flex justify-center">
         <Botao onClick={handleCadastrarLivro}>Cadastrar novo Livro</Botao>
       </div>
-
     </Layout>
   );
 }

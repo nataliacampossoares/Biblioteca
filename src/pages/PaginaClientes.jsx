@@ -70,12 +70,14 @@ export default function LivrosBibliotecario() {
         return response.json();
       })
       .then((data) => {
+        console.log("Livros filtrados por subcategoria:", data);
         setLivros(data);
       })
       .catch((error) => {
         console.error("Erro ao filtrar livros:", error);
       });
   };
+
 
   useEffect(() => {
     if (!categoria) {
@@ -137,18 +139,24 @@ export default function LivrosBibliotecario() {
             <select
               value={subcategoria}
               onChange={(e) => {
-                setSubcategoria(e.target.value);
-                console.log("Subcategoria selecionada:", e.target.value);
+                const subId = e.target.value;
+                setSubcategoria(subId);
+                if (subId) {
+                  buscarLivrosPorSubcategoria(subId);
+                }
               }}
               disabled={!categoria}
               className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
             >
               <option value="">Subcategoria</option>
-              {subcategorias.map((sub) => (
-                <option key={sub.id} value={sub.id}>
-                  {sub.nome_categoria}
-                </option>
-              ))}
+
+              {subcategorias.map((sub) => {
+                return (
+                  <option key={sub.id_categoria} value={sub.id_categoria}>
+                    {sub.nome_categoria}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
