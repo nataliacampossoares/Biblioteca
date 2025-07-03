@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/LayoutsemMenu";
 import { BarraPesquisa } from "../components/BarraPesquisa";
-import Botao from "../components/Botao";
 
 export default function LivrosBibliotecario() {
   const [categoria, setCategoria] = useState("");
