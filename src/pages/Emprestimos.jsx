@@ -3,7 +3,6 @@ import Botao from "../components/Botao";
 import Layout from "../components/Layout";
 
 export default function Emprestimos() {
-
   const [isbn, setIsbn] = useState("");
   const [ra, setRa] = useState("");
   const [email, setEmail] = useState("");
@@ -13,14 +12,16 @@ export default function Emprestimos() {
     const res = await fetch(`http://localhost:3000/buscarLivroPorISBN/${isbn}`);
     if (!res.ok) throw new Error("Livro não encontrado");
     const livro = await res.json();
-    return livro.id; 
+    return livro.id;
   };
 
   const buscarLocatario = async (identificador) => {
-    const res = await fetch(`http://localhost:3000/buscarLocatario/${identificador}`);
+    const res = await fetch(
+      `http://localhost:3000/buscarLocatario/${identificador}`
+    );
     if (!res.ok) throw new Error("Locatário não encontrado");
     const locatario = await res.json();
-    return locatario.id; 
+    return locatario.id;
   };
 
   const registrarEmprestimo = async () => {
@@ -39,8 +40,11 @@ export default function Emprestimos() {
       });
 
       if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(errorText || "Erro ao registrar empréstimo");
+        const errorData = await res.json();
+        if (errorData.erro === "Empréstimo bloqueado" && errorData.motivo) {
+          throw new Error(`${errorData.erro}: ${errorData.motivo}`);
+        }
+        throw new Error(errorData.erro || "Erro ao registrar empréstimo");
       }
 
       setMensagem("✅ Empréstimo registrado com sucesso!");
@@ -52,25 +56,27 @@ export default function Emprestimos() {
     }
   };
 
-
   return (
     <Layout className="flex justify-center">
       <div className="bg-[#efefef] flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-fit gap-3 rounded-xl">
         <div className="flex w-full justify-center">
           <h2 className="font-bold text-[#485977] text-2xl">Empréstimo</h2>
         </div>
-        <form className="flex flex-col gap-5 pr-10 pl-10" onSubmit={(e) => {
+        <form
+          className="flex flex-col gap-5 pr-10 pl-10"
+          onSubmit={(e) => {
             e.preventDefault();
             registrarEmprestimo();
-          }}>
+          }}
+        >
           <label className="flex flex-col text-gray-700 font-semibold">
             ISBN
             <input
               type="text"
               className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
               placeholder="Digite o nome ISBN do livro"
-              value={isbn}  
-              onChange={(e) => setIsbn(e.target.value)}   
+              value={isbn}
+              onChange={(e) => setIsbn(e.target.value)}
             />
           </label>
           <label className="flex flex-col text-gray-700 font-semibold">
@@ -79,8 +85,8 @@ export default function Emprestimos() {
               type="text"
               className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
               placeholder="Digite o RA"
-              value={ra}   
-              onChange={(e) => setRa(e.target.value)}  
+              value={ra}
+              onChange={(e) => setRa(e.target.value)}
             />
           </label>
           <label className="flex flex-col text-gray-700 font-semibold">
@@ -89,16 +95,14 @@ export default function Emprestimos() {
               type="email"
               className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
               placeholder="Digite o e-mail"
-              value={email}   
-              onChange={(e) => setEmail(e.target.value)}  
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </label>
-        <Botao>Registrar</Botao>
+          <Botao>Registrar</Botao>
         </form>
         {mensagem && (
-          <div className="mt-4 text-center text-gray-700">
-            {mensagem}
-          </div>
+          <div className="mt-4 text-center text-gray-700">{mensagem}</div>
         )}
       </div>
     </Layout>

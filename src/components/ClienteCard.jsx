@@ -7,6 +7,9 @@ export default function CardCliente({
   nome,
   curso,
   cargo,
+  ra,
+  email,
+  telefone,
   livrosEmprestados = [],
   historicoEmprestimos = [],
 }) {
@@ -35,7 +38,7 @@ export default function CardCliente({
   };
 
   const handleButtonClickHistorico = () => {
-    console.log("aperta o botao", historicoEmprestimos)
+    console.log("aperta o botao", historicoEmprestimos);
     localStorage.setItem(
       "historicoEmprestimos",
       JSON.stringify(historicoEmprestimos)
@@ -55,9 +58,21 @@ export default function CardCliente({
         <p className="text-[#555555]">{cargo}</p>
       </div>
       <div className="flex flex-col justify-center items-center flex-wrap gap-1">
-        <p className="text-[#737373] font-extrabold text-3xl">{nome}</p>
+        {curso && (
+          <>
+            <div className="flex flex-col justify-center items-center">
+              <p className="text-[#555555]">Curso: {curso}</p>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <p className="text-[#555555]">RA: {ra}</p>
+            </div>
+          </>
+        )}
         <div className="flex flex-col justify-center items-center">
-          <p className="text-[#555555]">Curso: {curso}</p>
+          <p className="text-[#555555]">Telefone: {telefone}</p>
+        </div>
+        <div className="flex flex-col justify-center items-center">
+          <p className="text-[#555555]">Email: {email}</p>
         </div>
       </div>
       <div className="flex flex-col mt-3 justify-center items-center gap-1 w-full border-t-4 border-[#b3b3b3]">

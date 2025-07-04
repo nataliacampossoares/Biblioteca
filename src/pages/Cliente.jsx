@@ -73,6 +73,7 @@ export default function Cliente() {
     );
   }
 
+  console.log('CLIENTEEEEE', cliente)
 
   return (
     <Layout>
@@ -82,6 +83,10 @@ export default function Cliente() {
           curso={cliente.curso}
           cargo={cliente.cargo}
           id={cliente.id}
+          telefone={cliente.telefone}
+          email={cliente.email}
+          dataNascimento={cliente.dataNascimento}
+          ra={cliente.ra}
           livrosEmprestados={livrosEmprestados}
           historicoEmprestimos={historicoEmprestimos}
         />
