@@ -233,6 +233,7 @@ export default function CadastrarBibliotecario() {
                 placeholder="Confirme a senha"
                 value={confirmarSenha}
                 onChange={(e) => setConfirmarSenha(e.target.value)}
+                
                 required
               />
             </div>

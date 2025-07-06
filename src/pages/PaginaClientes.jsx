@@ -7,7 +7,6 @@ export default function LivrosBibliotecario() {
   const [categoria, setCategoria] = useState("");
   const [subcategoria, setSubcategoria] = useState("");
   const [subcategorias, setSubcategorias] = useState([]);
-  const [busca, setBusca] = useState("");
   const [livros, setLivros] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [filtro, setFiltro] = useState("");
@@ -109,7 +108,7 @@ export default function LivrosBibliotecario() {
         <div className="shrink-0">
           <BarraPesquisa filtro={filtro} setFiltro={setFiltro} />
           <div className="flex gap-2">
-            <div className="flex gap-4 text-sm text-gray-500 mt-2">
+            <div className="flex flex-col md:flex-row gap-4 text-sm text-gray-500 mt-2">
               <select
                 value={categoria}
                 onChange={(e) => {
@@ -167,13 +166,12 @@ export default function LivrosBibliotecario() {
         </div>
 
         <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {livrosFiltrados.map((livro) => (
               <div
                 key={livro.id}
                 onClick={() => navigate(`/livroCliente/${livro.id}`)}
-                className="cursor-pointer bg-white text-center w-[110px] rounded-lg p-2 shadow-md hover:shadow-lg transition
-             flex flex-col items-start justify-start"
+                className="cursor-pointer bg-white text-center rounded-lg p-2 shadow-md hover:shadow-lg transition flex flex-col items-start justify-start w-full max-w-[140px] mx-auto"
               >
                 <img
                   src={
