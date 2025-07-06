@@ -18,6 +18,7 @@ export default function CadastrarCliente() {
   const [dataNascimento, setDataNascimento] = useState("");
   const [cargo, setCargo] = useState("");
   const [ra, setRa] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3000/listarCursos")
@@ -76,6 +77,42 @@ export default function CadastrarCliente() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setMensagem("");
+
+    if (!nome.trim()) {
+      setMensagem("Por favor, preencha o nome completo.");
+      return;
+    }
+
+    if (!ra.trim()) {
+      setMensagem("Por favor, informe o Registro Acadêmico.");
+      return;
+    }
+
+    if (!email.trim()) {
+      setMensagem("Por favor, informe um email.");
+      return;
+    }
+
+    if (!dataNascimento) {
+      setMensagem("Por favor, selecione a data de nascimento.");
+      return;
+    }
+
+    if (!telefone.trim()) {
+      setMensagem("Por favor, informe um telefone.");
+      return;
+    }
+
+    if (!selectedCourse && !novoCurso) {
+      setMensagem("Por favor, selecione ou cadastre um curso.");
+      return;
+    }
+
+    if (!cargo) {
+      setMensagem("Por favor, selecione o cargo (Professor ou Aluno).");
+      return;
+    }
 
     const dadosCliente = {
       nome: nome,
@@ -146,6 +183,7 @@ export default function CadastrarCliente() {
             name="ra"
             value={ra}
             type="text"
+            maxLength={8}   
             onChange={(e) => setRa(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
             placeholder="Digite o RA"
@@ -227,7 +265,7 @@ export default function CadastrarCliente() {
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
-            placeholder="Digite o telefone"
+            placeholder="(00) 00000-0000"
           />
         </label>
 
@@ -235,7 +273,7 @@ export default function CadastrarCliente() {
           Data de nascimento
           <input
             name="dataNascimento"
-            type="text"
+            type="date"
             value={dataNascimento}
             onChange={(e) => setDataNascimento(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
@@ -265,7 +303,9 @@ export default function CadastrarCliente() {
             <p className="text-gray-700 font-semibold">Aluno</p>
           </div>
         </div>
-
+        {mensagem && (
+          <p className="text-center mt-2 text-sm text-red-600">{mensagem}</p>
+        )}
         <Botao type="submit">Cadastrar</Botao>
       </form>
     </Layout>

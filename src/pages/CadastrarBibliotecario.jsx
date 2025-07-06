@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import Logo from '../components/Logo';
-import Usuario from '../img/usuario.png'; 
-import Botao from '../components/Botao';
-import { useNavigate } from 'react-router-dom'; 
+import { useState } from "react";
+import Logo from "../components/Logo";
+import Usuario from "../img/usuario.png";
+import Botao from "../components/Botao";
+import { useNavigate } from "react-router-dom";
 
 export default function CadastrarBibliotecario() {
   const navigate = useNavigate();
   const [imagemPreview, setImagemPreview] = useState(null);
-  const [nome, setNome] = useState('');
-  const [registro, setRegistro] = useState('');
-  const [email, setEmail] = useState('');
-  const [dataNascimento, setDataNascimento] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [senha, setSenha] = useState('');
-  const [confirmarSenha, setConfirmarSenha] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [nome, setNome] = useState("");
+  const [registro, setRegistro] = useState("");
+  const [email, setEmail] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
 
   const handleImagemChange = (e) => {
     const file = e.target.files[0];
@@ -26,12 +26,42 @@ export default function CadastrarBibliotecario() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
+    if (!nome.trim()) {
+      setMensagem("Por favor, preencha o nome completo.");
+      return;
+    }
+
+    if (!registro.trim()) {
+      setMensagem("Por favor, informe o número de registro.");
+      return;
+    }
+
+    if (!email.trim() || !email.includes("@") || !email.includes(".")) {
+      setMensagem("Por favor, informe um email válido.");
+      return;
+    }
+
+    if (!dataNascimento) {
+      setMensagem("Por favor, selecione a data de nascimento.");
+      return;
+    }
+
+    if (!telefone.trim() || telefone.replace(/\D/g, "").length < 10) {
+      setMensagem("Por favor, informe um telefone válido.");
+      return;
+    }
+
+    if (!senha || senha.length < 6) {
+      setMensagem("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+
     if (senha !== confirmarSenha) {
       setMensagem("As senhas não são iguais.");
       return;
     }
-  
+
     try {
       const formData = new FormData();
       formData.append("nome", nome);
@@ -41,44 +71,43 @@ export default function CadastrarBibliotecario() {
       formData.append("senha", senha);
       formData.append("registro", registro);
       formData.append("tipo", "bibliotecario");
-  
+
       const fileInput = document.getElementById("imagem");
       if (fileInput && fileInput.files[0]) {
         formData.append("imagem", fileInput.files[0]);
       }
-  
+
       const resposta = await fetch("http://localhost:3000/cadastrarLocatario", {
         method: "POST",
         body: formData,
       });
-  
+
       if (!resposta.ok) {
         throw new Error("Erro ao cadastrar.");
       }
 
       if (resposta.ok) {
         setMensagem("Cadastrado com sucesso!");
-        
-        navigate('/login');  
+
+        navigate("/login");
       } else {
         throw new Error("Erro ao cadastrar.");
       }
-  
+
       setMensagem("Cadastrado com sucesso!");
-  
-      setNome('');
-      setEmail('');
-      setDataNascimento('');
-      setTelefone('');
-      setSenha('');
-      setConfirmarSenha('');
+
+      setNome("");
+      setEmail("");
+      setDataNascimento("");
+      setTelefone("");
+      setSenha("");
+      setConfirmarSenha("");
       setImagemPreview(null);
-      
     } catch (error) {
       console.error(error);
       setMensagem("Erro ao cadastrar.");
-  }
-}
+    }
+  };
 
   return (
     <div className="w-screen min-h-screen bg-bodyblue m-0 p-0 relative">
@@ -88,7 +117,7 @@ export default function CadastrarBibliotecario() {
       </header>
 
       <div className="flex flex-col items-center justify-center">
-        <form 
+        <form
           className="fixed mb-80 bg-white p-6 rounded-lg shadow-md w-[600px] flex flex-row gap-6 justify-between items-start"
           onSubmit={handleSubmit}
         >
@@ -209,12 +238,12 @@ export default function CadastrarBibliotecario() {
             </div>
 
             <div className="flex justify-center mt-4">
-              <Botao type="submit">
-                Cadastrar
-              </Botao>
+              <Botao type="submit">Cadastrar</Botao>
             </div>
             {mensagem && (
-              <p className="text-center mt-2 text-sm text-red-600">{mensagem}</p>
+              <p className="text-center mt-2 text-sm text-red-600">
+                {mensagem}
+              </p>
             )}
           </div>
         </form>
