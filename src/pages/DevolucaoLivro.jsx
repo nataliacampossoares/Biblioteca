@@ -55,10 +55,10 @@ export default function DevolucaoLivro() {
 
   return (
     <Layout className="flex justify-center">
-      <div className="bg-[#efefef] h-100 flex flex-col justify-center mt-20 mb-6 mr-2 p-6 w-fit gap-3 rounded-xl">
+       <div className="bg-[#efefef] flex flex-col justify-center mt-6 mb-6 mr-2 p-6 w-fit gap-3 rounded-xl">
         <div className="flex w-full justify-center">
-          <h2 className="font-bold text-[#485977] text-2xl">Devolver Livro</h2>
-        </div>
+          <h2 className="font-bold text-[#485977] text-2xl">Devolução</h2>
+        </div>  
         <form
           className="flex flex-col gap-5 pr-10 pl-10"
           onSubmit={(e) => {

@@ -70,7 +70,7 @@ export default function Livro() {
               <div className="flex flex-col">
                 <p className="text-sm text-gray-600 mb-1">
                   Autor(es):{" "}
-                  <span className="text-gray-800">{livro.nome_autor}</span>
+                  <span className="text-gray-800">{livro.autores}</span>
                 </p>
               </div>
 

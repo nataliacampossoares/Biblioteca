@@ -23,7 +23,7 @@ export default function LivrosDetalhes() {
     buscarLivro();
   }, [id]);
 
-  console.log("Livro:", livro.categorias);
+  console.log("Livro:", livro);
 
   return (
     <Layout>
@@ -49,8 +49,8 @@ export default function LivrosDetalhes() {
             <div className="flex justify-between mb-4">
               <div className="flex flex-col">
                 <p className="text-sm text-gray-600 mb-1">
-                  Autor(es):{" "}
-                  <span className="text-gray-800">{livro.nome_autor}</span>
+                  Autor(es): {console.log("autores", livro.nome_autor)}
+                  <span className="text-gray-800">{livro.autores}</span>
                 </p>
               </div>
 
@@ -84,7 +84,7 @@ export default function LivrosDetalhes() {
             </div>
 
             <div className="mt-2">
-              <p>Categorias: </p>
+              <p className="text-md text-gray-600 font-semibold mb-1">Categorias: </p>
               <p className="text-sm text-gray-700 italic leading-relaxed">
                 {livro.categorias?.join(", ")}
               </p>

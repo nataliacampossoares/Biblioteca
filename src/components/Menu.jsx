@@ -5,7 +5,7 @@ export default function Menu() {
 
   const getEstilo = (props) => {
     const base = `
-      flex items-center justify-center gap-4 px-3 py-3 w-full h-24 text-md font-bold
+      flex items-center justify-center gap-4 px-3 py-3 w-full h-18 text-md font-bold
       text-white border-b border-white/30
       transition-all duration-300
       hover:bg-zinc-900

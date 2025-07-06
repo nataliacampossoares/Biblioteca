@@ -78,7 +78,6 @@ export default function LivrosBibliotecario() {
       });
   };
 
-
   useEffect(() => {
     if (!categoria) {
       setSubcategorias([]);
@@ -104,60 +103,61 @@ export default function LivrosBibliotecario() {
       <div className="flex flex-col h-full w-full">
         <div className="shrink-0">
           <BarraPesquisa filtro={busca} setFiltro={setBusca} />
-          <div className="flex gap-4 text-sm text-gray-500 mt-2">
-            <span className="mt-6 italic">Seção</span>
-            <select
-              value={categoria}
-              onChange={(e) => {
-                const categoriaId = parseInt(e.target.value);
-                setCategoria(categoriaId);
-                setSubcategoria("");
+          <div className="flex gap-2">
+            <div className="flex gap-4 text-sm text-gray-500 mt-2">
+              <select
+                value={categoria}
+                onChange={(e) => {
+                  const categoriaId = parseInt(e.target.value);
+                  setCategoria(categoriaId);
+                  setSubcategoria("");
 
-                const categoriaSelecionada = categorias.find(
-                  (cat) => cat.id_categoria === categoriaId
-                );
+                  const categoriaSelecionada = categorias.find(
+                    (cat) => cat.id_categoria === categoriaId
+                  );
 
-                if (!categoriaId || !categoriaSelecionada) {
-                  fetch("http://localhost:3000/listarLivros")
-                    .then((res) => res.json())
-                    .then((data) => setLivros(data));
-                } else {
-                  const nomeCategoria = categoriaSelecionada.nome_categoria;
-                  buscarLivrosPorCategoria(nomeCategoria);
-                }
-              }}
-              className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
-            >
-              <option value="">Categoria</option>
-              {categorias.map((cat) => (
-                <option key={cat.id_categoria} value={cat.id_categoria}>
-                  {cat.nome_categoria}
-                </option>
-              ))}
-            </select>
-
-            <select
-              value={subcategoria}
-              onChange={(e) => {
-                const subId = e.target.value;
-                setSubcategoria(subId);
-                if (subId) {
-                  buscarLivrosPorSubcategoria(subId);
-                }
-              }}
-              disabled={!categoria}
-              className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
-            >
-              <option value="">Subcategoria</option>
-
-              {subcategorias.map((sub) => {
-                return (
-                  <option key={sub.id_categoria} value={sub.id_categoria}>
-                    {sub.nome_categoria}
+                  if (!categoriaId || !categoriaSelecionada) {
+                    fetch("http://localhost:3000/listarLivros")
+                      .then((res) => res.json())
+                      .then((data) => setLivros(data));
+                  } else {
+                    const nomeCategoria = categoriaSelecionada.nome_categoria;
+                    buscarLivrosPorCategoria(nomeCategoria);
+                  }
+                }}
+                className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
+              >
+                <option value="">Categoria</option>
+                {categorias.map((cat) => (
+                  <option key={cat.id_categoria} value={cat.id_categoria}>
+                    {cat.nome_categoria}
                   </option>
-                );
-              })}
-            </select>
+                ))}
+              </select>
+
+              <select
+                value={subcategoria}
+                onChange={(e) => {
+                  const subId = e.target.value;
+                  setSubcategoria(subId);
+                  if (subId) {
+                    buscarLivrosPorSubcategoria(subId);
+                  }
+                }}
+                disabled={!categoria}
+                className="bg-[#f1f1f1] rounded-2xl p-2 italic text-gray-700 mt-4"
+              >
+                <option value="">Subcategoria</option>
+
+                {subcategorias.map((sub) => {
+                  return (
+                    <option key={sub.id_categoria} value={sub.id_categoria}>
+                      {sub.nome_categoria}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
           </div>
         </div>
 
