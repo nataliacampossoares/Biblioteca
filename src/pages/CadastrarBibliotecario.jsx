@@ -151,7 +151,7 @@ export default function CadastrarBibliotecario() {
               <input
                 type="text"
                 id="nome"
-                className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                className="text-black w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite o nome completo"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
@@ -166,7 +166,7 @@ export default function CadastrarBibliotecario() {
               <input
                 type="email"
                 id="email"
-                className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                className="text-black w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite o email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -182,7 +182,7 @@ export default function CadastrarBibliotecario() {
                 <input
                   type="date"
                   id="data"
-                  className="w-full p-2 border bg-gray-300 rounded focus:outline-none"
+                  className="text-black w-full p-2 border bg-gray-300 rounded focus:outline-none"
                   value={dataNascimento}
                   onChange={(e) => setDataNascimento(e.target.value)}
                   required
@@ -195,7 +195,7 @@ export default function CadastrarBibliotecario() {
                 <input
                   type="tel"
                   id="telefone"
-                  className="w-full p-2 border bg-gray-300 rounded focus:outline-none"
+                  className="text-black w-full p-2 border bg-gray-300 rounded focus:outline-none"
                   placeholder="(00) 00000-0000"
                   value={telefone}
                   onChange={(e) => setTelefone(e.target.value)}
@@ -211,7 +211,7 @@ export default function CadastrarBibliotecario() {
               <input
                 type="password"
                 id="senha"
-                className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                className="text-black w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite a senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
@@ -229,7 +229,7 @@ export default function CadastrarBibliotecario() {
               <input
                 type="password"
                 id="confirmarSenha"
-                className="w-full p-3 border bg-gray-300 rounded focus:outline-none"
+                className="text-black w-full p-3 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Confirme a senha"
                 value={confirmarSenha}
                 onChange={(e) => setConfirmarSenha(e.target.value)}

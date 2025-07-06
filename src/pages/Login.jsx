@@ -64,7 +64,7 @@ export default function LoginBibliotecário() {
               <input
                 type="email"
                 id="email"
-                className="w-full p-5 border bg-gray-300 rounded focus:outline-none"
+                className="text-black w-full p-5 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite seu email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -79,7 +79,7 @@ export default function LoginBibliotecário() {
               <input
                 type="password"
                 id="senha"
-                className="w-full p-5 border bg-gray-300 rounded focus:outline-none"
+                className="text-black w-full p-5 border bg-gray-300 rounded focus:outline-none"
                 placeholder="Digite sua senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
