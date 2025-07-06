@@ -110,8 +110,8 @@ export default function LivrosBibliotecario() {
       <div className="flex flex-col h-full w-full">
         <div className="shrink-0">
           <BarraPesquisa filtro={filtro} setFiltro={setFiltro} />
-          <div className="flex gap-2">
-            <div className="flex gap-4 text-sm text-gray-500 mt-2">
+          <div className="flex gap-4 text-sm text-gray-500 mt-2">
+            <div className="flex">
               <select
                 value={categoria}
                 onChange={(e) => {
