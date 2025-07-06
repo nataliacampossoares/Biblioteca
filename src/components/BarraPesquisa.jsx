@@ -1,6 +1,6 @@
 import { IconSearch } from "@tabler/icons-react";
 
-export function BarraPesquisa({ className = "" }) {
+export function BarraPesquisa({ filtro, setFiltro }) {
 
   return (
     <div className="relative">
@@ -8,7 +8,8 @@ export function BarraPesquisa({ className = "" }) {
       <input
         type="text"
         placeholder="Pesquisar..."
-        className={`w-220 pl-10 pr-3 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#849bff] ${className}`}
+        onChange={(e) => setFiltro(e.target.value)}
+        className="w-220 text-black pl-10 pr-3 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#849bff]"
       />
     </div>
   );

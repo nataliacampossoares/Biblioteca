@@ -23,15 +23,11 @@ export default function Historico() {
 
   return (
     <Layout className="flex justify-center">
-      <div className="bg-[#d9d9d9] flex flex-col items-center p-5 w-fit h-full rounded-xl gap-6 overflow-auto">
+      <div className="bg-[#d9d9d9] flex flex-col items-center p-5 w-110 h-full overflow-x-hidden rounded-xl gap-6 overflow-auto">
         <div className="flex flex-col gap-2 justify-center items-center">
           <p className="font-extrabold text-[#737373] text-3xl">Histórico</p>
-          <p className="font-extrabold text-[#737373] text-xl">
-            {/* {cliente} */}
-          </p>
-          <BarraPesquisa className="bg-[#e9e5e5] w-fit" />
         </div>
-        <div className="flex flex-col gap-6 w-full max-w-md">
+        <div className="flex flex-col gap-6">
           {historicoEmprestimos.length > 0 ? (
             historicoEmprestimos.map((livro, index) => {
               console.log(livro);

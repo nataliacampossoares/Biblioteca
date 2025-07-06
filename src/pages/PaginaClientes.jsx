@@ -10,6 +10,7 @@ export default function LivrosBibliotecario() {
   const [busca, setBusca] = useState("");
   const [livros, setLivros] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [filtro, setFiltro] = useState("");
 
   const navigate = useNavigate();
 
@@ -98,11 +99,15 @@ export default function LivrosBibliotecario() {
       });
   }, [categoria]);
 
+  const livrosFiltrados = livros.filter((livro) =>
+    livro.titulo.toLowerCase().includes(filtro.toLowerCase())
+  );
+
   return (
     <Layout>
       <div className="flex flex-col h-full w-full">
         <div className="shrink-0">
-          <BarraPesquisa filtro={busca} setFiltro={setBusca} />
+          <BarraPesquisa filtro={filtro} setFiltro={setFiltro} />
           <div className="flex gap-2">
             <div className="flex gap-4 text-sm text-gray-500 mt-2">
               <select
@@ -163,7 +168,7 @@ export default function LivrosBibliotecario() {
 
         <div className="flex-1 overflow-y-auto px-4 mt-4 pr-4">
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 pb-10">
-            {livros.map((livro) => (
+            {livrosFiltrados.map((livro) => (
               <div
                 key={livro.id}
                 onClick={() => navigate(`/livroCliente/${livro.id}`)}
