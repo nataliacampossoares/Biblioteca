@@ -1,12 +1,49 @@
-# React + Vite
+# 📚 Sistema de Biblioteca – Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é o frontend do sistema de biblioteca, desenvolvido em **React** + **Vite** e estilizado com **Tailwind CSS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ⚙️ Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Router DOM](https://reactrouter.com/)
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🎯 Funcionalidades
+
+- Cadastro de **locatários**
+- Cadastro de **livros**
+- Login de **bibliotecários**
+- Visualização e rolagem da lista de livros
+- Visualização de informações detalhadas de um livro e locatário
+- Histórico de **empréstimos** e **devoluções** de cada locatário
+
+---
+
+## 🔗 Integração com Backend
+
+Este projeto se comunica com a API backend (Biblioteca-BackEnd) por meio da seguinte URL: http://localhost:3000
+⚠️ Certifique-se de que o backend esteja rodando antes de utilizar o frontend.
+
+---
+
+## ▶️ Como Executar
+
+1. Clone o repositório:
+git clone https://github.com/nataliacampossoares/Biblioteca.git
+cd Biblioteca
+
+2. Clone o repositório:
+npm install
+
+3. Inicie o projeto:
+npm run dev
+
+4. Acesse o projeto em:
+http://localhost:5173
+
+
