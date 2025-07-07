@@ -38,16 +38,21 @@ O backend deste projeto está disponível em:
 ## ▶️ Como Executar
 
 1. Clone o repositório:
+
 git clone https://github.com/nataliacampossoares/Biblioteca.git
+
 cd Biblioteca
 
 2. Clone o repositório:
+
 npm install
 
 3. Inicie o projeto:
+   
 npm run dev
 
 4. Acesse o projeto em:
+   
 http://localhost:5173
 
 
