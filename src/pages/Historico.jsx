@@ -5,21 +5,21 @@ import Layout from "../components/Layout";
 import { useLocation } from "react-router-dom";
 
 export default function Historico() {
-    const location = useLocation();
-    const [historicoEmprestimos, setHistoricoEmprestimos] = useState([]);
-  
-    useEffect(() => {
-      if (location.state?.historicoEmprestimos) {
-        setHistoricoEmprestimos(location.state.historicoEmprestimos);
-      } else {
-        const dados = localStorage.getItem("historicoEmprestimos");
-        if (dados) {
-          setHistoricoEmprestimos(JSON.parse(dados));
-        }
-      }
-    }, [location.state]);
+  const location = useLocation();
+  const [historicoEmprestimos, setHistoricoEmprestimos] = useState([]);
 
-    console.log("AQUI NO HIRTORICO", historicoEmprestimos);
+  useEffect(() => {
+    if (location.state?.historicoEmprestimos) {
+      setHistoricoEmprestimos(location.state.historicoEmprestimos);
+    } else {
+      const dados = localStorage.getItem("historicoEmprestimos");
+      if (dados) {
+        setHistoricoEmprestimos(JSON.parse(dados));
+      }
+    }
+  }, [location.state]);
+
+  console.log("AQUI NO HIRTORICO", historicoEmprestimos);
 
   return (
     <Layout className="flex justify-center">
@@ -30,7 +30,7 @@ export default function Historico() {
         <div className="flex flex-col gap-6">
           {historicoEmprestimos.length > 0 ? (
             historicoEmprestimos.map((livro, index) => {
-              console.log(livro);
+              console.log("LIVROOOOOSOSOSO", livro);
               return (
                 <HistoricoCard
                   key={index}
@@ -40,6 +40,8 @@ export default function Historico() {
                   situacao={livro.situacao}
                   dias={livro.diasAtraso}
                   multa={livro.multa}
+                  idLocatario={livro.id_locatario}
+                  idLivro={livro.id_livro}
                 />
               );
             })
