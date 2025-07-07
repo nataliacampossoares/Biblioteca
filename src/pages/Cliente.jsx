@@ -47,9 +47,7 @@ export default function Cliente() {
   useEffect(() => {
     async function buscarEmprestimosPorUsuario() {
       try {
-        const resposta = await fetch(
-          `http://localhost:3000/emprestimos/${id}`
-        );
+        const resposta = await fetch(`http://localhost:3000/emprestimos/${id}`);
         if (!resposta.ok)
           throw new Error("Erro ao buscar empréstimos por usuário");
         const data = await resposta.json();
@@ -73,7 +71,7 @@ export default function Cliente() {
     );
   }
 
-  console.log('CLIENTEEEEE', cliente)
+  console.log("CLIENTEEEEE", cliente);
 
   return (
     <Layout>
