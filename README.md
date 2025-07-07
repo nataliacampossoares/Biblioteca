@@ -28,6 +28,7 @@ Este é o frontend do sistema de biblioteca, desenvolvido em **React** + **Vite*
 
 Este projeto se comunica com a API backend por meio da seguinte URL: http://localhost:3000
 ⚠️ Certifique-se de que o backend esteja rodando antes de utilizar o frontend.
+
 O backend deste projeto está disponível em:
 👉 https://github.com/nataliacampossoares/Biblioteca-BackEnd
 
