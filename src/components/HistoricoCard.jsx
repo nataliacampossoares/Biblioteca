@@ -3,7 +3,7 @@ export function HistoricoCard({
   dataEmprestimo,
   dataDevolucao,
   situacao,
-  multa
+  multa,
 }) {
   const formatarData = (isoString) => {
     if (!isoString) return "-";
@@ -21,6 +21,10 @@ export function HistoricoCard({
           minute: "2-digit",
         });
   };
+
+  function quitarMulta() {
+    console.log("oii")
+  }
 
   return (
     <div className="bg-white rounded-xl p-6 w-full shadow-md">
@@ -40,12 +44,8 @@ export function HistoricoCard({
           <p className="font-bold text-[#323131]">Data Devolução</p>
           {dataDevolucao ? (
             <>
-              <p className="text-[#323131]">
-                {formatarData(dataDevolucao)}
-              </p>
-              <p className="text-[#323131]">
-                {formatarHora(dataDevolucao)}
-              </p>
+              <p className="text-[#323131]">{formatarData(dataDevolucao)}</p>
+              <p className="text-[#323131]">{formatarHora(dataDevolucao)}</p>
             </>
           ) : (
             <p className="text-red-600 font-semibold">Livro ainda em posse</p>
@@ -55,9 +55,14 @@ export function HistoricoCard({
           <p className="font-bold text-[#323131]">Situação</p>
           <p className="text-[#323131]">{situacao}</p>
         </div>
-        <div className="flex flex-col">
-          <p className="font-bold text-[#323131]">Multa</p>
-          <p className="text-[#323131]">R${multa},00</p>
+        <div className="flex gap-3 items-end">
+          <div className="flex flex-col">
+            <p className="font-bold text-[#323131]">Multa</p>
+            <p className="text-[#323131]">R${multa},00</p>
+          </div>
+          <button className="bg-red-600 text-white text-xs px-2 py-1 rounded h-fit" onClick={quitarMulta}>
+            Quitar Multa
+          </button>
         </div>
       </div>
     </div>

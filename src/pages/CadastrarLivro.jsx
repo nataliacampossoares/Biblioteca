@@ -129,7 +129,7 @@ export default function CadastrarLivro() {
 
   return (
     <Layout>
-      <form onSubmit={handleSubmit} className="flex flex-col p-6 gap-4 bg-gray-100 rounded-xl shadow max-w-4xl mx-auto mt-6">
+      <form onSubmit={handleSubmit} className="flex flex-col p-6 gap-4 bg-gray-100 rounded-xl shadow max-w-4xl mx-auto mt-6 ove">
         <h2 className="text-2xl font-bold text-center text-[#485977]">Cadastro de Livro</h2>
 
         <div className="flex justify-center">
