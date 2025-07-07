@@ -1,4 +1,3 @@
-// CadastrarLivro.jsx
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Botao from "../components/Botao";
@@ -82,14 +81,16 @@ export default function CadastrarLivro() {
 
   const cadastrar = async (tipo, valor) => {
     if (!valor.trim()) return;
+
     let rota = "";
     let body = {};
+
     if (tipo === "autor") {
       rota = "cadastrarAutor";
       body = { nome_autor: valor };
     } else if (tipo === "categoria") {
       rota = "cadastrarCategoria";
-      body = { nome_categoria: valor };
+      body = { nome_categoria: valor, id_pai: null };  // Adicionando `id_pai` se for uma categoria principal
     } else if (tipo === "subcategoria") {
       rota = "cadastrarSubcategoria";
       body = { nome_categoria: valor, id_categoria: categoriaSelecionada };
@@ -107,21 +108,33 @@ export default function CadastrarLivro() {
     if (tipo === "autor") {
       const novos = await fetch("http://localhost:3000/listarAutores").then(res => res.json());
       setAutores(novos);
+      const novo = novos.find(a => a.nome_autor === valor);
+      if (novo) setAutoresSelecionados([novo.id]);
       setNovoAutor("");
       setMostrarCadastroAutor(false);
     } else if (tipo === "categoria") {
       const novos = await fetch("http://localhost:3000/listarCategorias").then(res => res.json());
       setCategorias(novos);
+      const nova = novos.find(c => c.nome_categoria === valor);
+      if (nova) setCategoriaSelecionada(nova.id_categoria);
       setNovaCategoria("");
       setMostrarCadastroCategoria(false);
     } else if (tipo === "subcategoria") {
       const novos = await fetch(`http://localhost:3000/listarSubcategorias/${categoriaSelecionada}`).then(res => res.json());
+
       setSubcategorias(novos);
+
+      const nova = novos.find(s => s.nome_categoria.trim().toLowerCase() === valor.trim().toLowerCase());
+
+      if (nova) setSubcategoriaSelecionada(nova.id_categoria);
+
       setNovaSubcategoria("");
       setMostrarCadastroSubcategoria(false);
     } else if (tipo === "editora") {
       const novos = await fetch("http://localhost:3000/listarEditoras").then(res => res.json());
       setEditoras(novos);
+      const nova = novos.find(e => e.nome === valor);
+      if (nova) setIdEditora(nova.id);
       setNovaEditora("");
       setMostrarCadastroEditora(false);
     }
@@ -129,7 +142,7 @@ export default function CadastrarLivro() {
 
   return (
     <Layout>
-      <form onSubmit={handleSubmit} className="flex flex-col p-6 gap-4 bg-gray-100 rounded-xl shadow max-w-4xl mx-auto mt-6">
+      <form onSubmit={handleSubmit} className="flex flex-col p-6 gap-4 bg-gray-100 rounded-xl shadow max-w-4xl mx-auto mt-6 overflow-y-auto h-full">
         <h2 className="text-2xl font-bold text-center text-[#485977]">Cadastro de Livro</h2>
 
         <div className="flex justify-center">
@@ -166,19 +179,18 @@ export default function CadastrarLivro() {
           <textarea value={descricao} onChange={e => setDescricao(e.target.value)} className="p-3 rounded bg-gray-200" required />
         </label>
 
-      
         <label className="flex flex-col">
           Autor
           <div className="flex items-center gap-2">
             <select
               value={autoresSelecionados[0] || ""}
               onChange={(e) => setAutoresSelecionados([parseInt(e.target.value)])}
-              className="p-3 rounded bg-white flex-1"
+              className="p-3 rounded bg-white text-gray-800 flex-1"
             >
               <option value="">Selecione autor</option>
               {autores.map((autor) => (
                 <option key={autor.id} value={autor.id}>
-                  {autor.nome}
+                  {autor.nome_autor}
                 </option>
               ))}
             </select>
@@ -212,7 +224,7 @@ export default function CadastrarLivro() {
         <label className="flex flex-col">
           Categoria
           <div className="flex items-center gap-2">
-            <select value={categoriaSelecionada} onChange={e => setCategoriaSelecionada(e.target.value)} className="p-3 rounded bg-white flex-1">
+            <select value={categoriaSelecionada} onChange={e => setCategoriaSelecionada(e.target.value)} className="p-3 rounded bg-white text-gray-800 flex-1">
               <option value="">Selecione uma categoria</option>
               {categorias.map(c => <option key={c.id_categoria} value={c.id_categoria}>{c.nome_categoria}</option>)}
             </select>
@@ -226,11 +238,10 @@ export default function CadastrarLivro() {
           )}
         </label>
 
-
         <label className="flex flex-col">
           Subcategoria
           <div className="flex items-center gap-2">
-            <select value={subcategoriaSelecionada} onChange={e => setSubcategoriaSelecionada(e.target.value)} className="p-3 rounded bg-white flex-1">
+            <select value={subcategoriaSelecionada} onChange={e => setSubcategoriaSelecionada(e.target.value)} className="p-3 rounded bg-white text-gray-800 flex-1">
               <option value="">Selecione uma subcategoria</option>
               {subcategorias.map(s => <option key={s.id_categoria} value={s.id_categoria}>{s.nome_categoria}</option>)}
             </select>
@@ -244,11 +255,10 @@ export default function CadastrarLivro() {
           )}
         </label>
 
-    
         <label className="flex flex-col">
           Editora
           <div className="flex items-center gap-2">
-            <select value={idEditora} onChange={e => setIdEditora(e.target.value)} className="p-3 rounded bg-white flex-1">
+            <select value={idEditora} onChange={e => setIdEditora(e.target.value)} className="p-3 rounded bg-white text-gray-800 flex-1">
               <option value="">Selecione a editora</option>
               {editoras.map(e => <option key={e.id} value={e.id}>{e.nome}</option>)}
             </select>
