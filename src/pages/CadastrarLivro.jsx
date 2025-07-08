@@ -68,7 +68,7 @@ export default function CadastrarLivro() {
     formData.append("edicao", edicao);
     formData.append("descricao", descricao);
     formData.append("isbn", isbn);
-    formData.append("autor", isbn);
+    formData.append("autor", JSON.stringify(autoresSelecionados));
 
     const nomeEditoraSelecionada = editoras.find((e) => e.id == idEditora)?.nome_editora;
     formData.append("nome_editora", nomeEditoraSelecionada || "");
@@ -126,7 +126,7 @@ export default function CadastrarLivro() {
       const novos = await fetch("http://localhost:3000/listarAutores").then((res) => res.json());
       setAutores(novos);
       const novo = novos.find((a) => a.nome_autor === valor);
-      if (novo) setAutoresSelecionados([novo.id]);
+      if (novo) setAutoresSelecionados([novo.nome_autor]);
       setNovoAutor("");
       setMostrarCadastroAutor(false);
     } else if (tipo === "categoria") {
@@ -166,16 +166,16 @@ export default function CadastrarLivro() {
             <div className="w-40 h-40 flex items-center justify-center border border-dashed rounded text-gray-400 text-4xl">+</div>
           )}
         </div>
-        <input type="file" accept="image/*" onChange={(e) => setImagem(e.target.files[0])} className="self-center" />
+        <input type="file" accept="image/*" onChange={(e) => setImagem(e.target.files[0])} className="self-center text-black" />
 
  
-        <label className="flex flex-col">
+        <label className="flex flex-col text-black">
           Título
-          <input value={titulo} onChange={(e) => setTitulo(e.target.value)} className="p-3 rounded bg-gray-200" required />
+          <input value={titulo} onChange={(e) => setTitulo(e.target.value)} className="p-3 rounded bg-gray-200 text-black" required />
         </label>
 
   
-        <label className="flex flex-col">
+        <label className="flex flex-col text-black">
           ISBN
           <input
             maxLength={13}
@@ -187,30 +187,30 @@ export default function CadastrarLivro() {
         </label>
 
 
-        <label className="flex flex-col">
+        <label className="flex flex-col text-black">
           Quantidade Disponível
-          <input type="number" value={qtdDisponivel} onChange={(e) => setQtdDisponivel(e.target.value)} className="p-3 rounded bg-gray-200" required />
+          <input type="number" value={qtdDisponivel} onChange={(e) => setQtdDisponivel(e.target.value)} className="p-3 text-black rounded bg-gray-200" required />
         </label>
 
 
-        <label className="flex flex-col">
+        <label className="flex flex-col text-black">
           Edição
-          <input value={edicao} onChange={(e) => setEdicao(e.target.value)} className="p-3 rounded bg-gray-200" required />
+          <input value={edicao} onChange={(e) => setEdicao(e.target.value)} className="p-3 rounded bg-gray-200 text-black" required />
         </label>
 
    
-        <label className="flex flex-col">
+        <label className="flex flex-col text-black">
           Sinopse
-          <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} className="p-3 rounded bg-gray-200" required />
+          <textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} className="p-3 rounded bg-gray-200 text-black" required />
         </label>
 
    
-        <label className="flex flex-col">
+        <label className="flex flex-col text-black">
           Autor
           <div className="flex items-center gap-2">
             <select
               value={autoresSelecionados[0] || ""}
-              onChange={(e) => setAutoresSelecionados([parseInt(e.target.value)])}
+              onChange={(e) => setAutoresSelecionados([e.target.value])}
               className="p-3 rounded bg-white text-gray-800 flex-1"
             >
               <option value="">Selecione autor</option>

@@ -190,10 +190,7 @@ export default function LivrosBibliotecario() {
                     {livro.titulo}
                   </p>
                   <p className="text-xs mt-1 truncate text-black">
-                    {livro.nome_autor}
-                  </p>
-                  <p className="text-xs mt-1 truncate text-black italic">
-                    {livro.nome_categoria} / {livro.nome_subcategoria}
+                  {Array.isArray(livro.autores) ? livro.autores.join(", ") : ""}
                   </p>
                 </div>
 
