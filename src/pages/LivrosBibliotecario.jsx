@@ -185,14 +185,18 @@ export default function LivrosBibliotecario() {
                   alt={livro.titulo}
                   className="w-full h-36 object-cover rounded"
                 />
-                <div className="flex flex-col items-center justify-center">
+               <div className="flex flex-col items-center justify-center">
                   <p className="text-xs font-semibold mt-1 truncate text-black">
                     {livro.titulo}
                   </p>
                   <p className="text-xs mt-1 truncate text-black">
                     {livro.nome_autor}
                   </p>
+                  <p className="text-xs mt-1 truncate text-black italic">
+                    {livro.nome_categoria} / {livro.nome_subcategoria}
+                  </p>
                 </div>
+
               </div>
             ))}
           </div>
