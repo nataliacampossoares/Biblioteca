@@ -73,6 +73,7 @@ export default function DevolucaoLivro() {
               className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
               placeholder="Digite o nome ISBN do livro"
               value={isbn}
+              maxLength={13}
               onChange={(e) => setIsbn(e.target.value)}
             />
           </label>
@@ -83,6 +84,7 @@ export default function DevolucaoLivro() {
               className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
               placeholder="Digite o RA"
               value={ra}
+              maxLength={8}
               onChange={(e) => setRa(e.target.value)}
             />
           </label>

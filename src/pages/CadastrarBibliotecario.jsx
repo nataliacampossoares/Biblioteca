@@ -189,6 +189,7 @@ export default function CadastrarBibliotecario() {
                 </label>
                 <input
                   type="tel"
+                  maxLength={11}
                   id="telefone"
                   className="text-black w-full p-2 border bg-gray-300 rounded focus:outline-none"
                   placeholder="(00) 00000-0000"

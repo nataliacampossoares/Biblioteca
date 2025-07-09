@@ -77,6 +77,7 @@ export default function Emprestimos() {
               placeholder="Digite o nome ISBN do livro"
               value={isbn}
               onChange={(e) => setIsbn(e.target.value)}
+              maxLength={13}
             />
           </label>
           <label className="flex flex-col text-gray-700 font-semibold">
@@ -87,6 +88,7 @@ export default function Emprestimos() {
               placeholder="Digite o RA"
               value={ra}
               onChange={(e) => setRa(e.target.value)}
+              maxLength={13}
             />
           </label>
           <label className="flex flex-col text-gray-700 font-semibold">

@@ -262,6 +262,7 @@ export default function CadastrarCliente() {
           <input
             type="tel"
             name="telefone"
+            maxlength={11}
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
             className="mt-1 p-4 border border-gray-300 bg-gray-300 rounded-md"
