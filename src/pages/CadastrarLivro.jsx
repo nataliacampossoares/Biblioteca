@@ -98,6 +98,7 @@ export default function CadastrarLivro() {
   const cadastrar = async (tipo, valor) => {
     if (!valor.trim()) return;
 
+
     let rota = "";
     let body = {};
 

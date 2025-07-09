@@ -28,6 +28,7 @@ export default function LivrosBibliotecario() {
       })
       .then((data) => {
         setCategorias(data);
+        console.log("Categorias carregadas:", data);
       })
       .catch((error) => {
         console.error("Erro ao carregar categorias:", error);
@@ -186,10 +187,10 @@ export default function LivrosBibliotecario() {
                   className="w-full h-36 object-cover rounded"
                 />
                <div className="flex flex-col items-center justify-center">
-                  <p className="text-xs font-semibold mt-1 truncate text-black">
+                  <p className="text-xs font-semibold mt-1 text-black break-words">
                     {livro.titulo}
                   </p>
-                  <p className="text-xs mt-1 truncate text-black">
+                  <p className="text-xs mt-1 break-words text-black">
                   {Array.isArray(livro.autores) ? livro.autores.join(", ") : ""}
                   </p>
                 </div>
