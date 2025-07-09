@@ -54,66 +54,66 @@ export default function CadastrarLivro() {
     }
   }, [categoriaSelecionada]);
 
-  const cadastrar = async (tipo, valor) => {
-    if (!valor.trim() || !isNaN(valor.trim())) {
-      alert("O nome deve ser um texto válido.");
-      return;
-    }
+  // const cadastrar = async (tipo, valor) => {
+  //   if (!valor.trim() || !isNaN(valor.trim())) {
+  //     alert("O nome deve ser um texto válido.");
+  //     return;
+  //   }
 
-    let rota = "";
-    let body = {};
+  //   let rota = "";
+  //   let body = {};
 
-    if (tipo === "autor") {
-      rota = "cadastrarAutor";
-      body = { nome_autor: valor };
-    } else if (tipo === "categoria") {
-      rota = "cadastrarCategoria";
-      body = { nome_categoria: valor, id_pai: null };
-    } else if (tipo === "subcategoria") {
-      rota = "cadastrarSubcategoria";
-      body = { nome_categoria: valor, id_pai: categoriaSelecionada };
-    } else if (tipo === "editora") {
-      rota = "cadastrarEditora";
-      body = { nome_editora: valor };
-    }
+  //   if (tipo === "autor") {
+  //     rota = "cadastrarAutor";
+  //     body = { nome_autor: valor };
+  //   } else if (tipo === "categoria") {
+  //     rota = "cadastrarCategoria";
+  //     body = { nome_categoria: valor, id_pai: null };
+  //   } else if (tipo === "subcategoria") {
+  //     rota = "cadastrarSubcategoria";
+  //     body = { nome_categoria: valor, id_pai: categoriaSelecionada };
+  //   } else if (tipo === "editora") {
+  //     rota = "cadastrarEditora";
+  //     body = { nome_editora: valor };
+  //   }
 
-    await fetch(`http://localhost:3000/${rota}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+  //   await fetch(`http://localhost:3000/${rota}`, {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(body),
+  //   });
 
-    // Atualiza os dados após cadastro
-    if (tipo === "autor") {
-      const novos = await fetch("http://localhost:3000/listarAutores").then((res) => res.json());
-      setAutores(novos);
-      const novo = novos.find((a) => a.nome_autor === valor);
-      if (novo) setAutoresSelecionados([novo.id]);
-      setNovoAutor("");
-      setMostrarCadastroAutor(false);
-    } else if (tipo === "categoria") {
-      const novos = await fetch("http://localhost:3000/listarCategorias").then((res) => res.json());
-      setCategorias(novos);
-      const nova = novos.find((c) => c.nome_categoria === valor);
-      if (nova) setCategoriaSelecionada(nova.id_categoria);
-      setNovaCategoria("");
-      setMostrarCadastroCategoria(false);
-    } else if (tipo === "subcategoria") {
-      const novos = await fetch(`http://localhost:3000/listarSubcategorias/${categoriaSelecionada}`).then((res) => res.json());
-      setSubcategorias(novos);
-      const nova = novos.find((s) => s.nome_categoria === valor);
-      if (nova) setSubcategoriaSelecionada(nova.id_categoria);
-      setNovaSubcategoria("");
-      setMostrarCadastroSubcategoria(false);
-    } else if (tipo === "editora") {
-      const novos = await fetch("http://localhost:3000/listarEditoras").then((res) => res.json());
-      setEditoras(novos);
-      const nova = novos.find((e) => e.nome_editora === valor);
-      if (nova) setIdEditora(nova.id);
-      setNovaEditora("");
-      setMostrarCadastroEditora(false);
-    }
-  };
+  //   // Atualiza os dados após cadastro
+  //   if (tipo === "autor") {
+  //     const novos = await fetch("http://localhost:3000/listarAutores").then((res) => res.json());
+  //     setAutores(novos);
+  //     const novo = novos.find((a) => a.nome_autor === valor);
+  //     if (novo) setAutoresSelecionados([novo.id]);
+  //     setNovoAutor("");
+  //     setMostrarCadastroAutor(false);
+  //   } else if (tipo === "categoria") {
+  //     const novos = await fetch("http://localhost:3000/listarCategorias").then((res) => res.json());
+  //     setCategorias(novos);
+  //     const nova = novos.find((c) => c.nome_categoria === valor);
+  //     if (nova) setCategoriaSelecionada(nova.id_categoria);
+  //     setNovaCategoria("");
+  //     setMostrarCadastroCategoria(false);
+  //   } else if (tipo === "subcategoria") {
+  //     const novos = await fetch(`http://localhost:3000/listarSubcategorias/${categoriaSelecionada}`).then((res) => res.json());
+  //     setSubcategorias(novos);
+  //     const nova = novos.find((s) => s.nome_categoria === valor);
+  //     if (nova) setSubcategoriaSelecionada(nova.id_categoria);
+  //     setNovaSubcategoria("");
+  //     setMostrarCadastroSubcategoria(false);
+  //   } else if (tipo === "editora") {
+  //     const novos = await fetch("http://localhost:3000/listarEditoras").then((res) => res.json());
+  //     setEditoras(novos);
+  //     const nova = novos.find((e) => e.nome_editora === valor);
+  //     if (nova) setIdEditora(nova.id);
+  //     setNovaEditora("");
+  //     setMostrarCadastroEditora(false);
+  //   }
+  // };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -129,11 +129,10 @@ export default function CadastrarLivro() {
     formData.append("edicao", edicao);
     formData.append("descricao", descricao);
     formData.append("isbn", isbn);
-<<<<<<< HEAD
+
     formData.append("autor", autoresSelecionados[0] || "");
-=======
+
     formData.append("autor", JSON.stringify(autoresSelecionados));
->>>>>>> 7c5f68b185983c9ae8f675b966c92fa730afd086
 
     const nomeEditoraSelecionada = editoras.find((e) => e.id == idEditora)?.nome_editora;
     formData.append("nome_editora", nomeEditoraSelecionada || "");
@@ -160,8 +159,6 @@ export default function CadastrarLivro() {
       });
   }
 
-<<<<<<< HEAD
-=======
   const cadastrar = async (tipo, valor) => {
     if (!valor.trim()) return;
 
@@ -221,7 +218,6 @@ export default function CadastrarLivro() {
     }
   };
 
->>>>>>> 7c5f68b185983c9ae8f675b966c92fa730afd086
   return (
     <Layout>
       <form onSubmit={handleSubmit} className="flex flex-col p-6 gap-4 bg-gray-100 rounded-xl shadow max-w-4xl mx-auto mt-6 overflow-y-auto h-full">
@@ -237,17 +233,16 @@ export default function CadastrarLivro() {
         </div>
         <input type="file" accept="image/*" onChange={(e) => setImagem(e.target.files[0])} className="self-center text-black" />
 
-<<<<<<< HEAD
         {/* Campos */}
-        <label className="flex flex-col">Título<input value={titulo} onChange={(e) => setTitulo(e.target.value)} className="p-3 rounded bg-gray-200" required /></label>
+        {/* <label className="flex flex-col">Título<input value={titulo} onChange={(e) => setTitulo(e.target.value)} className="p-3 rounded bg-gray-200" required /></label>
         <label className="flex flex-col">ISBN<input maxLength={13} value={isbn} onChange={(e) => setIsbn(e.target.value)} className="p-3 rounded bg-gray-200" required /></label>
         <label className="flex flex-col">Quantidade Disponível<input type="number" value={qtdDisponivel} onChange={(e) => setQtdDisponivel(e.target.value)} className="p-3 rounded bg-gray-200" required /></label>
         <label className="flex flex-col">Edição<input value={edicao} onChange={(e) => setEdicao(e.target.value)} className="p-3 rounded bg-gray-200" required /></label>
-        <label className="flex flex-col">Sinopse<textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} className="p-3 rounded bg-gray-200" required /></label>
+        <label className="flex flex-col">Sinopse<textarea value={descricao} onChange={(e) => setDescricao(e.target.value)} className="p-3 rounded bg-gray-200" required /></label> */}
 
         {/* Autor */}
-        <label className="flex flex-col">Autor
-=======
+        {/* <label className="flex flex-col">Autor</label> */}
+
  
         <label className="flex flex-col text-black">
           Título
@@ -261,7 +256,7 @@ export default function CadastrarLivro() {
             maxLength={13}
             value={isbn}
             onChange={(e) => setIsbn(e.target.value)}
-            className="p-3 rounded bg-gray-200"
+            className="p-3 rounded bg-gray-200 text-black"
             required
           />
         </label>
@@ -287,12 +282,11 @@ export default function CadastrarLivro() {
    
         <label className="flex flex-col text-black">
           Autor
->>>>>>> 7c5f68b185983c9ae8f675b966c92fa730afd086
           <div className="flex items-center gap-2">
             <select
               value={autoresSelecionados[0] || ""}
               onChange={(e) => setAutoresSelecionados([e.target.value])}
-              className="p-3 rounded bg-white text-gray-800 flex-1"
+              className="p-3 rounded bg-white flex-1 text-black"
             >
               <option value="">Selecione autor</option>
               {autores.filter((a) => a.nome_autor && isNaN(a.nome_autor)).map((autor) => (
@@ -310,7 +304,7 @@ export default function CadastrarLivro() {
         </label>
 
         {/* Categoria */}
-        <label className="flex flex-col">Categoria
+        <label className="flex flex-col text-black">Categoria
           <div className="flex items-center gap-2">
             <select value={categoriaSelecionada} onChange={(e) => setCategoriaSelecionada(e.target.value)} className="p-3 rounded bg-white text-gray-800 flex-1">
               <option value="">Selecione categoria</option>
@@ -329,7 +323,7 @@ export default function CadastrarLivro() {
         </label>
 
         {/* Subcategoria */}
-        <label className="flex flex-col">Subcategoria
+        <label className="flex flex-col text-black">Subcategoria
           <div className="flex items-center gap-2">
             <select value={subcategoriaSelecionada} onChange={(e) => setSubcategoriaSelecionada(e.target.value)} className="p-3 rounded bg-white text-gray-800 flex-1">
               <option value="">Selecione subcategoria</option>
@@ -348,7 +342,7 @@ export default function CadastrarLivro() {
         </label>
 
         {/* Editora */}
-        <label className="flex flex-col">Editora
+        <label className="flex flex-col text-black">Editora
           <div className="flex items-center gap-2">
             <select value={idEditora} onChange={(e) => setIdEditora(e.target.value)} className="p-3 rounded bg-white text-gray-800 flex-1">
               <option value="">Selecione editora</option>
