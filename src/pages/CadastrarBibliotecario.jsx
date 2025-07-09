@@ -32,11 +32,6 @@ export default function CadastrarBibliotecario() {
       return;
     }
 
-    if (!registro.trim()) {
-      setMensagem("Por favor, informe o número de registro.");
-      return;
-    }
-
     if (!email.trim() || !email.includes("@") || !email.includes(".")) {
       setMensagem("Por favor, informe um email válido.");
       return;

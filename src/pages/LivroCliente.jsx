@@ -42,7 +42,7 @@ export default function LivrosDetalhes() {
           </div>
 
           <div className="md:w-1/2 flex flex-col justify-center">
-            <h1 className="text-2xl font-bold mb-4 text-black">
+            <h1 className="text-2xl font-bold mb-4 text-black ">
               {livro.titulo}
             </h1>
 

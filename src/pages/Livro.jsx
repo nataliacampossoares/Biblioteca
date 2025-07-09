@@ -21,6 +21,8 @@ export default function Livro() {
     imagem: null, 
   });
 
+console.log("Autores", livro.autores)
+
   useEffect(() => {
     async function buscarLivro() {
       try {
@@ -178,7 +180,7 @@ export default function Livro() {
               </div>
             </div>
 
-            <div className="mt-2">
+            <div className="mt-2  overflow-y-auto  max-h-96">
               <p className="text-md text-gray-600 font-semibold mb-1">Sinopse</p>
               {modoEdicao ? (
                 <textarea
