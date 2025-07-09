@@ -21,6 +21,8 @@ export default function Livro() {
     imagem: null, 
   });
 
+console.log("Autores", livro.autores)
+
   useEffect(() => {
     async function buscarLivro() {
       try {
