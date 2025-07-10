@@ -51,6 +51,12 @@ npm install
    
 npm run dev
 
+---
+
+Trabalho desenvolvido por Natália Campos Soares (backend) e Lara Heloisa Silva Deitos (frontend).
+
+
+
 4. Acesse o projeto em:
    
 http://localhost:5173
