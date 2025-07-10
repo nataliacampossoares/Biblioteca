@@ -57,7 +57,7 @@ http://localhost:5173
 
 ---
 
-Trabalho desenvolvido por Natália Campos Soares (backend) e Lara Heloisa Silva Deitos (frontend).
+Trabalho desenvolvido por Natália Campos Soares (backend, testes e documentação) e Lara Heloisa Silva Deitos (frontend).
 
 
 
