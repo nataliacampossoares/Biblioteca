@@ -43,7 +43,7 @@ git clone https://github.com/nataliacampossoares/Biblioteca.git
 
 cd Biblioteca
 
-2. Clone o repositório:
+2. Instale as pendências:
 
 npm install
 
